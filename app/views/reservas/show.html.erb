@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cliente:</strong>
+  <%= @reserva.cliente %>
+</p>
+
+<p>
+  <strong>Serviço:</strong>
+  <%= @reserva.servico %>
+</p>
+
+<p>
+  <strong>Profissional:</strong>
+  <%= @reserva.profissional %>
+</p>
+
+<p>
+  <strong>Preço:</strong>
+  <%= @reserva.preco %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= l(@reserva.data, format: :simple) %>
+</p>
+
+<p>
+  <strong>Hora:</strong>
+  <%= l(@reserva.hora, format: :simple_time) %>
+</p>
+
+<p>
+  <strong>Comentários:</strong>
+  <%= @reserva.comentarios %>
+</p>
+
+<%= link_to 'Editar', edit_reserva_path(@reserva) %> |
+<%= link_to 'Voltar', reservas_path %>
