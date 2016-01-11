@@ -1,0 +1,18 @@
+<%= simple_form_for @reserva, html: { multipart: true,
+                                       class: 'form-horizontal' } do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :cliente, label: 'Cliente:' %>
+    <%= f.input :servico, label: 'Serviço:' %>
+    <%= f.input :profissional, label: 'Profissional:' %>
+    <%= f.input :preco, label: 'Preço:' %>
+    <%= f.input :data, label: 'Data:' %>
+    <%= f.input :hora, label: 'Hora:' %>
+    <%= f.input :comentarios, label: 'Comentários:' %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, value: 'Cadastrar' %>
+  </div>
+<% end %>
