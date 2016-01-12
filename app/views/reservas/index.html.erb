@@ -19,7 +19,7 @@
   <tbody>
     <% @reservas.each do |reserva| %>
       <tr>
-        <td><%= reserva.cliente %></td>
+        <td><%= reserva.cliente.nome %></td>
         <td><%= reserva.servico %></td>
         <td><%= reserva.profissional %></td>
         <td><%= reserva.preco %></td>
@@ -28,7 +28,8 @@
         <td><%= reserva.comentarios %></td>
         <td><%= link_to 'Exibir', reserva %></td>
         <td><%= link_to 'Editar', edit_reserva_path(reserva) %></td>
-        <td><%= link_to 'Excluir', reserva, method: :delete, data: { confirm: 'Tem certeza?' } %></td>
+        <td><%= link_to 'Excluir', reserva, method: :delete,
+                        data: { confirm: 'Tem certeza?' } %></td>
       </tr>
     <% end %>
   </tbody>

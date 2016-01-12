@@ -338,3 +338,409 @@ Started GET "/assets/reservas.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dd
 
 
 Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-10 15:29:00 -0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateClientes (20160111192459)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.7ms)[0m  [1mCREATE TABLE "clientes" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "data_nascimento" date, "telefone" varchar, "celular" varchar, "email" varchar, "comentarios" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20160111192459"]]
+  [1m[36m (67.3ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to RemoveClienteFromReserva (20160111222438)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (1.0ms)[0m  [1mCREATE TEMPORARY TABLE "areservas" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "cliente" varchar, "servico" varchar, "profissional" varchar, "preco" decimal, "data" date, "hora" time, "comentarios" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.2ms)[0m  SELECT * FROM "reservas"
+  [1m[36m (0.5ms)[0m  [1mDROP TABLE "reservas"[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "reservas" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "servico" varchar, "profissional" varchar, "preco" decimal, "data" date, "hora" time, "comentarios" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.2ms)[0m  [1mSELECT * FROM "areservas"[0m
+  [1m[35m (0.4ms)[0m  DROP TABLE "areservas"
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160111222438"]]
+  [1m[35m (64.3ms)[0m  commit transaction
+Migrating to AddClienteToReserva (20160111222520)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.8ms)[0m  ALTER TABLE "reservas" ADD "cliente_id" integer
+  [1m[36m (0.2ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  CREATE  INDEX "index_reservas_on_cliente_id" ON "reservas" ("cliente_id")
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160111222520"]]
+  [1m[35m (84.1ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_reservas_on_cliente_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_reservas_on_cliente_id' AND type='index'
+
+
+
+Started GET "/clientes/new" for 127.0.0.1 at 2016-01-11 21:00:58 -0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ClientesController#new as HTML
+  Rendered clientes/_form.html.erb (112.8ms)
+  Rendered clientes/new.html.erb within layouts/application (122.2ms)
+Completed 200 OK in 703ms (Views: 659.2ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/assets/clientes.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-11 21:00:59 -0200
+
+
+Started GET "/assets/clientes.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-11 21:00:59 -0200
+
+
+Started GET "/clientes/new" for 127.0.0.1 at 2016-01-11 21:04:43 -0200
+Processing by ClientesController#new as HTML
+  Rendered clientes/_form.html.erb (52.8ms)
+  Rendered clientes/new.html.erb within layouts/application (54.5ms)
+Completed 200 OK in 141ms (Views: 139.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/reservas.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-11 21:04:43 -0200
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for 127.0.0.1 at 2016-01-11 21:04:43 -0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-11 21:04:43 -0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-11 21:04:43 -0200
+
+
+Started GET "/assets/scaffolds.self-ca70bb0973244fd91f1b4d189161c90a1e3eeeedc191d43bc203bddc62ef2bfc.css?body=1" for 127.0.0.1 at 2016-01-11 21:04:43 -0200
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for 127.0.0.1 at 2016-01-11 21:04:43 -0200
+
+
+Started GET "/assets/reservas.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-11 21:04:43 -0200
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-11 21:04:43 -0200
+
+
+Started GET "/assets/clientes.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-11 21:04:43 -0200
+
+
+Started GET "/assets/clientes.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-11 21:04:43 -0200
+
+
+Started GET "/clientes/new" for 127.0.0.1 at 2016-01-11 21:05:39 -0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ClientesController#new as HTML
+  Rendered clientes/_form.html.erb (111.6ms)
+  Rendered clientes/new.html.erb within layouts/application (120.7ms)
+Completed 200 OK in 582ms (Views: 537.6ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/assets/clientes.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-11 21:05:39 -0200
+
+
+Started GET "/assets/scaffolds.self-ca70bb0973244fd91f1b4d189161c90a1e3eeeedc191d43bc203bddc62ef2bfc.css?body=1" for 127.0.0.1 at 2016-01-11 21:05:39 -0200
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for 127.0.0.1 at 2016-01-11 21:05:39 -0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-11 21:05:40 -0200
+
+
+Started GET "/assets/reservas.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-11 21:05:40 -0200
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for 127.0.0.1 at 2016-01-11 21:05:40 -0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-11 21:05:40 -0200
+
+
+Started GET "/assets/clientes.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-11 21:05:40 -0200
+
+
+Started GET "/assets/reservas.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-11 21:05:40 -0200
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-11 21:05:40 -0200
+
+
+Started POST "/clientes" for 127.0.0.1 at 2016-01-11 21:05:41 -0200
+Processing by ClientesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"z/yA2bijUGRYRPJCpd4pmDLZuUqnxsYentQFRAnNLSGudzL/fNWcNP1HE9O/tuM2HLJJfwu6aK7s20qycPJayA==", "cliente"=>{"nome"=>"", "data_nascimento"=>"", "telefone"=>"", "celular"=>"", "email"=>"", "comentarios"=>""}, "commit"=>"Cadastrar"}
+  [1m[35m (0.3ms)[0m  begin transaction
+  [1m[36m (0.2ms)[0m  [1mrollback transaction[0m
+  Rendered clientes/_form.html.erb (81.8ms)
+  Rendered clientes/new.html.erb within layouts/application (84.5ms)
+Completed 200 OK in 191ms (Views: 154.1ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/clientes" for 127.0.0.1 at 2016-01-11 21:16:23 -0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ClientesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"kVOj1EcV9X3uB17S+rVrcjULgqfqw4rhpyj0H8go1nDw2BHyg2M5LUsEv0Pg3aHcG2Bykka/JFHVJ7vpsRehmQ==", "cliente"=>{"nome"=>"Douglas Silva", "data_nascimento"=>"18/04/1980", "telefone"=>"", "celular"=>"11996425797", "email"=>"douglas@bol.com", "comentarios"=>"teste"}, "commit"=>"Cadastrar"}
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "clientes" ("nome", "data_nascimento", "telefone", "celular", "email", "comentarios", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Douglas Silva"], ["data_nascimento", "1980-04-18"], ["telefone", ""], ["celular", "11996425797"], ["email", "douglas@bol.com"], ["comentarios", "teste"], ["created_at", "2016-01-11 21:16:23.658287"], ["updated_at", "2016-01-11 21:16:23.658287"]]
+  [1m[35m (35.2ms)[0m  commit transaction
+Redirected to http://localhost:3000/clientes/1
+Completed 302 Found in 114ms (ActiveRecord: 36.7ms)
+
+
+Started GET "/clientes/1" for 127.0.0.1 at 2016-01-11 21:16:23 -0200
+Processing by ClientesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mCliente Load (0.4ms)[0m  [1mSELECT  "clientes".* FROM "clientes" WHERE "clientes"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered clientes/show.html.erb within layouts/application (22.8ms)
+Completed 500 Internal Server Error in 50ms (ActiveRecord: 0.4ms)
+
+ActionView::Template::Error (no implicit conversion of nil into String):
+    12: 
+    13: <p>
+    14:   <strong>Telefone:</strong>
+    15:   <%= format_phone(@cliente.telefone) %>
+    16: </p>
+    17: 
+    18: <p>
+  app/helpers/clientes_helper.rb:6:in `format_phone'
+  app/views/clientes/show.html.erb:15:in `_app_views_clientes_show_html_erb___3705605283894867752_48222480'
+
+
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (16.6ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (7.9ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.0ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (53.4ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.9ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.8ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.7ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (36.2ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.6ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (1.0ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (80.2ms)
+
+
+Started GET "/clientes/1" for 127.0.0.1 at 2016-01-11 21:20:18 -0200
+Processing by ClientesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mCliente Load (0.2ms)[0m  SELECT  "clientes".* FROM "clientes" WHERE "clientes"."id" = ? LIMIT 1  [["id", 1]]
+  Rendered clientes/show.html.erb within layouts/application (4.6ms)
+Completed 500 Internal Server Error in 23ms (ActiveRecord: 0.2ms)
+
+ActionView::Template::Error (undefined method `any?' for "":String):
+    12: 
+    13: <p>
+    14:   <strong>Telefone:</strong>
+    15:   <% if @cliente.telefone.any? %>
+    16:     <%= format_phone(@cliente.telefone) %>
+    17:   <% end %>
+    18: </p>
+  app/views/clientes/show.html.erb:15:in `_app_views_clientes_show_html_erb___3705605283894867752_43364760'
+
+
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (12.9ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (5.3ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.7ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (40.7ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/web-console-2.2.1/lib/web_console/templates/_markup.html.erb (0.7ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/web-console-2.2.1/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/web-console-2.2.1/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/web-console-2.2.1/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.6ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/web-console-2.2.1/lib/web_console/templates/console.js.erb within layouts/javascript (26.0ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/web-console-2.2.1/lib/web_console/templates/main.js.erb within layouts/javascript (0.5ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/web-console-2.2.1/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.8ms)
+  Rendered /home/douglas/.rvm/gems/ruby-2.2.2/gems/web-console-2.2.1/lib/web_console/templates/index.html.erb (51.6ms)
+
+
+Started GET "/clientes/1" for 127.0.0.1 at 2016-01-11 21:22:21 -0200
+Processing by ClientesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mCliente Load (0.3ms)[0m  [1mSELECT  "clientes".* FROM "clientes" WHERE "clientes"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered clientes/show.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 445ms (Views: 432.7ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/clientes.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-11 21:22:22 -0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-11 21:22:22 -0200
+
+
+Started GET "/assets/scaffolds.self-ca70bb0973244fd91f1b4d189161c90a1e3eeeedc191d43bc203bddc62ef2bfc.css?body=1" for 127.0.0.1 at 2016-01-11 21:22:22 -0200
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for 127.0.0.1 at 2016-01-11 21:22:22 -0200
+
+
+Started GET "/assets/reservas.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-11 21:22:22 -0200
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for 127.0.0.1 at 2016-01-11 21:22:22 -0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-11 21:22:22 -0200
+
+
+Started GET "/assets/clientes.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-11 21:22:22 -0200
+
+
+Started GET "/assets/reservas.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-11 21:22:22 -0200
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-11 21:22:22 -0200
+
+
+Started GET "/clientes" for 127.0.0.1 at 2016-01-11 21:22:50 -0200
+Processing by ClientesController#index as HTML
+  [1m[35mCliente Load (0.4ms)[0m  SELECT "clientes".* FROM "clientes"
+  Rendered clientes/index.html.erb within layouts/application (8.8ms)
+Completed 200 OK in 88ms (Views: 86.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/clientes" for 127.0.0.1 at 2016-01-11 21:23:24 -0200
+Processing by ClientesController#index as HTML
+  [1m[36mCliente Load (0.6ms)[0m  [1mSELECT "clientes".* FROM "clientes"[0m
+  Rendered clientes/index.html.erb within layouts/application (16.3ms)
+Completed 200 OK in 119ms (Views: 116.9ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/clientes.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-11 21:23:24 -0200
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for 127.0.0.1 at 2016-01-11 21:23:24 -0200
+
+
+Started GET "/assets/reservas.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-11 21:23:24 -0200
+
+
+Started GET "/assets/scaffolds.self-ca70bb0973244fd91f1b4d189161c90a1e3eeeedc191d43bc203bddc62ef2bfc.css?body=1" for 127.0.0.1 at 2016-01-11 21:23:24 -0200
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for 127.0.0.1 at 2016-01-11 21:23:24 -0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-11 21:23:24 -0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-11 21:23:24 -0200
+
+
+Started GET "/assets/clientes.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-11 21:23:24 -0200
+
+
+Started GET "/assets/reservas.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-11 21:23:24 -0200
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-11 21:23:24 -0200
+
+
+Started GET "/clientes/1" for 127.0.0.1 at 2016-01-11 21:23:35 -0200
+Processing by ClientesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mCliente Load (0.5ms)[0m  SELECT  "clientes".* FROM "clientes" WHERE "clientes"."id" = ? LIMIT 1  [["id", 1]]
+  Rendered clientes/show.html.erb within layouts/application (3.1ms)
+Completed 200 OK in 51ms (Views: 48.5ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/clientes/1" for 127.0.0.1 at 2016-01-11 21:24:00 -0200
+Processing by ClientesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mCliente Load (0.2ms)[0m  [1mSELECT  "clientes".* FROM "clientes" WHERE "clientes"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered clientes/show.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 51ms (Views: 48.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/clientes/1" for 127.0.0.1 at 2016-01-12 17:12:18 -0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ClientesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mCliente Load (0.4ms)[0m  SELECT  "clientes".* FROM "clientes" WHERE "clientes"."id" = ? LIMIT 1  [["id", 1]]
+  Rendered clientes/show.html.erb within layouts/application (17.7ms)
+Completed 200 OK in 579ms (Views: 515.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/assets/clientes.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-12 17:12:19 -0200
+
+
+Started GET "/assets/reservas.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-12 17:12:19 -0200
+
+
+Started GET "/assets/scaffolds.self-ca70bb0973244fd91f1b4d189161c90a1e3eeeedc191d43bc203bddc62ef2bfc.css?body=1" for 127.0.0.1 at 2016-01-12 17:12:19 -0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-12 17:12:19 -0200
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for 127.0.0.1 at 2016-01-12 17:12:19 -0200
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for 127.0.0.1 at 2016-01-12 17:12:19 -0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-12 17:12:19 -0200
+
+
+Started GET "/assets/clientes.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-12 17:12:19 -0200
+
+
+Started GET "/assets/reservas.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-12 17:12:19 -0200
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-12 17:12:19 -0200
+
+
+Started GET "/clientes/" for 127.0.0.1 at 2016-01-12 17:12:22 -0200
+Processing by ClientesController#index as HTML
+  [1m[36mCliente Load (0.4ms)[0m  [1mSELECT "clientes".* FROM "clientes"[0m
+  Rendered clientes/index.html.erb within layouts/application (6.9ms)
+Completed 200 OK in 63ms (Views: 55.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/clientes/new" for 127.0.0.1 at 2016-01-12 17:12:28 -0200
+Processing by ClientesController#new as HTML
+  Rendered clientes/_form.html.erb (232.5ms)
+  Rendered clientes/new.html.erb within layouts/application (245.8ms)
+Completed 200 OK in 306ms (Views: 304.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/clientes/new" for 127.0.0.1 at 2016-01-12 17:15:08 -0200
+Processing by ClientesController#new as HTML
+  Rendered clientes/_form.html.erb (28.6ms)
+  Rendered clientes/new.html.erb within layouts/application (33.2ms)
+Completed 200 OK in 75ms (Views: 72.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/clientes.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-12 17:15:08 -0200
+
+
+Started GET "/assets/scaffolds.self-ca70bb0973244fd91f1b4d189161c90a1e3eeeedc191d43bc203bddc62ef2bfc.css?body=1" for 127.0.0.1 at 2016-01-12 17:15:08 -0200
+
+
+Started GET "/assets/reservas.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for 127.0.0.1 at 2016-01-12 17:15:08 -0200
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for 127.0.0.1 at 2016-01-12 17:15:08 -0200
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for 127.0.0.1 at 2016-01-12 17:15:08 -0200
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for 127.0.0.1 at 2016-01-12 17:15:08 -0200
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for 127.0.0.1 at 2016-01-12 17:15:08 -0200
+
+
+Started GET "/assets/clientes.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-12 17:15:08 -0200
+
+
+Started GET "/assets/reservas.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for 127.0.0.1 at 2016-01-12 17:15:08 -0200
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for 127.0.0.1 at 2016-01-12 17:15:08 -0200
+
+
+Started GET "/clientes" for 127.0.0.1 at 2016-01-12 17:15:15 -0200
+Processing by ClientesController#index as HTML
+  [1m[35mCliente Load (0.4ms)[0m  SELECT "clientes".* FROM "clientes"
+  Rendered clientes/index.html.erb within layouts/application (6.1ms)
+Completed 200 OK in 51ms (Views: 48.7ms | ActiveRecord: 0.4ms)

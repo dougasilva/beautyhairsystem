@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :reserva do
-    cliente 'Janaina Ferreira'
+    cliente
     servico 'Corte Feminino'
     profissional 'Sandra Souza'
     preco 29.90

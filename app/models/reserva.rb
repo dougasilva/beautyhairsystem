@@ -1,3 +1,5 @@
 class Reserva < ActiveRecord::Base
-  validates :cliente, :servico, :profissional, :preco, :data, :hora, presence: true
+  belongs_to :cliente
+  validates :cliente, :servico, :profissional, :preco, :data, :hora,
+            presence: true
 end
