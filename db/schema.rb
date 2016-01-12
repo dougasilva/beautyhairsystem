@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160109153335) do
+ActiveRecord::Schema.define(version: 20160111222520) do
+
+  create_table "clientes", force: :cascade do |t|
+    t.string   "nome"
+    t.date     "data_nascimento"
+    t.string   "telefone"
+    t.string   "celular"
+    t.string   "email"
+    t.text     "comentarios"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
   create_table "reservas", force: :cascade do |t|
-    t.string   "cliente"
     t.string   "servico"
     t.string   "profissional"
     t.decimal  "preco"
@@ -23,6 +33,9 @@ ActiveRecord::Schema.define(version: 20160109153335) do
     t.text     "comentarios"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "cliente_id"
   end
+
+  add_index "reservas", ["cliente_id"], name: "index_reservas_on_cliente_id"
 
 end

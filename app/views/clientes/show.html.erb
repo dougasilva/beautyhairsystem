@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @cliente.nome %>
+</p>
+
+<p>
+  <strong>Data Nascimento:</strong>
+  <%= l(@cliente.data_nascimento, format: :simple) %>
+</p>
+
+<p>
+  <strong>Telefone:</strong>
+  <% if @cliente.telefone.length > 0 %>
+    <%= format_phone(@cliente.telefone) %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Celular:</strong>
+  <%= format_cell_phone(@cliente.celular) %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @cliente.email %>
+</p>
+
+<p>
+  <strong>Comentarios:</strong>
+  <%= @cliente.comentarios %>
+</p>
+
+<%= link_to 'Editar', edit_cliente_path(@cliente) %> |
+<%= link_to 'Voltar', clientes_path %>
