@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listar Especialidades</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @especialidades.each do |especialidade| %>
+      <tr>
+        <td><%= especialidade.nome %></td>
+        <td><%= link_to 'Exibir', especialidade %></td>
+        <td><%= link_to 'Editar', edit_especialidade_path(especialidade) %></td>
+        <td><%= link_to 'Excluir', especialidade, method: :delete,
+                                   data: { confirm: 'Tem certeza?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Nova Especialidade', new_especialidade_path %>

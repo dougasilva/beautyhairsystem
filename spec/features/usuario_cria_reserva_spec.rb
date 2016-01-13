@@ -33,9 +33,13 @@ feature 'Usuario cria reserva com ' do
   scenario 'sucesso e lista todas as cadastradas' do
     reserva = create(:reserva)
     cliente1 = create(:cliente, nome: 'Debora Silva',
-                     data_nascimento: '19/07/1977', email: 'debora@uol.com',
-                     telefone: '', celular: '11974234737')
-    reserva1 = create(:reserva, cliente: cliente1)
+                                data_nascimento: '19/07/1977', 
+                                email: 'debora@uol.com', telefone: '',
+                                celular: '11974234737')
+    especialidade = create(:especialidade, nome: 'Manicure')
+    servico1 = create(:servico, nome: 'Manicure', especialidade: especialidade,
+                                preco: 14.90, tempo_estimado: 45)
+    reserva1 = create(:reserva, cliente: cliente1, servico: servico1)
     visit reservas_path
 
     expect(page).to have_content reserva.cliente.nome

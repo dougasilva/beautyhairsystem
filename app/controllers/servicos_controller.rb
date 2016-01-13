@@ -58,7 +58,7 @@ class ServicosController < ApplicationController
   end
 
   def servico_params
-    params.require(:servico).permit(:nome, :especialidade, :tempo_estimado,
+    params.require(:servico).permit(:nome, :especialidade_id, :tempo_estimado,
                                     :preco, :descricao)
   end
 end
