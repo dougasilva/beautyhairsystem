@@ -57,7 +57,7 @@ class ReservasController < ApplicationController
   end
 
   def reserva_params
-    params.require(:reserva).permit(:cliente_id, :servico, :profissional,
+    params.require(:reserva).permit(:cliente_id, :servico_id, :profissional,
                                     :preco, :data, :hora, :comentarios)
   end
 end

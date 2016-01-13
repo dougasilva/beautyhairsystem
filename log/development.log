@@ -744,3 +744,79 @@ Processing by ClientesController#index as HTML
   [1m[35mCliente Load (0.4ms)[0m  SELECT "clientes".* FROM "clientes"
   Rendered clientes/index.html.erb within layouts/application (6.1ms)
 Completed 200 OK in 51ms (Views: 48.7ms | ActiveRecord: 0.4ms)
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateServicos (20160112215916)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.8ms)[0m  [1mCREATE TABLE "servicos" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "especialidade" varchar, "tempo_estimado" integer, "preco" decimal, "descricao" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20160112215916"]]
+  [1m[36m (56.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.6ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_reservas_on_cliente_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_reservas_on_cliente_id' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to RemoveServicoFromReserva (20160113141333)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (1.1ms)[0m  [1mCREATE TEMPORARY TABLE "areservas" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "servico" varchar, "profissional" varchar, "preco" decimal, "data" date, "hora" time, "comentarios" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "cliente_id" integer) [0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_reservas_on_cliente_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_reservas_on_cliente_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  CREATE  INDEX "tindex_areservas_on_cliente_id" ON "areservas" ("cliente_id")
+  [1m[36m (0.3ms)[0m  [1mSELECT * FROM "reservas"[0m
+  [1m[35m (0.6ms)[0m  DROP TABLE "reservas"
+  [1m[36m (0.4ms)[0m  [1mCREATE TABLE "reservas" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "profissional" varchar, "preco" decimal, "data" date, "hora" time, "comentarios" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "cliente_id" integer) [0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='tindex_areservas_on_cliente_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='tindex_areservas_on_cliente_id' AND type='index'
+
+  [1m[36m (0.3ms)[0m  [1mCREATE  INDEX "index_reservas_on_cliente_id" ON "reservas" ("cliente_id")[0m
+  [1m[35m (0.2ms)[0m  SELECT * FROM "areservas"
+  [1m[36m (0.5ms)[0m  [1mDROP TABLE "areservas"[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20160113141333"]]
+  [1m[36m (69.1ms)[0m  [1mcommit transaction[0m
+Migrating to AddServicoToReserva (20160113141358)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.7ms)[0m  [1mALTER TABLE "reservas" ADD "servico_id" integer[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_reservas_on_cliente_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_reservas_on_cliente_id' AND type='index'
+
+  [1m[36m (0.3ms)[0m  [1mCREATE  INDEX "index_reservas_on_servico_id" ON "reservas" ("servico_id")[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20160113141358"]]
+  [1m[36m (78.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.4ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.3ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_reservas_on_servico_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_reservas_on_servico_id' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_reservas_on_cliente_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_reservas_on_cliente_id' AND type='index'
+

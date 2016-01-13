@@ -2,9 +2,10 @@ require 'rails_helper'
 feature 'Usuario cria reserva com ' do
   scenario 'sucesso' do
     cliente = create(:cliente)
+    servico = create(:servico)
     visit new_reserva_path
     select cliente.nome, from: 'Cliente:'
-    fill_in 'Serviço:', with: 'Corte Feminino'
+    select servico.nome, from: 'Serviço:'
     fill_in 'Profissional:', with: 'Sandra Souza'
     fill_in 'Preço:', with: 29.90
     fill_in 'Data:', with: '11/01/2016'
@@ -13,7 +14,7 @@ feature 'Usuario cria reserva com ' do
     click_on 'Cadastrar'
 
     expect(page).to have_content cliente.nome
-    expect(page).to have_content 'Corte Feminino'
+    expect(page).to have_content servico.nome
     expect(page).to have_content 'Sandra Souza'
     expect(page).to have_content 29.90
     expect(page).to have_content '11/01/2016'
@@ -42,12 +43,11 @@ feature 'Usuario cria reserva com ' do
   end
 
   scenario 'sucesso e edita informações' do
-    cliente = create(:cliente)
-    reserva = create(:reserva, cliente: cliente)
+    reserva = create(:reserva)
     visit edit_reserva_path(reserva)
 
-    select cliente.nome, from: 'Cliente:'
-    fill_in 'Serviço:', with: 'Corte Feminino'
+    select reserva.cliente.nome, from: 'Cliente:'
+    select reserva.servico.nome, from: 'Serviço:'
     fill_in 'Profissional:', with: 'Sandra Souza'
     fill_in 'Preço:', with: 29.90
     fill_in 'Data:', with: '12/01/2016'
@@ -55,8 +55,8 @@ feature 'Usuario cria reserva com ' do
     fill_in 'Comentários:', with: 'Reserva de teste.'
     click_on 'Cadastrar'
 
-    expect(page).to have_content cliente.nome
-    expect(page).to have_content 'Corte Feminino'
+    expect(page).to have_content reserva.cliente.nome
+    expect(page).to have_content reserva.servico.nome
     expect(page).to have_content 'Sandra Souza'
     expect(page).to have_content 29.90
     expect(page).to have_content '12/01/2016'
@@ -66,12 +66,12 @@ feature 'Usuario cria reserva com ' do
   end
 
   scenario 'sucesso e atualiza com dados inválidos' do
-    cliente = create(:cliente)
-    reserva = create(:reserva, cliente: cliente)
+    reserva = create(:reserva)
     visit edit_reserva_path(reserva)
 
-    select cliente.nome, from: 'Cliente:'
-    fill_in 'Serviço:', with: ''
+    select reserva.cliente.nome, from: 'Cliente:'
+    select reserva.servico.nome, from: 'Serviço:'
+    fill_in 'Data:', with: ''
 
     click_on 'Cadastrar'
 
