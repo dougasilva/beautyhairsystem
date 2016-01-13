@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160113141358) do
+ActiveRecord::Schema.define(version: 20160113150340) do
 
   create_table "clientes", force: :cascade do |t|
     t.string   "nome"
@@ -22,6 +22,12 @@ ActiveRecord::Schema.define(version: 20160113141358) do
     t.text     "comentarios"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "especialidades", force: :cascade do |t|
+    t.string   "nome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "reservas", force: :cascade do |t|
@@ -41,12 +47,14 @@ ActiveRecord::Schema.define(version: 20160113141358) do
 
   create_table "servicos", force: :cascade do |t|
     t.string   "nome"
-    t.string   "especialidade"
     t.integer  "tempo_estimado"
     t.decimal  "preco"
     t.text     "descricao"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "especialidade_id"
   end
+
+  add_index "servicos", ["especialidade_id"], name: "index_servicos_on_especialidade_id"
 
 end

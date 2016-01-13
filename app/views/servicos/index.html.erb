@@ -18,7 +18,7 @@
     <% @servicos.each do |servico| %>
       <tr>
         <td><%= servico.nome %></td>
-        <td><%= servico.especialidade %></td>
+        <td><%= servico.especialidade.nome %></td>
         <td><%= servico.tempo_estimado %></td>
         <td><%= servico.preco %></td>
         <td><%= servico.descricao %></td>

@@ -3,7 +3,8 @@
 
   <div class="form-inputs">
     <%= f.input :nome, label: 'Nome:' %>
-    <%= f.input :especialidade, label: 'Especialidade:' %>
+    <%= f.association :especialidade, label: 'Especialidade:',
+                      label_method: :nome, value_method: :id %>
     <%= f.input :tempo_estimado, label: 'Tempo Estimado:' %>
     <%= f.input :preco, label: 'Preço:' %>
     <%= f.input :descricao, label: 'Descrição:' %>

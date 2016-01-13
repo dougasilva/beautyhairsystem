@@ -1,16 +1,17 @@
 require 'rails_helper'
 feature 'Usuario cria servico com ' do
   scenario 'sucesso' do
+    especialidade = create(:especialidade)
     visit new_servico_path
     fill_in 'Nome:', with: 'Corte Feminino'
-    fill_in 'Especialidade:', with: 'Cabeleireiro'
+    select especialidade.nome, from: 'Especialidade:'
     fill_in 'Tempo Estimado:', with: 60
     fill_in 'Preço:', with: 29.90
     fill_in 'Descrição:', with: 'Serviço de testes.'
     click_on 'Cadastrar'
 
     expect(page).to have_content 'Corte Feminino'
-    expect(page).to have_content 'Cabeleireiro'
+    expect(page).to have_content especialidade.nome
     expect(page).to have_content 60
     expect(page).to have_content 29.90
     expect(page).to have_content 'Serviço de testes.'
@@ -26,8 +27,9 @@ feature 'Usuario cria servico com ' do
 
   scenario 'sucesso e lista todos os cadastrados' do
     servico = create(:servico)
-    servico1 = create(:servico, nome: 'Corte Masculino', preco: 14.90,
-                                tempo_estimado: 45)
+    especialidade = create(:especialidade, nome: 'Manicure')
+    servico1 = create(:servico, nome: 'Manicure', especialidade: especialidade,
+                                preco: 14.90, tempo_estimado: 45)
     visit servicos_path
 
     expect(page).to have_content servico.nome
@@ -39,7 +41,6 @@ feature 'Usuario cria servico com ' do
     visit edit_servico_path(servico)
 
     fill_in 'Nome:', with: 'Corte Feminino'
-    fill_in 'Especialidade:', with: 'Cabeleireiro'
     fill_in 'Tempo Estimado:', with: 90
     fill_in 'Preço:', with: 39.90
     fill_in 'Descrição:', with: 'Serviço de testes.'
