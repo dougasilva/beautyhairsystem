@@ -5,7 +5,8 @@
   <div class="form-inputs">
     <%= f.association :cliente, label: 'Cliente:', label_method: :nome,
                       value_method: :id %>
-    <%= f.input :servico, label: 'Serviço:' %>
+    <%= f.association :servico, label: 'Serviço:', label_method: :nome,
+                      value_method: :id %>
     <%= f.input :profissional, label: 'Profissional:' %>
     <%= f.input :preco, label: 'Preço:' %>
     <%= f.input :data, label: 'Data:', as: :date, html5: true %>

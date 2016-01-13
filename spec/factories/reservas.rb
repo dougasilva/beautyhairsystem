@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :reserva do
     cliente
-    servico 'Corte Feminino'
+    servico
     profissional 'Sandra Souza'
     preco 29.90
     data '10/01/2016'
