@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :reserva do
     cliente
     servico
-    profissional 'Sandra Souza'
+    profissional
     preco 29.90
     data '10/01/2016'
     hora '10:00'

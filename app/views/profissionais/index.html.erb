@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listar Profissionais</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Cpf</th>
+      <th>Data Nascimento</th>
+      <th>Especialidade</th>
+      <th>Telefone</th>
+      <th>Celular</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @profissionais.each do |profissional| %>
+      <tr>
+        <td><%= profissional.nome %></td>
+        <td><%= profissional.cpf %></td>
+        <td><%= l(profissional.data_nascimento, format: :simple) %></td>
+        <td><%= profissional.especialidade %></td>
+        <td><%= profissional.telefone %></td>
+        <td><%= profissional.celular %></td>
+        <td><%= profissional.email %></td>
+        <td><%= link_to 'Exibir', profissional %></td>
+        <td><%= link_to 'Editar', edit_profissional_path(profissional) %></td>
+        <td><%= link_to 'Excluir', profissional, method: :delete,
+                                   data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Novo Profissional', new_profissional_path %>
