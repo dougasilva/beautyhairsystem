@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @profissional.nome %>
+</p>
+
+<p>
+  <strong>Cpf:</strong>
+  <%= @profissional.cpf %>
+</p>
+
+<p>
+  <strong>Data Nascimento:</strong>
+  <%= l(@profissional.data_nascimento, format: :simple) %>
+</p>
+
+<p>
+  <strong>Especialidade:</strong>
+  <%= @profissional.especialidade.nome %>
+</p>
+
+<p>
+  <strong>Telefone:</strong>
+  <% if @profissional.telefone.length > 0 %>
+    <%= format_phone(@profissional.telefone) %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Celular:</strong>
+  <%= format_cell_phone(@profissional.celular) %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <% if @profissional.email.length > 0 %>
+    <%= @profissional.email %>
+  <% end %>
+</p>
+
+<%= link_to 'Editar', edit_profissional_path(@profissional) %> |
+<%= link_to 'Voltar', profissionais_path %>
