@@ -2,7 +2,8 @@ class ReservasController < ApplicationController
   before_action :set_reserva, only: [:show, :edit, :update, :destroy]
 
   def index
-    @reservas = Reserva.all
+    @date = params[:month] ? Date.parse(params[:month]) : Date.today
+    @reservas = Reserva.search_by_month(@date.strftime("%m/%Y"))
   end
 
   def show

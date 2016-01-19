@@ -9,7 +9,7 @@
                       value_method: :id %>
     <%= f.association :profissional, label: 'Profissional:',
                       label_method: :nome, value_method: :id %>
-    <%= f.input :preco, label: 'Preço:' %>
+    <%= f.input :preco, label: 'Preço:', readonly: true %>
     <%= f.input :data, label: 'Data:', as: :date, html5: true %>
     <%= f.input :hora, as: :hour, label: 'Hora:' %>
     <%= f.input :comentarios, label: 'Comentários:' %>
