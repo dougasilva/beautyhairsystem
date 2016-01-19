@@ -27,6 +27,10 @@ gem 'simple_form'
 
 gem 'bootstrap-sass'
 
+gem "watu_table_builder", :require => "table_builder"
+
+gem 'cocoon'
+
 group :test do
   gem 'capybara'
 end

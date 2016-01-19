@@ -1,39 +1,26 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listar Reservas</h1>
+<div id="calendar">
+  <h2 id="month">
+		<%= link_to "<", month: (@date.beginning_of_month-1).strftime("%b%Y") %>
+		<%=h (@date.strftime("%B %Y")) %>
+		<%= link_to ">", month: (@date.end_of_month+1).strftime("%b%Y") %>
+	</h2>
+	<%= calendar_for @reservas, year: @date.year, month: @date.month do |t| %>
+	 <%= t.head('DOM','SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB') %>
+	 <%= t.day(day_method: :data) do |day, reservas| %>
+	  <%= day.day %>
+	  <% reservas.each do |reserva| %>
+	   <%= link_to h(reserva.cliente.nome),reserva %><br>
+     <%= h(reserva.profissional.nome) %><br>
+     <%= h(reserva.servico.nome) %><br>
+     <%= h(l(reserva.hora,format: :simple_time)) %><br><br>
+	  <% end %>
+	 <% end %>
+	<% end %>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Cliente</th>
-      <th>Serviço</th>
-      <th>Profissional</th>
-      <th>Preço</th>
-      <th>Data</th>
-      <th>Hora</th>
-      <th>Comentários</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @reservas.each do |reserva| %>
-      <tr>
-        <td><%= reserva.cliente.nome %></td>
-        <td><%= reserva.servico.nome %></td>
-        <td><%= reserva.profissional.nome %></td>
-        <td><%= reserva.preco %></td>
-        <td><%= l(reserva.data, format: :simple) %></td>
-        <td><%= l(reserva.hora, format: :simple_time) %></td>
-        <td><%= reserva.comentarios %></td>
-        <td><%= link_to 'Exibir', reserva %></td>
-        <td><%= link_to 'Editar', edit_reserva_path(reserva) %></td>
-        <td><%= link_to 'Excluir', reserva, method: :delete,
-                        data: { confirm: 'Tem certeza?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
 <br>
 
