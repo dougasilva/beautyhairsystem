@@ -2,7 +2,8 @@ class ProfissionaisController < ApplicationController
   before_action :set_profissional, only: [:show, :edit, :update, :destroy]
 
   def index
-    @profissionais = Profissional.all
+    servico = Servico.find(params[:servico])
+    @profissionais = Profissional.where(especialidade_id: servico.especialidade_id)
   end
 
   def show
