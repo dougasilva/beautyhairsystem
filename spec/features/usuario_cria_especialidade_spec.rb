@@ -48,7 +48,7 @@ feature 'Usuario cria especialidade com ' do
   end
 
   scenario 'sucesso e exclui servico' do
-    especialidade = create(:especialidade)
+    create(:especialidade)
 
     visit especialidades_path
 

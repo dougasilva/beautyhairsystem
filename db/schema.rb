@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114233522) do
+ActiveRecord::Schema.define(version: 20160127172946) do
 
   create_table "clientes", force: :cascade do |t|
     t.string   "nome"
@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(version: 20160114233522) do
   add_index "profissionais", ["especialidade_id"], name: "index_profissionais_on_especialidade_id"
 
   create_table "reservas", force: :cascade do |t|
-    t.decimal  "preco"
     t.date     "data"
     t.time     "hora"
     t.text     "comentarios"
@@ -54,6 +53,7 @@ ActiveRecord::Schema.define(version: 20160114233522) do
     t.integer  "cliente_id"
     t.integer  "servico_id"
     t.integer  "profissional_id"
+    t.boolean  "realizado"
   end
 
   add_index "reservas", ["cliente_id"], name: "index_reservas_on_cliente_id"

@@ -11,6 +11,10 @@ class ReservasController < ApplicationController
 
   def new
     @reserva = Reserva.new
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @reserva }
+    end
   end
 
   def edit
@@ -59,6 +63,6 @@ class ReservasController < ApplicationController
 
   def reserva_params
     params.require(:reserva).permit(:cliente_id, :servico_id, :profissional_id,
-                                    :preco, :data, :hora, :comentarios)
+                                    :data, :hora, :comentarios, :realizado)
   end
 end

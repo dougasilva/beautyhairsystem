@@ -66,7 +66,7 @@ feature 'Usuario cria servico com ' do
   end
 
   scenario 'sucesso e exclui servico' do
-    servico = create(:servico)
+    create(:servico)
 
     visit servicos_path
 

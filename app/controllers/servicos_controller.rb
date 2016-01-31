@@ -17,7 +17,6 @@ class ServicosController < ApplicationController
 
   def create
     @servico = Servico.new(servico_params)
-
     respond_to do |format|
       if @servico.save
         format.html { redirect_to @servico, notice: 'Serviço  criado.' }
