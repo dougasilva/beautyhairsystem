@@ -33,10 +33,11 @@ feature 'Usuario cria profissional com ' do
     profissional = create(:profissional)
     especialidade = create(:especialidade, nome: 'Manicure Pedicure')
     profissional1 = create(:profissional, nome: 'Debora Cristina',
-                           especialidade: especialidade,
-                           data_nascimento: '19/07/1977',
-                           email: 'debora@uol.com', telefone: '',
-                           celular: '11974234737', cpf: '17748106894')
+                                          especialidade: especialidade,
+                                          data_nascimento: '19/07/1977',
+                                          email: 'debora@uol.com', telefone: '',
+                                          celular: '11974234737',
+                                          cpf: '17748106894')
     visit profissionais_path
 
     expect(page).to have_content profissional.nome
@@ -77,7 +78,7 @@ feature 'Usuario cria profissional com ' do
   end
 
   scenario 'sucesso e exclui profissional' do
-    profissional = create(:profissional)
+    create(:profissional)
 
     visit profissionais_path
 

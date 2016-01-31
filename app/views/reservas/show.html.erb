@@ -17,7 +17,7 @@
 
 <p>
   <strong>Preço:</strong>
-  <%= @reserva.preco %>
+  <%= @reserva.servico.preco %>
 </p>
 
 <p>
@@ -36,4 +36,6 @@
 </p>
 
 <%= link_to 'Editar', edit_reserva_path(@reserva) %> |
+<%= link_to 'Excluir', @reserva, method: :delete,
+                           data: { confirm: 'Tem certeza?' } %> |
 <%= link_to 'Voltar', reservas_path %>

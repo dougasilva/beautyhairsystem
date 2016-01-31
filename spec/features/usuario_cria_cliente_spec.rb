@@ -71,7 +71,7 @@ feature 'Usuario cria novo cliente com ' do
   end
 
   scenario 'sucesso e exclui cliente' do
-    cliente = create(:cliente)
+    create(:cliente)
 
     visit clientes_path
 
