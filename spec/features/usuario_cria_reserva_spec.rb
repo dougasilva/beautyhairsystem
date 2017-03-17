@@ -74,4 +74,35 @@ feature 'Usuario cria reserva com ' do
 
     expect(page).to have_content 'Please review the problems below'
   end
+
+  scenario ' consulta proximo mês' do
+    especialidade = create(:especialidade)
+    profissional = create(:profissional, especialidade: especialidade)
+    cliente = create(:cliente)
+    servico = create(:servico, especialidade: especialidade)
+    reserva = create(:reserva, cliente: cliente, servico: servico,
+                               data: '10/04/2017', profissional: profissional)
+
+    visit reservas_path
+
+    click_on ">"
+
+     expect(page).to have_content reserva.data.month
+
+  end
+
+  scenario ' excluir reserva' do
+    especialidade = create(:especialidade)
+    profissional = create(:profissional, especialidade: especialidade)
+    cliente = create(:cliente)
+    servico = create(:servico, especialidade: especialidade)
+    reserva = create(:reserva, cliente: cliente, servico: servico,
+                               profissional: profissional)
+    visit reserva_path(reserva)
+
+    click_on 'Excluir'
+
+    expect(page).to have_content 'Reserva excluída.'
+
+  end
 end
