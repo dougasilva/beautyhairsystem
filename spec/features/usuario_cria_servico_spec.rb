@@ -22,7 +22,7 @@ feature 'Usuario cria servico com ' do
     visit new_servico_path
     click_on 'Cadastrar'
 
-    expect(page).to have_content 'Please review the problems below'
+    expect(page).to have_content 'Alguns erros foram encontrados'
   end
 
   scenario 'sucesso e lista todos os cadastrados' do
@@ -62,7 +62,7 @@ feature 'Usuario cria servico com ' do
 
     click_on 'Cadastrar'
 
-    expect(page).to have_content 'Please review the problems below'
+    expect(page).to have_content 'Alguns erros foram encontrados'
   end
 
   scenario 'sucesso e exclui servico' do

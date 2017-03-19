@@ -4,23 +4,52 @@
 <div id="calendar">
   <h2 id="month">
 		<%= link_to "<", month: (@date.beginning_of_month-1).strftime("%b%Y") %>
-		<%=h (@date.strftime("%B %Y")) %>
+		<%=h (@date.strftime("%B / %Y")) %>
 		<%= link_to ">", month: (@date.end_of_month+1).strftime("%b%Y") %>
 	</h2>
 	<%= calendar_for @reservas, year: @date.year, month: @date.month do |t| %>
 	 <%= t.head('DOM','SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB') %>
 	 <%= t.day(day_method: :data) do |day, reservas| %>
-	  <%= day.day %>
+	  <%= day.strftime('%d-%m') %><br />
 	  <% reservas.each do |reserva| %>
 	   <%= link_to h(reserva.cliente.nome),reserva %><br>
-     <%= h(reserva.profissional.nome) %><br>
      <%= h(reserva.servico.nome) %><br>
      <%= h(l(reserva.hora,format: :simple_time)) %><br><br>
 	  <% end %>
 	 <% end %>
 	<% end %>
-</div>
 
+  <br />
+
+  <table>
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Hora</th>
+        <th>Cliente</th>
+        <th>Serviço</th>
+        <th>Profissional</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @reservas.each do |reserva| %>
+        <tr>
+          <td><%= reserva.data.strftime('%d/%m/%Y') %></td>
+          <td><%= reserva.hora.strftime('%H:%M') %></td>
+          <td><%= link_to reserva.cliente.nome, reserva %></td>
+          <td><%= reserva.servico.nome %></td>
+          <td><%= reserva.profissional.nome %></td>
+          <td><%= link_to 'Exibir', reserva %></td>
+          <td><%= link_to 'Editar', edit_reserva_path(reserva) %></td>
+          <td><%= link_to 'Excluir', reserva, method: :delete,
+                                     data: { confirm: 'Tem certeza?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <br>
 

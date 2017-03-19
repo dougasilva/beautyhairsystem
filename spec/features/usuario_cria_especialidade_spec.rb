@@ -13,7 +13,7 @@ feature 'Usuario cria especialidade com ' do
     visit new_especialidade_path
     click_on 'Cadastrar'
 
-    expect(page).to have_content 'Please review the problems below'
+    expect(page).to have_content 'Alguns erros foram encontrados'
   end
 
   scenario 'sucesso e lista todas os cadastradas' do
@@ -44,7 +44,7 @@ feature 'Usuario cria especialidade com ' do
 
     click_on 'Cadastrar'
 
-    expect(page).to have_content 'Please review the problems below'
+    expect(page).to have_content 'Alguns erros foram encontrados'
   end
 
   scenario 'sucesso e exclui servico' do
