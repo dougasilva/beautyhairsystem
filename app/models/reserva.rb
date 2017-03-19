@@ -7,6 +7,8 @@ class Reserva < ActiveRecord::Base
                                           allow_destroy: true
 
   def self.search_by_month(mes)
-    Reserva.where("strftime('%m/%Y', data) = ? AND realizado = ?", mes, false).order('hora ASC')
+    Reserva.where("strftime('%m/%Y', data) = ? AND
+                  realizado = ?", mes, false).order('data, hora ASC')
   end
+
 end

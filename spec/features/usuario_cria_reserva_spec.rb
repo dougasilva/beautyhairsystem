@@ -28,7 +28,7 @@ feature 'Usuario cria reserva com ' do
     visit new_reserva_path
     click_on 'Cadastrar'
 
-    expect(page).to have_content 'Please review the problems below'
+    expect(page).to have_content 'Alguns erros foram encontrados'
   end
 
   scenario 'sucesso e edita informações' do
@@ -72,7 +72,7 @@ feature 'Usuario cria reserva com ' do
 
     click_on 'Cadastrar'
 
-    expect(page).to have_content 'Please review the problems below'
+    expect(page).to have_content 'Alguns erros foram encontrados'
   end
 
   scenario ' consulta proximo mês' do

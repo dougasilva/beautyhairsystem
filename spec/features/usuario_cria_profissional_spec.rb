@@ -26,7 +26,7 @@ feature 'Usuario cria profissional com ' do
     visit new_profissional_path
     click_on 'Cadastrar'
 
-    expect(page).to have_content 'Please review the problems below'
+    expect(page).to have_content 'Alguns erros foram encontrados'
   end
 
   scenario 'sucesso e lista todos os cadastrados' do
@@ -74,7 +74,7 @@ feature 'Usuario cria profissional com ' do
 
     click_on 'Cadastrar'
 
-    expect(page).to have_content 'Please review the problems below'
+    expect(page).to have_content 'Alguns erros foram encontrados'
   end
 
   scenario 'sucesso e exclui profissional' do
