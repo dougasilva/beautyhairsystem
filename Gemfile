@@ -36,6 +36,12 @@ gem "watu_table_builder", :require => "table_builder"
 
 gem 'cocoon'
 
+gem 'devise-i18n'
+
+gem 'devise'
+
+gem 'cancancan'
+
 group :test do
   gem 'capybara'
 end
