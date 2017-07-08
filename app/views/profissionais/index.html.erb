@@ -9,6 +9,7 @@
       <th>Cpf</th>
       <th>Data Nascimento</th>
       <th>Especialidade</th>
+      <th>Perfil</th>
       <th>Telefone</th>
       <th>Celular</th>
       <th>Email</th>
@@ -23,6 +24,7 @@
         <td><%= profissional.cpf %></td>
         <td><%= l(profissional.data_nascimento, format: :simple) %></td>
         <td><%= profissional.especialidade.nome %></td>
+        <td><%= profissional.perfil.nome %></td>
         <td><%= profissional.telefone %></td>
         <td><%= profissional.celular %></td>
         <td><%= profissional.email %></td>
