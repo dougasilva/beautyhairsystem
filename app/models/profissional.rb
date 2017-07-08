@@ -1,5 +1,6 @@
 class Profissional < ActiveRecord::Base
   belongs_to :especialidade
+  belongs_to :usuario
   has_many :reservas
   validates :nome, :cpf, :data_nascimento, :especialidade, :celular,
             presence: true

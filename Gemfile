@@ -17,6 +17,9 @@ group :assets do
   gem 'therubyracer', platforms: :ruby
 
   gem 'compass-rails'
+
+  gem 'bcrypt'
+  
 end
 
 # Use jquery as the JavaScript library
