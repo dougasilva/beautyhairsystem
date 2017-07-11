@@ -21,6 +21,11 @@
 </p>
 
 <p>
+  <strong>Perfil:</strong>
+  <%= @profissional.perfil.nome %>
+</p>
+
+<p>
   <strong>Telefone:</strong>
   <% if @profissional.telefone.length > 0 %>
     <%= format_phone(@profissional.telefone) %>
