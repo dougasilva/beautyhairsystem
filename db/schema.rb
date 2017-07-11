@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170708191717) do
+ActiveRecord::Schema.define(version: 20170702183024) do
 
   create_table "clientes", force: :cascade do |t|
     t.string   "nome"
@@ -46,11 +46,9 @@ ActiveRecord::Schema.define(version: 20170708191717) do
     t.string   "email"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.integer  "perfil_id"
   end
 
   add_index "profissionais", ["especialidade_id"], name: "index_profissionais_on_especialidade_id"
-  add_index "profissionais", ["perfil_id"], name: "index_profissionais_on_perfil_id"
 
   create_table "reservas", force: :cascade do |t|
     t.date     "data"
