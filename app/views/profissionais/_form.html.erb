@@ -8,8 +8,6 @@
                 as: :date, html5: true %>
     <%= f.association :especialidade, label: 'Especialidade:',
                       label_method: :nome, value_method: :id %>
-    <%= f.association :perfil, label: 'Perfil:',
-                      label_method: :nome, value_method: :id %>
     <%= f.input :telefone, label: 'Telefone:' %>
     <%= f.input :celular, label: 'Celular:' %>
     <%= f.input :email, label: 'Email:' %>
