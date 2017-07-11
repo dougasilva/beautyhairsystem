@@ -2,7 +2,12 @@ class ProfissionaisController < ApplicationController
   before_action :set_profissional, only: [:show, :edit, :update, :destroy]
 
   def index
-    @profissionais = Profissional.all
+    if params[:servico]
+      servico = Servico.find(params[:servico])
+      @profissionais = Profissional.where(especialidade_id: servico.especialidade_id)
+    else
+      @profissionais = Profissional.all
+    end
   end
 
   def show
@@ -63,6 +68,6 @@ class ProfissionaisController < ApplicationController
   def profissional_params
     params.require(:profissional).permit(:nome, :cpf, :data_nascimento,
                                          :especialidade_id, :telefone,
-                                         :celular, :email)
+                                         :celular, :email, :perfil_id)
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114233522) do
+ActiveRecord::Schema.define(version: 20170708191717) do
 
   create_table "clientes", force: :cascade do |t|
     t.string   "nome"
@@ -30,6 +30,12 @@ ActiveRecord::Schema.define(version: 20160114233522) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "perfis", force: :cascade do |t|
+    t.string   "nome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "profissionais", force: :cascade do |t|
     t.string   "nome"
     t.string   "cpf"
@@ -40,12 +46,13 @@ ActiveRecord::Schema.define(version: 20160114233522) do
     t.string   "email"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "perfil_id"
   end
 
   add_index "profissionais", ["especialidade_id"], name: "index_profissionais_on_especialidade_id"
+  add_index "profissionais", ["perfil_id"], name: "index_profissionais_on_perfil_id"
 
   create_table "reservas", force: :cascade do |t|
-    t.decimal  "preco"
     t.date     "data"
     t.time     "hora"
     t.text     "comentarios"
@@ -54,6 +61,7 @@ ActiveRecord::Schema.define(version: 20160114233522) do
     t.integer  "cliente_id"
     t.integer  "servico_id"
     t.integer  "profissional_id"
+    t.boolean  "realizado"
   end
 
   add_index "reservas", ["cliente_id"], name: "index_reservas_on_cliente_id"
@@ -71,5 +79,15 @@ ActiveRecord::Schema.define(version: 20160114233522) do
   end
 
   add_index "servicos", ["especialidade_id"], name: "index_servicos_on_especialidade_id"
+
+  create_table "usuarios", force: :cascade do |t|
+    t.string   "nome"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "profissional_id"
+    t.string   "password_digest"
+  end
+
+  add_index "usuarios", ["profissional_id"], name: "index_usuarios_on_profissional_id"
 
 end

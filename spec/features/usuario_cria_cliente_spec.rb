@@ -23,7 +23,7 @@ feature 'Usuario cria novo cliente com ' do
     visit new_cliente_path
     click_on 'Cadastrar'
 
-    expect(page).to have_content 'Please review the problems below'
+    expect(page).to have_content 'Alguns erros foram encontrados'
   end
 
   scenario 'sucesso e lista todos os cadastrados' do
@@ -67,11 +67,11 @@ feature 'Usuario cria novo cliente com ' do
 
     click_on 'Cadastrar'
 
-    expect(page).to have_content 'Please review the problems below'
+    expect(page).to have_content 'Alguns erros foram encontrados'
   end
 
   scenario 'sucesso e exclui cliente' do
-    cliente = create(:cliente)
+    create(:cliente)
 
     visit clientes_path
 

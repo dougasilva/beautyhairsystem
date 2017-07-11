@@ -9,6 +9,7 @@
       <th>Cpf</th>
       <th>Data Nascimento</th>
       <th>Especialidade</th>
+      <th>Perfil</th>
       <th>Telefone</th>
       <th>Celular</th>
       <th>Email</th>
@@ -22,14 +23,15 @@
         <td><%= profissional.nome %></td>
         <td><%= profissional.cpf %></td>
         <td><%= l(profissional.data_nascimento, format: :simple) %></td>
-        <td><%= profissional.especialidade %></td>
+        <td><%= profissional.especialidade.nome %></td>
+        <td><%= profissional.perfil.nome %></td>
         <td><%= profissional.telefone %></td>
         <td><%= profissional.celular %></td>
         <td><%= profissional.email %></td>
         <td><%= link_to 'Exibir', profissional %></td>
         <td><%= link_to 'Editar', edit_profissional_path(profissional) %></td>
         <td><%= link_to 'Excluir', profissional, method: :delete,
-                                   data: { confirm: 'Are you sure?' } %></td>
+                                   data: { confirm: 'Tem certeza?' } %></td>
       </tr>
     <% end %>
   </tbody>

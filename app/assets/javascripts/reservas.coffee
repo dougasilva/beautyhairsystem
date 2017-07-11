@@ -1,3 +1,20 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+reservas =
+  init: ->
+    $("#reserva_servico_id").click ->
+      $('#reserva_profissional_id').empty()
+      servico = $('#reserva_servico_id').val()
+      url = "#{reservas.url}#{servico}"
+      console.log(url)
+      $.getJSON(url,{}, (data) ->
+        $.each(data, (i, obj) ->
+          console.log(obj)
+          $('#reserva_profissional_id').append(
+            $('<option></option>')
+              .val(obj['id'])
+              .html(obj['nome'])
+          )
+        )
+      )
+  url: '/profissionais.json?servico='
+
+$(document).ready reservas.init
