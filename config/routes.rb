@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  get 'usuarios/new'
+  get    'sign_in'   => 'sessions#new'
+  post   'sign_in'   => 'sessions#create'
+  delete 'sign_out'  => 'sessions#destroy'
+
   resources :perfis
   resources :profissionais
   resources :especialidades
@@ -7,4 +12,6 @@ Rails.application.routes.draw do
   resources :clientes
   resources :reservas
   resources :usuarios
+
+  root 'sessions#new'
 end

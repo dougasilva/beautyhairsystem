@@ -1,5 +1,6 @@
 class PerfisController < ApplicationController
   before_action :set_perfil, only: [:show, :edit, :update, :destroy]
+  #before_action :authorize
 
   # GET /perfis
   # GET /perfis.json
