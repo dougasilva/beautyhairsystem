@@ -1,4 +1,4 @@
-class AddProfisionalRefToUsuario < ActiveRecord::Migration
+class AddProfissionalToUsuario < ActiveRecord::Migration
   def change
     add_reference :usuarios, :profissional, index: true, foreign_key: true
   end
