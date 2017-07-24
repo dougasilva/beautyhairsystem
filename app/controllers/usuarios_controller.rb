@@ -1,50 +1,73 @@
 class UsuariosController < ApplicationController
   before_action :set_usuario, only: [:show, :edit, :update, :destroy]
+  before_filter :authorize
+
   def new
-    @usuario = Usuario.new
+    if current_user.perfil_id == 1
+      @usuario = Usuario.new
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @usuario }
+      end
+    else
+      redirect_to reservas_path
+    end
   end
 
   def create
-    @usuario = Usuario.new(usuario_params)
-    if @usuario.save
-      redirect_to @usuario, notice: "Usuário criado com sucesso!"
-      #tire o método de comentário quando criar o helper.
-     #Usuário depois de cadastrar-se acessa o sistema automaticamente
-     #sign_in(@user)
-    else
-     render action: :new
+    if current_user.perfil_id == 1
+      @usuario = Usuario.new(usuario_params)
+      if @usuario.save
+        redirect_to @usuario, notice: "Usuário criado com sucesso!"
+      else
+       render action: :new
+      end
     end
   end
 
   def index
-   @usuarios = Usuario.all
+    if current_user.perfil_id == 1
+      @usuarios = Usuario.all
+
+    else
+      redirect_to reservas_path
+    end
   end
 
   def show
-   @usuario = Usuario.find(params[:id])
+    if current_user.perfil_id == 1
+      @usuario = Usuario.find(params[:id])
+    end
   end
 
   def edit
+    if current_user.perfil_id != 1
+      redirect_to reservas_path
+    end
   end
 
   def update
-    respond_to do |format|
-      if @usuario.update(usuario_params)
-        format.html { redirect_to @usuario, notice: 'Usuário atualizado.' }
-        format.json { render :show, status: :ok, location: @usuario }
-      else
-        format.html { render :edit }
-        format.json { render json: @usuario.errors,
-                      status: :unprocessable_entity }
+    if current_user.perfil_id == 1
+      respond_to do |format|
+        if @usuario.update(usuario_params)
+          format.html { redirect_to @usuario, notice: 'Usuário atualizado.' }
+          format.json { render :show, status: :ok, location: @usuario }
+        else
+          format.html { render :edit }
+          format.json { render json: @usuario.errors,
+                        status: :unprocessable_entity }
+        end
       end
     end
   end
 
   def destroy
-    @usuario.destroy
-    respond_to do |format|
-      format.html { redirect_to usuarios_url, notice: 'Usuário excluído.' }
-      format.json { head :no_content }
+    if current_user.perfil_id == 1
+      @usuario.destroy
+      respond_to do |format|
+        format.html { redirect_to usuarios_url, notice: 'Usuário excluído.' }
+        format.json { head :no_content }
+      end
     end
   end
 

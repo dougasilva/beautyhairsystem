@@ -3,14 +3,17 @@
       <nav>
         <ul>
           <% if logged_in? %>
-            <li><%= link_to "Usuarios", usuarios_path %></li>
-            <li>
+            <% if current_user.perfil_id == 1 %>
+              <li><%= link_to "Usuarios", usuarios_path %></li>
+            <% end %>
               <ul>
-                <li>
-                  <%= link_to "Log out", sign_out_path, method: "delete" %>
-                </li>
+                <p>
+                  <strong>Usuário Logado: </strong>
+                  <%= current_user.profissional.nome %>
+                  - Não é você?  <%= link_to "Sair", sign_out_path, method: "delete" %>
+                </p>
+
               </ul>
-            </li>
           <% else %>
             <li><%= link_to "Log in", root_path %></li>
           <% end %>

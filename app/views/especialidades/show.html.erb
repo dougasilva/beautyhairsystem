@@ -5,5 +5,12 @@
   <%= @especialidade.nome %>
 </p>
 
-<%= link_to 'Editar', edit_especialidade_path(@especialidade) %> |
+<p>
+  <strong>Comentários:</strong>
+  <%= @especialidade.comentarios %>
+</p>
+
+<% if current_user.perfil_id == 1 || current_user.perfil_id == 2 %>
+  <%= link_to 'Editar', edit_especialidade_path(@especialidade) %> |
+<% end %>
 <%= link_to 'Voltar', especialidades_path %>

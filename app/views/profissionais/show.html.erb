@@ -17,7 +17,9 @@
 
 <p>
   <strong>Especialidade:</strong>
-  <%= @profissional.especialidade.nome %>
+  <% if @profissional.especialidade %>
+    <%= @profissional.especialidade.nome %>
+  <% end %>
 </p>
 
 <p>
@@ -39,5 +41,7 @@
   <% end %>
 </p>
 
-<%= link_to 'Editar', edit_profissional_path(@profissional) %> |
+<% if current_user.perfil_id == 1 %>
+  <%= link_to 'Editar', edit_profissional_path(@profissional) %> |
+<% end %>
 <%= link_to 'Voltar', profissionais_path %>

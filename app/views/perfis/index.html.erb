@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listar Perfis</h1>
+<h1>Perfis</h1>
 
 <table>
   <thead>
@@ -15,14 +15,17 @@
       <tr>
         <td><%= perfil.nome %></td>
         <td><%= link_to 'Exibir', perfil %></td>
-        <td><%= link_to 'Editar', edit_perfil_path(perfil) %></td>
-        <td><%= link_to 'Excluir', perfil, method: :delete, data:
+        <% if current_user.perfil_id == 1 %>
+          <td><%= link_to 'Editar', edit_perfil_path(perfil) %></td>
+          <td><%= link_to 'Excluir', perfil, method: :delete, data:
                                    { confirm: 'Tem certeza?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'Novo Perfil', new_perfil_path %>
+<% if current_user.perfil_id == 1 %>
+  <%= link_to 'Novo Perfil', new_perfil_path %>
+<% end %>
