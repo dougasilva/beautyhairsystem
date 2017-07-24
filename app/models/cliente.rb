@@ -4,4 +4,6 @@ class Cliente < ActiveRecord::Base
   validates :telefone, :celular, numericality: true, allow_blank: true
   validates :telefone, length: { is: 10 }, allow_blank: true
   validates :celular, length: { is: 11 }, allow_blank: true
+
+  audited
 end

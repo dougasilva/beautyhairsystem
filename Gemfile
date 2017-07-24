@@ -41,6 +41,8 @@ gem 'cocoon'
 
 gem 'seed_dump'
 
+gem 'audited', '~> 4.5'
+
 group :test do
   gem 'capybara'
 end
