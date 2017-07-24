@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listar Especialidades</h1>
+<h1>Especialidades</h1>
 
 <table>
   <thead>
@@ -15,9 +15,13 @@
       <tr>
         <td><%= especialidade.nome %></td>
         <td><%= link_to 'Exibir', especialidade %></td>
-        <td><%= link_to 'Editar', edit_especialidade_path(especialidade) %></td>
-        <td><%= link_to 'Excluir', especialidade, method: :delete,
-                                   data: { confirm: 'Tem certeza?' } %></td>
+        <% if current_user.perfil_id == 1 || current_user.perfil_id == 2 %>
+          <td><%= link_to 'Editar', edit_especialidade_path(especialidade) %></td>
+        <% end %>
+        <% if current_user.perfil_id == 1 %>
+          <td><%= link_to 'Excluir', especialidade, method: :delete,
+                                    data: { confirm: 'Tem certeza?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -25,4 +29,6 @@
 
 <br>
 
-<%= link_to 'Nova Especialidade', new_especialidade_path %>
+<% if current_user.perfil_id == 1 || current_user.perfil_id == 2 %>
+  <%= link_to 'Nova Especialidade', new_especialidade_path %>
+<% end %>

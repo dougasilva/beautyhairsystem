@@ -1,12 +1,15 @@
 class ProfissionaisController < ApplicationController
   before_action :set_profissional, only: [:show, :edit, :update, :destroy]
+  before_filter :authorize
 
   def index
-    if params[:servico]
-      servico = Servico.find(params[:servico])
-      @profissionais = Profissional.where(especialidade_id: servico.especialidade_id)
-    else
-      @profissionais = Profissional.all
+    if current_user.perfil_id == 1 || current_user.perfil_id == 2
+      if params[:servico]
+        servico = Servico.find(params[:servico])
+        @profissionais = Profissional.where(especialidade_id: servico.especialidade_id)
+      else
+        @profissionais = Profissional.all
+      end
     end
   end
 
@@ -14,48 +17,59 @@ class ProfissionaisController < ApplicationController
   end
 
   def new
-    @profissional = Profissional.new
+    if current_user.perfil_id == 1
+      @profissional = Profissional.new
+    end
   end
 
   def edit
+    if current_user.perfil_id != 1
+      redirect_to reservas_path
+    end
   end
 
   def create
-    @profissional = Profissional.new(profissional_params)
+    if current_user.perfil_id == 1
+      @profissional = Profissional.new(profissional_params)
 
-    respond_to do |format|
-      if @profissional.save
-        format.html { redirect_to @profissional,
-                      notice: 'Profissional criado com sucesso.' }
-        format.json { render :show, status: :created, location: @profissional }
-      else
-        format.html { render :new }
-        format.json { render json: @profissional.errors,
-                      status: :unprocessable_entity }
+      respond_to do |format|
+        if @profissional.save
+          format.html { redirect_to @profissional,
+                        notice: 'Profissional criado com sucesso.' }
+          format.json { render :show, status: :created, location: @profissional }
+        else
+          format.html { render :new }
+          format.json { render json: @profissional.errors,
+                        status: :unprocessable_entity }
+        end
       end
     end
   end
 
   def update
-    respond_to do |format|
-      if @profissional.update(profissional_params)
-        format.html { redirect_to @profissional,
-                      notice: 'Profissional atualizado com sucesso.' }
-        format.json { render :show, status: :ok, location: @profissional }
-      else
-        format.html { render :edit }
-        format.json { render json: @profissional.errors,
-                      status: :unprocessable_entity }
+    if current_user.perfil_id == 1
+      respond_to do |format|
+        if @profissional.update(profissional_params)
+          format.html { redirect_to @profissional,
+                        notice: 'Profissional atualizado com sucesso.' }
+          format.json { render :show, status: :ok, location: @profissional }
+        else
+          format.html { render :edit }
+          format.json { render json: @profissional.errors,
+                        status: :unprocessable_entity }
+        end
       end
     end
   end
 
   def destroy
-    @profissional.destroy
-    respond_to do |format|
-      format.html { redirect_to profissionais_url,
-                    notice: 'Profissional excluído com sucesso.' }
-      format.json { head :no_content }
+    if current_user.perfil_id == 1
+      @profissional.destroy
+      respond_to do |format|
+        format.html { redirect_to profissionais_url,
+                      notice: 'Profissional excluído com sucesso.' }
+        format.json { head :no_content }
+      end
     end
   end
 

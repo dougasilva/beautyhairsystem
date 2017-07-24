@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listar Clientes</h1>
+<h1>Clientes</h1>
 
 <table>
   <thead>
@@ -10,7 +10,6 @@
       <th>Telefone</th>
       <th>Celular</th>
       <th>Email</th>
-      <th>Comentários</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -23,11 +22,14 @@
         <td><%= cliente.telefone %></td>
         <td><%= cliente.celular %></td>
         <td><%= cliente.email %></td>
-        <td><%= cliente.comentarios %></td>
         <td><%= link_to 'Exibir', cliente %></td>
-        <td><%= link_to 'Editar', edit_cliente_path(cliente) %></td>
-        <td><%= link_to 'Excluir', cliente, method: :delete,
-                                   data: { confirm: 'Tem certeza?' } %></td>
+        <% if current_user.perfil_id == 1 || current_user.perfil_id == 2 %>
+          <td><%= link_to 'Editar', edit_cliente_path(cliente) %></td>
+        <% end %>
+        <% if current_user.perfil_id == 1 %>
+          <td><%= link_to 'Excluir', cliente, method: :delete,
+                                     data: { confirm: 'Tem certeza?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -35,4 +37,6 @@
 
 <br>
 
-<%= link_to 'Novo Cliente', new_cliente_path %>
+<% if current_user.perfil_id == 1 || current_user.perfil_id == 2 %>
+  <%= link_to 'Novo Cliente', new_cliente_path %>
+<% end %>

@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listar Reservas</h1>
+<h1>Reservas</h1>
 <div id="calendar">
   <h2 id="month">
 		<%= link_to "<", month: (@date.beginning_of_month-1).strftime("%b%Y") %>
@@ -52,5 +52,6 @@
 </div>
 
 <br>
-
-<%= link_to 'Nova Reserva', new_reserva_path %>
+<% if current_user.perfil_id != 3 %>
+  <%= link_to 'Nova Reserva', new_reserva_path %>
+<% end %>

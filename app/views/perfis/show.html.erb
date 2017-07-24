@@ -5,5 +5,7 @@
   <%= @perfil.nome %>
 </p>
 
-<%= link_to 'Editar', edit_perfil_path(@perfil) %> |
+<% if current_user.perfil_id == 1 %>
+  <%= link_to 'Editar', edit_perfil_path(@perfil) %> |
+<% end %>
 <%= link_to 'Voltar', perfis_path %>

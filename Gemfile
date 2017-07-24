@@ -19,7 +19,7 @@ group :assets do
   gem 'compass-rails'
 
   gem 'bcrypt'
-  
+
 end
 
 # Use jquery as the JavaScript library
@@ -38,6 +38,8 @@ gem 'bootstrap-sass'
 gem "watu_table_builder", :require => "table_builder"
 
 gem 'cocoon'
+
+gem 'seed_dump'
 
 group :test do
   gem 'capybara'
