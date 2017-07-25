@@ -9,4 +9,6 @@ class Usuario < ActiveRecord::Base
   validates :profissional, presence: true
   validates :perfil, presence: true
 
+  audited
+
 end

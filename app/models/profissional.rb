@@ -6,4 +6,6 @@ class Profissional < ActiveRecord::Base
   validates :telefone, :celular, :cpf, numericality: true, allow_blank: true
   validates :telefone, length: { is: 10 }, allow_blank: true
   validates :celular, :cpf, length: { is: 11 }
+
+  audited
 end
