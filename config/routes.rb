@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   post   'sign_in'   => 'sessions#create'
   delete 'sign_out'  => 'sessions#destroy'
 
+  get 'reservas/por_data' => 'reservas#por_data'
+
   resources :perfis
   resources :profissionais
   resources :especialidades
