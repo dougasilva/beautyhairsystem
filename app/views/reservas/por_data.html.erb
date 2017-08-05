@@ -1,29 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Reservas</h1>
-<div id="calendar">
-  <h2 id="month">
-		<%= link_to "<", month: (@date.beginning_of_month-1).strftime("%b%Y") %>
-		<%=h (@date.strftime("%B / %Y")) %>
-		<%= link_to ">", month: (@date.end_of_month+1).strftime("%b%Y") %>
-	</h2>
-	<%= calendar_for @reservas, year: @date.year, month: @date.month do |t| %>
-	 <%= t.head('DOM','SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB') %>
-	 <%= t.day(day_method: :data) do |day, reservas| %>
-	  <%= link_to day.strftime('%d/%m/%Y'),
-                reservas_por_data_path(:data => day.strftime('%d/%m/%Y')) %>
-    <br />
-
-	  <% reservas.each do |reserva| %>
-	   <%= link_to h(reserva.cliente.nome),reserva %><br>
-     <%= h(reserva.servico.nome) %><br>
-     <%= h(l(reserva.hora,format: :simple_time)) %><br><br>
-	  <% end %>
-	 <% end %>
-	<% end %>
-
-  <br />
-
+<h1>Reservas Do Dia </h1>
+<div>
   <table>
     <thead>
       <tr>
@@ -53,7 +31,6 @@
     </tbody>
   </table>
 </div>
-
 <br>
 <% if current_user.perfil_id != 3 %>
   <%= link_to 'Nova Reserva', new_reserva_path %>

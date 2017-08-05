@@ -10,6 +10,11 @@ class ReservasController < ApplicationController
   def show
   end
 
+  def por_data
+    @date = params[:data] ? Date.parse(params[:data]) : Date.today
+    @reservas = Reserva.search_by_day(@date.strftime("%d/%m/%Y"), current_user)
+  end
+
   def new
     @reserva = Reserva.new
     respond_to do |format|

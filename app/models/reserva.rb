@@ -20,4 +20,15 @@ class Reserva < ActiveRecord::Base
 
   end
 
+  def self.search_by_day(dia, current_user)
+    if current_user.perfil_id == 3
+      Reserva.where("strftime('%d/%m/%Y', data) = ? AND
+                    realizado = ? AND profissional_id = ?", dia,
+                    false, current_user.profissional_id).order('data, hora ASC')
+    else
+      Reserva.where("strftime('%d/%m/%Y', data) = ? AND
+                    realizado = ?", dia, false).order('data, hora ASC')
+    end
+  end
+
 end
