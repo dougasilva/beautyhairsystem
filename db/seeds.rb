@@ -30,5 +30,5 @@ Usuario.create!([
   {usuario: "douglas.silva", password: "123456", password_confirmation: "123456", profissional_id: 5, perfil_id: 1}
 ])
 Reserva.create!([
-  {data: "2017-07-24", hora: "2000-01-01 09:30:00", comentarios: "", cliente_id: 1, servico_id: 2, profissional_id: 2, realizado: false}
+  {data: "2017-08-05", hora: "2000-01-01 09:30:00", comentarios: "", cliente_id: 1, servico_id: 2, profissional_id: 2, realizado: false}
 ])
