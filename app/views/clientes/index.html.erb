@@ -1,42 +1,55 @@
-<p id="notice"><%= notice %></p>
+<div class="container" style="color: black; text-align: center;">
+  <p id="notice"><%= notice %></p>
 
-<h1>Clientes</h1>
+  <h1> Clientes </h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Data Nascimento</th>
-      <th>Telefone</th>
-      <th>Celular</th>
-      <th>Email</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th style="text-align:center;font-size:16px">Nome</th>
+          <th style="text-align:center;font-size:16px">Dt. Nascimento</th>
+          <th style="text-align:center;font-size:16px">Telefone</th>
+          <th style="text-align:center;font-size:16px">Celular</th>
+          <th style="text-align:center;font-size:16px">Email</th>
+          <th style="text-align:center;font-size:16px" colspan="3">Ações</th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @clientes.each do |cliente| %>
-      <tr>
-        <td><%= cliente.nome %></td>
-        <td><%= l(cliente.data_nascimento, format: :simple) %></td>
-        <td><%= cliente.telefone %></td>
-        <td><%= cliente.celular %></td>
-        <td><%= cliente.email %></td>
-        <td><%= link_to 'Exibir', cliente %></td>
-        <% if current_user.perfil_id == 1 || current_user.perfil_id == 2 %>
-          <td><%= link_to 'Editar', edit_cliente_path(cliente) %></td>
+      <tbody>
+        <% @clientes.each do |cliente| %>
+          <tr>
+            <td><%= cliente.nome %></td>
+            <td><%= cliente.data_nascimento.strftime('%d/%m/%Y') %></td>
+            <td><%= format_phone(cliente.telefone) %></td>
+            <td><%= format_cell_phone(cliente.celular) %></td>
+            <td><%= cliente.email %></td>
+            <td><%= link_to 'Exibir', cliente,
+                                      :class => "btn btn-success" %></td>
+            <% if current_user.perfil_id != 3 %>
+              <td><%= link_to 'Editar', edit_cliente_path(cliente),
+                                        :class => "btn btn-primary" %></td>
+            <% end %>
+            <% if current_user.perfil_id == 1 %>
+            <td><%= link_to 'Excluir', cliente, method: :delete,
+                                       data: { confirm: 'Tem certeza?' },
+                                       :class => "btn btn-danger" %></td>
+            <% end %>
+          </tr>
         <% end %>
-        <% if current_user.perfil_id == 1 %>
-          <td><%= link_to 'Excluir', cliente, method: :delete,
-                                     data: { confirm: 'Tem certeza?' } %></td>
-        <% end %>
-      </tr>
+      </tbody>
+    </table>
+  </div>
+</br>
+
+  <div class="form-actions" style="color: white">
+
+    <%= link_to 'Voltar', reservas_path, :class => "btn btn-warning" %>
+    <% if current_user.perfil_id != 3 %>
+      <%= link_to 'Novo Cliente', new_cliente_path, :method => :get,
+          :class => "btn btn-info" %>
     <% end %>
-  </tbody>
-</table>
 
-<br>
+  </div>
 
-<% if current_user.perfil_id == 1 || current_user.perfil_id == 2 %>
-  <%= link_to 'Novo Cliente', new_cliente_path %>
-<% end %>
+</div>

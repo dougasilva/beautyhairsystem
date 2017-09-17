@@ -1,12 +1,37 @@
-<%= simple_form_for(@especialidade) do |f| %>
-  <%= f.error_notification %>
+<div class="col-md-12">
 
-  <div class="form-inputs">
-    <%= f.input :nome, label: 'Nome:' %>
-    <%= f.input :comentarios, label: 'Comentários:' %>
+  <div class="col-md-4">
+
+    <section "Cadastro">
+
+      <%= simple_form_for(@especialidade) do |f| %>
+        <%= f.error_notification %>
+        <div class="form-group">
+
+          <div class="form-inputs">
+            <%= f.input :nome, label: 'Nome:' %>
+            <%= f.input :comentarios, label: 'Comentários:' %>
+          </div>
+
+          <div class="form-actions">
+            <%= f.button :submit, value: 'Salvar', :class => "btn btn-success"%>
+            <%= link_to 'Voltar', especialidades_path, :class => "btn btn-warning" %>
+          </div>
+
+        </div>
+      <% end %>
+
+    </section>
+
+
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, value: 'Cadastrar' %>
+  <div class="col-md-6">
+
+    <section>
+      <div class="col-md-4" style="margin:25px">
+      </div>
+    </section>
+
   </div>
-<% end %>
+</div>

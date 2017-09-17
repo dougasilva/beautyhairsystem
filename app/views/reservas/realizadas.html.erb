@@ -1,7 +1,7 @@
 <div class="container" style="color: black; text-align: center;">
   <p id="notice"><%= notice %></p>
 
-  <h1>Reservas Do Dia </h1>
+  <h1>Reservas Realizadas </h1>
 
   <div class="table-responsive">
     <table class="table table-bordered">
@@ -30,9 +30,6 @@
                                       :class => "btn btn-success" %></td>
             <td><%= link_to 'Editar', edit_reserva_path(reserva),
                                       :class => "btn btn-primary" %></td>
-            <td><%= link_to 'Excluir', reserva, method: :delete,
-                                       data: { confirm: 'Tem certeza?' },
-                                       :class => "btn btn-danger" %></td>
           </tr>
         <% end %>
       </tbody>
@@ -43,11 +40,7 @@
   <div class="form-actions" style="color: white">
 
     <%= link_to 'Voltar', reservas_path, :class => "btn btn-warning" %>
-    <% if current_user.perfil_id != 3 %>
-      <%= link_to 'Nova Reserva', new_reserva_path, :method => :get,
-          :class => "btn btn-info" %>
-    <% end %>
-
+    
   </div>
 
 </div>

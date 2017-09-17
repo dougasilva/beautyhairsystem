@@ -3,9 +3,7 @@
       <nav>
         <ul>
           <% if logged_in? %>
-            <% if current_user.perfil_id == 1 %>
-              <li><%= link_to "Usuarios", usuarios_path %></li>
-            <% end %>
+
               <ul>
                 <p>
                   <strong>Usuário Logado: </strong>

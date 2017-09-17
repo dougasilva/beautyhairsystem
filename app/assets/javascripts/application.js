@@ -14,4 +14,5 @@
 //= require jquery_ujs
 // require turbolinks
 //= require reservas
+//= require bootstrap
 //= require_tree .

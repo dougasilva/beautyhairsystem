@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   delete 'sign_out'  => 'sessions#destroy'
 
   get 'reservas/por_data' => 'reservas#por_data'
+  get 'reservas/realizadas' => 'reservas#realizadas'
 
   resources :perfis
   resources :profissionais

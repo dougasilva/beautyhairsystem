@@ -1,17 +1,43 @@
-<%= simple_form_for(@cliente) do |f| %>
-  <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :nome, label: 'Nome:' %>
-    <%= f.input :data_nascimento, label: 'Data Nasc.:',
-                as: :date, html5: true %>
-    <%= f.input :telefone, label: 'Telefone:' %>
-    <%= f.input :celular, label: 'Celular:' %>
-    <%= f.input :email, label: 'Email:' %>
-    <%= f.input :comentarios, label: 'Comentários:' %>
-  </div>
+  <div class="col-md-12">
 
-  <div class="form-actions">
-    <%= f.button :submit, value: 'Cadastrar' %>
+    <div class="col-md-4">
+
+      <section "Cadastro">
+
+        <%= simple_form_for(@cliente) do |f| %>
+          <%= f.error_notification %>
+          <div class="form-group">
+
+            <div class="form-inputs">
+              <%= f.input :nome, label: 'Nome:' %>
+              <%= f.input :data_nascimento, label: 'Nascimento:',
+                          as: :date, html5: true %>
+              <%= f.input :telefone, label: 'Telefone:' %>
+              <%= f.input :celular, label: 'Celular:' %>
+              <%= f.input :email, label: 'Email:' %>
+              <%= f.input :comentarios, label: 'Comentários:' %>
+            </div>
+
+            <div class="form-actions">
+              <%= f.button :submit, value: 'Salvar', :class => "btn btn-success"%>
+              <%= link_to 'Voltar', clientes_path, :class => "btn btn-warning" %>
+            </div>
+
+          </div>
+        <% end %>
+
+      </section>
+
+
+    </div>
+
+    <div class="col-md-6">
+
+      <section>
+        <div class="col-md-4" style="margin:25px">
+        </div>
+      </section>
+
+    </div>
   </div>
-<% end %>

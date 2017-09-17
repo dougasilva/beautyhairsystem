@@ -1,31 +1,51 @@
-<p id="notice"><%= notice %></p>
+<div class="container" style="color: black; text-align: center;">
+  <p id="notice"><%= notice %></p>
 
-<h1>Usuários</h1>
+  <h1> Usuários </h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Profissional</th>
-      <th>Usuario</th>
-      <th>Perfil</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th style="text-align:center;font-size:16px">Profissional</th>
+          <th style="text-align:center;font-size:16px">Usuário</th>
+          <th style="text-align:center;font-size:16px">Perfil</th>
+          <th style="text-align:center;font-size:16px" colspan="3">Ações</th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @usuarios.each do |usuario| %>
-      <tr>
-        <td><%= usuario.profissional.nome %></td>
-        <td><%= usuario.usuario %></td>
-        <td><%= usuario.perfil.nome %></td>
-        <td><%= link_to 'Exibir', usuario %></td>
-        <td><%= link_to 'Excluir', usuario, method: :delete,
-                        data: { confirm: 'Tem certeza?' } %></td>
-      </tr>
+      <tbody>
+        <% @usuarios.each do |usuario| %>
+          <tr>
+            <td><%= usuario.profissional.nome %></td>
+            <td><%= usuario.usuario %></td>
+            <td><%= usuario.perfil.nome %> </td>
+            <td><%= link_to 'Exibir', usuario,
+                                      :class => "btn btn-success" %></td>
+            <% if current_user.perfil_id != 3 %>
+              <td><%= link_to 'Editar', edit_usuario_path(usuario),
+                                       :class => "btn btn-primary" %></td>
+            <% end %>
+            <% if current_user.perfil_id == 1 %>
+              <td><%= link_to 'Excluir', usuario, method: :delete,
+                                         data: { confirm: 'Tem certeza?' },
+                                         :class => "btn btn-danger" %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</br>
+
+  <div class="form-actions" style="color: white">
+
+    <%= link_to 'Voltar', reservas_path, :class => "btn btn-warning" %>
+    <% if current_user.perfil_id == 1 %>
+      <%= link_to 'Novo Usuario', new_usuario_path, :method => :get,
+          :class => "btn btn-info" %>
     <% end %>
-  </tbody>
-</table>
 
-<br>
+  </div>
 
-<%= link_to 'Novo Usuario', new_usuario_path %>
+</div>

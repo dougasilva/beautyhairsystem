@@ -1,48 +1,68 @@
-<p id="notice"><%= notice %></p>
+<div class="container" style="color: black; text-align: center;">
+  <p id="notice"><%= notice %></p>
 
-<h1>Profissionais</h1>
+  <h1> Profissionais </h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Cpf</th>
-      <th>Data Nascimento</th>
-      <th>Especialidade</th>
-      <th>Telefone</th>
-      <th>Celular</th>
-      <th>Email</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th style="text-align:center;font-size:16px">Nome</th>
+          <th style="text-align:center;font-size:16px">Dt. Nascimento</th>
+          <th style="text-align:center;font-size:16px">Especialidade</th>
+          <th style="text-align:center;font-size:16px">Telefone</th>
+          <th style="text-align:center;font-size:16px">Celular</th>
+          <th style="text-align:center;font-size:16px">Email</th>
+          <th style="text-align:center;font-size:16px" colspan="3">Ações</th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @profissionais.each do |profissional| %>
-      <tr>
-        <td><%= profissional.nome %></td>
-        <td><%= profissional.cpf %></td>
-        <td><%= l(profissional.data_nascimento, format: :simple) %></td>
-        <% if profissional.especialidade %>
-          <td><%= profissional.especialidade.nome %></td>
-        <% else %>
-          <td><%= %></td>
-        <% end %>
-        <td><%= profissional.telefone %></td>
-        <td><%= profissional.celular %></td>
-        <td><%= profissional.email %></td>
-        <td><%= link_to 'Exibir', profissional %></td>
-        <% if current_user.perfil_id == 1 %>
-          <td><%= link_to 'Editar', edit_profissional_path(profissional) %></td>
-          <td><%= link_to 'Excluir', profissional, method: :delete,
-                                     data: { confirm: 'Tem certeza?' } %></td>
-        <% end %>
-      </tr>
+      <tbody>
+        <div class="form-actions" style="color: white">
+          <% @profissionais.each do |profissional| %>
+            <tr>
+              <td><%= profissional.nome %></td>
+              <td><%= profissional.data_nascimento.strftime('%d/%m/%Y') %></td>
+              <% if profissional.especialidade %>
+                <td><%= profissional.especialidade.nome %></td>
+              <% else %>
+                <td><%= %></td>
+              <% end %>
+              <% if profissional.telefone.length > 0 %>
+                <td><%= format_phone(profissional.telefone) %></td>
+              <% else %>
+                <td><%= %></td>
+              <% end %>
+              <td><%= format_cell_phone(profissional.celular) %></td>
+              <td><%= profissional.email %></td>
+              <td><%= link_to 'Exibir', profissional,
+                                        :class => "btn btn-success" %></td>
+              <% if current_user.perfil_id == 1 %>
+                <td><%= link_to 'Editar', edit_profissional_path(profissional),
+                                          :class => "btn btn-primary" %>
+                </td>
+                <td><%= link_to 'Excluir', profissional, method: :delete,
+                                           data: { confirm: 'Tem certeza?' },
+                                           :class => "btn btn-danger" %></td>
+              <% end %>
+
+            </tr>
+          <% end %>
+        </div>
+
+      </tbody>
+    </table>
+  </div>
+</br>
+
+  <div class="form-actions" style="color: white">
+
+    <%= link_to 'Voltar', reservas_path, :class => "btn btn-warning" %>
+    <% if current_user.perfil_id == 1 %>
+      <%= link_to 'Novo Profissional', new_profissional_path, :method => :get,
+          :class => "btn btn-info" %>
     <% end %>
-  </tbody>
-</table>
 
-<br>
+  </div>
 
-<% if current_user.perfil_id == 1 %>
-  <%= link_to 'Novo Profissional', new_profissional_path %>
-<% end %>
+</div>

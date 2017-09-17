@@ -15,6 +15,10 @@ class ReservasController < ApplicationController
     @reservas = Reserva.search_by_day(@date.strftime("%d/%m/%Y"), current_user)
   end
 
+  def realizadas
+    @reservas = Reserva.search_by_realizadas(current_user)
+  end
+
   def new
     @reserva = Reserva.new
     respond_to do |format|
