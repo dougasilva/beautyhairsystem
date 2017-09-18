@@ -1,5 +1,37 @@
-<h1>Nova Reserva</h1>
+<div class="container" style="background-color:#C2DFE5">
+  <div class="col-md-12">
+    <div id="wrapper" style="text-align: center; color: black">
+      <h1>Nova Reserva</h1>
+    </div>
 
-<%= render 'form' %>
+      <div class="col-md-4">
+        <section "Reserva">
 
-<%= link_to 'Voltar', reservas_path %>
+          <%= simple_form_for @reserva, html: { multipart: true,
+                                    :class => 'form-vertical' } do |f| %>
+
+            <%= f.error_notification %>
+
+            <div class="form-group">
+              <%= f.association :cliente, label: 'Cliente:', label_method: :nome,
+                                value_method: :id %>
+              <%= f.association :servico, label: 'Serviço:', label_method: :nome,
+                                value_method: :id %>
+              <%= f.association :profissional, label: 'Profissional:',
+                                label_method: :nome, value_method: :id %>
+              <%= f.input :data, label: 'Data:', as: :date, html5: true %>
+              <%= f.input :hora, label: 'Hora:' , as: :time, html5: true %>
+              <%= f.input :comentarios, label: 'Comentários:' %>
+              <%= f.input :realizado, label: 'Realizado', as: :boolean %>
+
+
+              <%= f.button :submit, value: 'Salvar', :class => "btn btn-success" %>
+              <%= link_to 'Voltar', reservas_path, :class => "btn btn-warning" %>
+            </div>
+
+          <% end %>
+        </section>
+      </div>
+
+    </div>
+  </div>

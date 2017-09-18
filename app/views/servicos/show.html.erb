@@ -1,31 +1,47 @@
-<p id="notice"><%= notice %></p>
+<form>
 
-<p>
-  <strong>Nome:</strong>
-  <%= @servico.nome %>
-</p>
+  <div class="container" style="background-color:#C2DFE5">
+    <div class="col-md-12">
+      <div id="wrapper" style="text-align: center; color: black">
+        <h2>Detalhes do Serviço</h2>
+      </div>
+      <section "Mensagem">
+      <p id="notice" style="font-size:16px"><%= notice %></p>
+    </section>
+    <section "servico">
+    <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group" style="font-size:16px">
+              <label for="@servico.nome">Nome: </label>
+              <%= @servico.nome %><br>
+            </div>
+            <div class="form-group" style="font-size:16px">
+              <label for="@servico.especialidade.nome">Especialidade: </label>
+              <%= @servico.especialidade.nome %><br>
+            </div>
+            <div class="form-group" style="font-size:16px">
+              <label for="@servico.tempo_estimado">Tempo Estimado: </label>
+              <%= @servico.tempo_estimado %>
+            </div>
+            <div class="form-group" style="font-size:16px">
+              <label for="@servico.preco">Preço: </label>
+              <%= number_to_currency(@servico.preco, locale: 'pt-BR') %>
+            </div>
+            <div class="form-group" style="font-size:16px">
+              <label for="@servico.descricao">Descrição: </label>
+              <% if @servico.descricao.length > 0 %>
+                <%= @servico.descricao %>
+              <% end %><br>
+            </div>
+          </div>
+        </div>
+    </div>
 
-<p>
-  <strong>Especialidade:</strong>
-  <%= @servico.especialidade.nome %>
-</p>
+  </section>
 
-<p>
-  <strong>Tempo Estimado:</strong>
-  <%= @servico.tempo_estimado %>
-</p>
+</div>
+<p><%= link_to 'Voltar', servicos_path, :class => "btn btn-warning" %></p>
+</div>
 
-<p>
-  <strong>Preço:</strong>
-  <%= @servico.preco %>
-</p>
-
-<p>
-  <strong>Descrição:</strong>
-  <%= @servico.descricao %>
-</p>
-
-<% if current_user.perfil_id == 1 || current_user.perfil_id == 2 %>
-  <%= link_to 'Editar', edit_servico_path(@servico) %> |
-<% end %>
-<%= link_to 'Voltar', servicos_path %>
+</form>

@@ -12,4 +12,12 @@
  *
  *= require_tree .
  *= require_self
+
  */
+ .simple_form label {
+  width: 110px;
+  margin: 0px 10px;
+  font-size: 16px;
+  font-family: "Lucida Console" Grande, sans-serif;
+  color: black;
+}

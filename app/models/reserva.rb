@@ -31,4 +31,13 @@ class Reserva < ActiveRecord::Base
     end
   end
 
+  def self.search_by_realizadas(current_user)
+    if current_user.perfil == 3
+      Reserva.where('realizado = ? AND profissional_id = ?', true,
+                     current_user.profissional_id).order('data, hora ASC')
+    else
+      Reserva.where('realizado = ?', true).order('data, hora ASC')
+    end
+  end
+
 end

@@ -1,60 +1,74 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Reservas</h1>
-<div id="calendar">
-  <h2 id="month">
-		<%= link_to "<", month: (@date.beginning_of_month-1).strftime("%b%Y") %>
-		<%=h (@date.strftime("%B / %Y")) %>
-		<%= link_to ">", month: (@date.end_of_month+1).strftime("%b%Y") %>
-	</h2>
-	<%= calendar_for @reservas, year: @date.year, month: @date.month do |t| %>
-	 <%= t.head('DOM','SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB') %>
-	 <%= t.day(day_method: :data) do |day, reservas| %>
-	  <%= link_to day.strftime('%d/%m/%Y'),
-                reservas_por_data_path(:data => day.strftime('%d/%m/%Y')) %>
+<div class="container">
+
+  <div class="well well-lg" style="color: black; text-align: center">
+
+    <h1>Reservas</h1>
+    <div id="calendar">
+      <h2 id="month">
+    		<%= link_to "<", month: (@date.beginning_of_month-1).strftime("%b%Y") %>
+    		<%= @date.strftime('%B / %Y') %>
+    		<%= link_to ">", month: (@date.end_of_month+1).strftime("%b%Y") %>
+    	</h2>
+    	<%= calendar_for @reservas, year: @date.year, month: @date.month do |t| %>
+    	 <%= t.head('DOM','SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB') %>
+    	 <%= t.day(day_method: :data) do |day, reservas| %>
+    	  <%= link_to day.strftime('%d/%m/%Y'),
+                    reservas_por_data_path(:data => day.strftime('%d/%m/%Y')) %>
+        <br />
+
+    	  <% reservas.each do |reserva| %>
+    	   <%= link_to h(reserva.cliente.nome),reserva %><br>
+         <%= h(reserva.servico.nome) %><br>
+         <%= h(l(reserva.hora,format: :simple_time)) %><br><br>
+    	  <% end %>
+    	 <% end %>
+    	<% end %>
+    </div>
     <br />
+    <div id="divTabela" class="table-responsive" style=”display:none”>
 
-	  <% reservas.each do |reserva| %>
-	   <%= link_to h(reserva.cliente.nome),reserva %><br>
-     <%= h(reserva.servico.nome) %><br>
-     <%= h(l(reserva.hora,format: :simple_time)) %><br><br>
-	  <% end %>
-	 <% end %>
-	<% end %>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th style="text-align:center;font-size:16px;color: #A11">Data</th>
+            <th style="text-align:center;font-size:16px;color: #A11">Hora</th>
+            <th style="text-align:center;font-size:16px;color: #A11">Cliente</th>
+            <th style="text-align:center;font-size:16px;color: #A11">Serviço</th>
+            <th style="text-align:center;font-size:16px;color: #A11">Profissional</th>
+            <th style="text-align:center;font-size:16px;color: #A11" colspan="3">Ações</th>
+          </tr>
+        </thead>
 
-  <br />
+        <tbody>
+          <% @reservas.each do |reserva| %>
+            <tr>
+              <td><%= reserva.data.strftime('%d/%m/%Y') %></td>
+              <td><%= reserva.hora.strftime('%H:%M') %></td>
+              <td><%= reserva.cliente.nome %></td>
+              <td><%= reserva.servico.nome %></td>
+              <td><%= reserva.profissional.nome %></td>
+              <td><%= link_to 'Exibir', reserva,
+                                        :class => "btn btn-success" %></td>
+              <td><%= link_to 'Editar', edit_reserva_path(reserva),
+                                        :class => "btn btn-primary" %></td>
+              <td><%= link_to 'Excluir', reserva, method: :delete,
+                                         data: { confirm: 'Tem certeza?' },
+                                         :class => "btn btn-danger" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Data</th>
-        <th>Hora</th>
-        <th>Cliente</th>
-        <th>Serviço</th>
-        <th>Profissional</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+    <br>
 
-    <tbody>
-      <% @reservas.each do |reserva| %>
-        <tr>
-          <td><%= reserva.data.strftime('%d/%m/%Y') %></td>
-          <td><%= reserva.hora.strftime('%H:%M') %></td>
-          <td><%= link_to reserva.cliente.nome, reserva %></td>
-          <td><%= reserva.servico.nome %></td>
-          <td><%= reserva.profissional.nome %></td>
-          <td><%= link_to 'Exibir', reserva %></td>
-          <td><%= link_to 'Editar', edit_reserva_path(reserva) %></td>
-          <td><%= link_to 'Excluir', reserva, method: :delete,
-                                     data: { confirm: 'Tem certeza?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+    <div class="form-actions" style="color: white">
+        <% if current_user.perfil_id != 3 %>
+          <%= link_to 'Nova Reserva', new_reserva_path, :method => :get,
+              :class => "btn btn-info" %>
+        <% end %>
+    </div>
+  </div>
 </div>
-
-<br>
-<% if current_user.perfil_id != 3 %>
-  <%= link_to 'Nova Reserva', new_reserva_path %>
-<% end %>

@@ -1,16 +1,42 @@
-<%= simple_form_for(@servico) do |f| %>
-  <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :nome, label: 'Nome:' %>
-    <%= f.association :especialidade, label: 'Especialidade:',
-                      label_method: :nome, value_method: :id %>
-    <%= f.input :tempo_estimado, label: 'Tempo Estimado:' %>
-    <%= f.input :preco, label: 'Preço:' %>
-    <%= f.input :descricao, label: 'Descrição:' %>
-  </div>
+  <div class="col-md-12">
 
-  <div class="form-actions">
-    <%= f.button :submit, value: 'Cadastrar' %>
+    <div class="col-md-4">
+
+      <section "Cadastro">
+
+        <%= simple_form_for(@servico) do |f| %>
+          <%= f.error_notification %>
+          <div class="form-group">
+
+            <div class="form-inputs">
+              <%= f.input :nome, label: 'Nome:' %>
+              <%= f.association :especialidade, label: 'Especialidade:',
+                                label_method: :nome, value_method: :id %>
+              <%= f.input :tempo_estimado, label: 'Tempo Estimado:' %>
+              <%= f.input :preco, label: 'Preço:' %>
+              <%= f.input :descricao, label: 'Descrição:' %>
+            </div>
+
+            <div class="form-actions">
+              <%= f.button :submit, value: 'Salvar', :class => "btn btn-success"%>
+              <%= link_to 'Voltar', servicos_path, :class => "btn btn-warning" %>
+            </div>
+
+          </div>
+        <% end %>
+
+      </section>
+
+
+    </div>
+
+    <div class="col-md-6">
+
+      <section>
+        <div class="col-md-4" style="margin:25px">
+        </div>
+      </section>
+
+    </div>
   </div>
-<% end %>

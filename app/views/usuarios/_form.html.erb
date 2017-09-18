@@ -1,17 +1,43 @@
-<%= simple_form_for(@usuario) do |f| %>
-  <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.association :profissional, label: 'Profissional:',
-                      label_method: :nome, value_method: :id %>
-    <%= f.association :perfil, label: 'Perfil:',
-                      label_method: :nome, value_method: :id %>
-    <%= f.input :usuario, label: 'Usuário:' %>
-    <%= f.input :password, label: 'Senha:' %>
-    <%= f.input :password_confirmation, label: 'Confirmação:' %>
-  </div>
+  <div class="col-md-12">
 
-  <div class="form-actions">
-    <%= f.button :submit, value: 'Cadastrar' %>
+    <div class="col-md-4">
+
+      <section "Cadastro">
+
+        <%= simple_form_for(@usuario) do |f| %>
+          <%= f.error_notification %>
+          <div class="form-group">
+
+            <div class="form-inputs">
+              <%= f.association :profissional, label: 'Profissional:',
+                                label_method: :nome, value_method: :id %>
+              <%= f.association :perfil, label: 'Perfil:',
+                                label_method: :nome, value_method: :id %>
+              <%= f.input :usuario, label: 'Usuário:' %>
+              <%= f.input :password, label: 'Senha:' %>
+              <%= f.input :password_confirmation, label: 'Confirmação:' %>
+            </div>
+
+            <div class="form-actions">
+              <%= f.button :submit, value: 'Salvar', :class => "btn btn-success"%>
+              <%= link_to 'Voltar', usuarios_path, :class => "btn btn-warning" %>
+            </div>
+
+          </div>
+        <% end %>
+
+      </section>
+
+
+    </div>
+
+    <div class="col-md-6">
+
+      <section>
+        <div class="col-md-4" style="margin:25px">
+        </div>
+      </section>
+
+    </div>
   </div>
-<% end %>

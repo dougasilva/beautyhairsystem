@@ -1,41 +1,69 @@
-<p id="notice"><%= notice %></p>
+<form>
+  <div class="container" style="background-color:#C2DFE5">
+    <div class="row">
+      <div class="col-md-12">
+        <div id="wrapper" style="text-align: center; color: black">
+         <h2>Detalhes da Reserva</h2>
+        </div>
 
-<p>
-  <strong>Cliente:</strong>
-  <%= @reserva.cliente.nome %>
-</p>
+        <section "Mensagem">
+          <p id="notice" style="font-size:16px"><%= notice %></p>
+        </section>
 
-<p>
-  <strong>Serviço:</strong>
-  <%= @reserva.servico.nome %>
-</p>
+        <section "Reserva">
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group" style="font-size:16px">
+                  <label for="@reserva.cliente.nome">Cliente: </label>
+                  <%= @reserva.cliente.nome %><br>
+                </div>
+                <div class="form-group" style="font-size:16px">
+                  <label for="@reserva.servico.nome">Serviço: </label>
+                  <%= @reserva.servico.nome %><br>
+                </div>
+                <div class="form-group" style="font-size:16px">
+                  <label for="@reserva.profissional.nome">Profissional: </label>
+                  <%= @reserva.profissional.nome %><br>
+                </div>
+                <div class="form-group" style="font-size:16px">
+                  <label for="@reserva.preco">Preço: </label>
+                  <%= number_to_currency(@reserva.servico.preco, locale: 'pt-BR') %>
+                </div>
+                <div class="form-group" style="font-size:16px">
+                  <label for="@reserva.data">Data: </label>
+                  <%= l(@reserva.data, format: :simple) %><br>
+                </div>
+                <div class="form-group" style="font-size:16px">
+                  <label for="@reserva.hora">Hora: </label>
+                  <%= l(@reserva.hora, format: :simple_time) %><br>
+                </div>
+                <div class="form-group" style="font-size:16px">
+                  <label for="@reserva.comentarios">Comentários: </label>
+                  <%= @reserva.comentarios %><br>
+                </div>
+                <div class="form-group" style="font-size:16px">
+                  <label for="@reserva.realizado">Realizado: </label>
+                  <% if @reserva.realizado %>
+                    <%= 'Sim' %>
+                  <% else %>
+                    <%= 'Não' %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
 
-<p>
-  <strong>Profissional:</strong>
-  <%= @reserva.profissional.nome %>
-</p>
+            <div class="form-actions" style="color: white">
+              <%= link_to 'Voltar', reservas_path, :class => "btn btn-warning" %>
+              <%= link_to 'Editar', edit_reserva_path(@reserva),
+                          :class => "btn btn-primary" %>
+            </div>
 
-<p>
-  <strong>Preço:</strong>
-  <%= @reserva.servico.preco %>
-</p>
+          </div>
 
-<p>
-  <strong>Data:</strong>
-  <%= l(@reserva.data, format: :simple) %>
-</p>
+        </section>
+      </div>
+    </div>
+  </div>
 
-<p>
-  <strong>Hora:</strong>
-  <%= l(@reserva.hora, format: :simple_time) %>
-</p>
-
-<p>
-  <strong>Comentários:</strong>
-  <%= @reserva.comentarios %>
-</p>
-
-<%= link_to 'Editar', edit_reserva_path(@reserva) %> |
-<%= link_to 'Excluir', @reserva, method: :delete,
-                           data: { confirm: 'Tem certeza?' } %> |
-<%= link_to 'Voltar', reservas_path %>
+</form>

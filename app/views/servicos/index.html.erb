@@ -1,40 +1,53 @@
-<p id="notice"><%= notice %></p>
+<div class="container" style="color: black; text-align: center;">
+  <p id="notice"><%= notice %></p>
 
-<h1>Serviços</h1>
+  <h1> Serviços </h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Especialidade</th>
-      <th>Tempo Estimado</th>
-      <th>Preço</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th style="text-align:center;font-size:16px">Nome</th>
+          <th style="text-align:center;font-size:16px">Especialidade</th>
+          <th style="text-align:center;font-size:16px">Tempo Estimado</th>
+          <th style="text-align:center;font-size:16px">Preço</th>
+          <th style="text-align:center;font-size:16px" colspan="3">Ações</th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @servicos.each do |servico| %>
-      <tr>
-        <td><%= servico.nome %></td>
-        <td><%= servico.especialidade.nome %></td>
-        <td><%= servico.tempo_estimado %></td>
-        <td><%= servico.preco %></td>
-        <td><%= link_to 'Exibir', servico %></td>
-        <% if current_user.perfil_id == 1 || current_user.perfil_id == 2 %>
-          <td><%= link_to 'Editar', edit_servico_path(servico) %></td>
+      <tbody>
+        <% @servicos.each do |servico| %>
+          <tr>
+            <td><%= servico.nome %></td>
+            <td><%= servico.especialidade.nome %></td>
+            <td><%= servico.tempo_estimado %> minuto(s)</td>
+            <td><%= number_to_currency(servico.preco, locale: 'pt-BR') %></td>
+            <td><%= link_to 'Exibir', servico,
+                                      :class => "btn btn-success" %></td>
+            <% if current_user.perfil_id != 3 %>
+              <td><%= link_to 'Editar', edit_servico_path(servico),
+                                       :class => "btn btn-primary" %></td>
+            <% end %>
+            <% if current_user.perfil_id == 1 %>
+              <td><%= link_to 'Excluir', servico, method: :delete,
+                                         data: { confirm: 'Tem certeza?' },
+                                         :class => "btn btn-danger" %></td>
+            <% end %>
+          </tr>
         <% end %>
-        <% if current_user.perfil_id == 1 %>
-          <td><%= link_to 'Excluir', servico, method: :delete,
-                          data: { confirm: 'Tem certeza?' } %></td>
-        <% end %>
-      </tr>
+      </tbody>
+    </table>
+  </div>
+</br>
+
+  <div class="form-actions" style="color: white">
+
+    <%= link_to 'Voltar', reservas_path, :class => "btn btn-warning" %>
+    <% if current_user.perfil_id == 1 %>
+      <%= link_to 'Novo servico', new_servico_path, :method => :get,
+          :class => "btn btn-info" %>
     <% end %>
-  </tbody>
-</table>
 
-<br>
+  </div>
 
-<% if current_user.perfil_id == 1 %>
-  <%= link_to 'Novo Serviço', new_servico_path %>
-<% end %>
+</div>

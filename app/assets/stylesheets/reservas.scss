@@ -1,3 +1,25 @@
 // Place all the styles related to the Reservas controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap";
+
+td,
+th {
+  font-family: "Lucida Console",arial,helvetica,sans-serif;
+  font-size: 16px;
+  padding: 6px;
+  border: 1px solid #999;
+}
+
+th {
+  background: #EEE;
+  color: #A11;
+  text-align: center;
+  width: 14.2857142857143%;
+}
+
+td {
+  background: #FFF;
+  color: black;
+  text-align: center;
+}

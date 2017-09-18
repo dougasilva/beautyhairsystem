@@ -2,7 +2,7 @@ class Usuario < ActiveRecord::Base
   has_secure_password
   belongs_to :profissional
   belongs_to :perfil
-  validates :usuario, presence: true, length: {maximum: 50}
+  validates :usuario, presence: true, length: {maximum: 50}, uniqueness: true
   validates :password, presence: true, length: {minimum: 6}
   validates :password_confirmation, presence: true, length: {minimum: 6}
   before_save { self.usuario = usuario.downcase }

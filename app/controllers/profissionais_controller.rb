@@ -3,13 +3,11 @@ class ProfissionaisController < ApplicationController
   before_filter :authorize
 
   def index
-    if current_user.perfil_id == 1 || current_user.perfil_id == 2
-      if params[:servico]
-        servico = Servico.find(params[:servico])
-        @profissionais = Profissional.where(especialidade_id: servico.especialidade_id)
-      else
-        @profissionais = Profissional.all
-      end
+    if params[:servico]
+      servico = Servico.find(params[:servico])
+      @profissionais = Profissional.where(especialidade_id: servico.especialidade_id)
+    else
+      @profissionais = Profissional.all
     end
   end
 
