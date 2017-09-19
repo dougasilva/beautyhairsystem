@@ -5,6 +5,13 @@
   <div class="well well-lg" style="color: black; text-align: center">
 
     <h1>Reservas</h1>
+
+    <div id="divVisualizacao" style="color: black; text-align: center">
+      <h4>Escolha A Visualização das Reservas</h4>
+      <h5><label><input id="calendar" type="checkbox" checked onClick="toggle('calendar');"> Calendário</label>
+      <label><input id="divTabela" type="checkbox" checked onClick="toggle('divTabela');"> Tabela</label></h5>
+    </div>
+
     <div id="calendar">
       <h2 id="month">
     		<%= link_to "<", month: (@date.beginning_of_month-1).strftime("%b%Y") %>
@@ -72,3 +79,18 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+function toggle(divId) {
+  var divArray = document.getElementsByTagName("div");
+  for(i = 0; i < divArray.length; i++){
+      if(divArray[i].id == divId){
+          if(divArray[i].style.display != 'none'){
+              divArray[i].style.display = 'none';
+          }else{
+              divArray[i].style.display = '';
+          }
+      }
+  }
+}
+</script>
