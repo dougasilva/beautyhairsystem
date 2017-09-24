@@ -5,8 +5,20 @@
           <a class="navbar-brand" href=../reservas>Home</a>
         </div>
         <ul class="nav navbar-nav">
-          <li><a href=../clientes><strong>Cliente</strong><span class="sr-only">(current)</span></a></li>
-          <li><a href=../servicos><strong>Serviço</strong><span class="sr-only">(current)</span></a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><strong>Cadastros</strong>
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href=../clientes><strong>Cliente</strong><span class="sr-only">(current)</span></a></li>
+                <li><a href=../servicos><strong>Serviço</strong><span class="sr-only">(current)</span></a></li>
+                <% if current_user.perfil_id == 1 %>
+                  <li><a href=../profissionais><strong>Profissional</strong><span class="sr-only">(current)</span></a></li>
+                  <li><a href=../especialidades><strong>Especialidade</strong><span class="sr-only">(current)</span></a></li>
+                  <li><a href=../perfis><strong>Perfil</strong><span class="sr-only">(current)</span></a></li>
+                  <li><a href=../usuarios><strong>Usuário</strong><span class="sr-only">(current)</span></a></li>
+                <% end %>
+              </ul>
+          </li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><strong>Reservas</strong>
             <span class="caret"></span></a>
@@ -15,12 +27,6 @@
               <li><a href=../reservas/realizadas>Realizadas</a></li>
             </ul>
           </li>
-          <% if current_user.perfil_id == 1 %>
-            <li><a href=../profissionais><strong>Profissional</strong><span class="sr-only">(current)</span></a></li>
-            <li><a href=../especialidades><strong>Especialidade</strong><span class="sr-only">(current)</span></a></li>
-            <li><a href=../perfis><strong>Perfil</strong><span class="sr-only">(current)</span></a></li>
-            <li><a href=../usuarios><strong>Usuário</strong><span class="sr-only">(current)</span></a></li>
-          <% end %>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
