@@ -6,18 +6,21 @@
 
     <h1>Reservas</h1>
 
-    <div id="divVisualizacao" style="color: black; text-align: center">
-      <h4>Escolha A Visualização das Reservas</h4>
+    <div id="divVisualizacao" style="color: blue; text-align: center">
+      <h4>Escolha a Visualização das Reservas</h4>
       <h5><label><input id="calendar" type="checkbox" checked onClick="toggle('calendar');"> Calendário</label>
       <label><input id="divTabela" type="checkbox" checked onClick="toggle('divTabela');"> Tabela</label></h5>
-    </div>
 
-    <div id="calendar">
       <h2 id="month">
     		<%= link_to "<", month: (@date.beginning_of_month-1).strftime("%b%Y") %>
     		<%= @date.strftime('%B / %Y') %>
     		<%= link_to ">", month: (@date.end_of_month+1).strftime("%b%Y") %>
     	</h2>
+
+    </div>
+
+    <div id="calendar">
+
     	<%= calendar_for @reservas, year: @date.year, month: @date.month do |t| %>
     	 <%= t.head('DOM','SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB') %>
     	 <%= t.day(day_method: :data) do |day, reservas| %>
