@@ -21,8 +21,16 @@
           <tr>
             <td><%= cliente.nome %></td>
             <td><%= cliente.data_nascimento.strftime('%d/%m/%Y') %></td>
-            <td><%= format_phone(cliente.telefone) %></td>
-            <td><%= format_cell_phone(cliente.celular) %></td>
+            <% if cliente.telefone.length > 0 %>
+              <td><%= format_phone(cliente.telefone) %></td>
+            <% else %>
+              <td><%= %></td>
+            <% end %>
+            <% if cliente.celular.length > 0 %>
+              <td><%= format_cell_phone(cliente.celular) %></td>
+            <% else %>
+              <td><%= %></td>
+            <% end %>
             <td><%= cliente.email %></td>
             <td><%= link_to 'Exibir', cliente,
                                       :class => "btn btn-success" %></td>

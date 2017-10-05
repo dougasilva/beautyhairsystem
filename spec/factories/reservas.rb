@@ -3,7 +3,7 @@ FactoryGirl.define do
     cliente
     servico
     profissional
-    data '10/01/2016'
+    data :today
     hora '10:00'
     comentarios 'Reserva de testes'
   end
