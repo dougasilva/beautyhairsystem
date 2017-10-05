@@ -8,8 +8,8 @@
 
     <div id="divVisualizacao" style="color: blue; text-align: center">
       <h4>Escolha a Visualização das Reservas</h4>
-      <h5><label><input id="calendar" type="checkbox" checked onClick="toggle('calendar');"> Calendário</label>
-      <label><input id="divTabela" type="checkbox" checked onClick="toggle('divTabela');"> Tabela</label></h5>
+      <h5><label><input id="calendar" value="calendar" name="vizualizacao" type="checkbox" checked onClick="toggle('calendar');"> Calendário</label>
+      <label><input id="divTabela" value="divTabela" name="vizualizacao" type="checkbox" checked onClick="toggle('divTabela');"> Tabela</label></h5>
 
       <h2 id="month">
     		<%= link_to "<", month: (@date.beginning_of_month-1).strftime("%b%Y") %>
@@ -37,7 +37,7 @@
     	<% end %>
     </div>
     <br />
-    <div id="divTabela" class="table-responsive" style=”display:none”>
+    <div id="divTabela" class="table-responsive">
 
       <table class="table table-bordered">
         <thead>

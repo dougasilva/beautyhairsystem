@@ -1,19 +1,38 @@
 require 'rails_helper'
 feature 'Usuario cria novo cliente com ' do
+
+  before :each do
+    perfil1 =  create(:perfil, nome: 'Administrador')
+    especialidade1 = create(:especialidade, nome: 'Gerente')
+    profissional1 =  create(:profissional, nome:'Douglas Silva', cpf:'17748106894',
+                           data_nascimento: '20/02/1975',
+                           especialidade: especialidade1, telefone: '',
+                           celular: '11976108755', email: '')
+
+    usuario1 = create(:usuario, profissional: profissional1, perfil: perfil1,
+                      usuario:'douglas.silva', password: '1234567',
+                      password_confirmation: '1234567')
+
+    visit sign_in_path
+    fill_in 'Usuário:', with: 'douglas.silva'
+    fill_in 'Senha:', with: '1234567'
+    click_button 'Login'
+  end
+
   scenario 'sucesso' do
     visit new_cliente_path
     fill_in 'Nome:', with: 'Janaina Ferreira'
-    fill_in 'Data Nasc.:', with: '01/03/1981'
+    fill_in 'Nascimento:', with: '01/03/1981'
     fill_in 'Telefone:', with: '1145563655'
     fill_in 'Celular:', with: '11995108755'
     fill_in 'Email:', with: 'janaina@ig.com'
     fill_in 'Comentários:', with: 'Cliente de teste.'
-    click_on 'Cadastrar'
+    click_on 'Salvar'
 
     expect(page).to have_content 'Janaina Ferreira'
     expect(page).to have_content '01/03/1981'
-    expect(page).to have_content '(11)4556-3655'
-    expect(page).to have_content '(11)99510-8755'
+    expect(page).to have_content '(11) 4556-3655'
+    expect(page).to have_content '(11) 99510-8755'
     expect(page).to have_content 'janaina@ig.com'
     expect(page).to have_content 'Cliente de teste.'
     expect(page).to have_content 'Cliente criado com sucesso.'
@@ -21,7 +40,7 @@ feature 'Usuario cria novo cliente com ' do
 
   scenario 'falha' do
     visit new_cliente_path
-    click_on 'Cadastrar'
+    click_on 'Salvar'
 
     expect(page).to have_content 'Alguns erros foram encontrados'
   end
@@ -43,17 +62,17 @@ feature 'Usuario cria novo cliente com ' do
     visit edit_cliente_path(cliente)
 
     fill_in 'Nome:', with: 'Janaina Ferreira'
-    fill_in 'Data Nasc.:', with: '01/03/1981'
+    fill_in 'Nascimento:', with: '01/03/1981'
     fill_in 'Telefone:', with: ''
     fill_in 'Celular:', with: '11995108799'
     fill_in 'Email:', with: 'janaina@ig.com.br'
     fill_in 'Comentários:', with: 'Cliente de teste.'
-    click_on 'Cadastrar'
+    click_on 'Salvar'
 
     expect(page).to have_content 'Janaina Ferreira'
     expect(page).to have_content '01/03/1981'
     expect(page).to have_content ''
-    expect(page).to have_content '(11)99510-8799'
+    expect(page).to have_content '(11) 99510-8799'
     expect(page).to have_content 'janaina@ig.com.br'
     expect(page).to have_content 'Cliente de teste.'
     expect(page).to have_content 'Cliente atualizado com sucesso.'
@@ -65,7 +84,7 @@ feature 'Usuario cria novo cliente com ' do
 
     fill_in 'Nome:', with: ''
 
-    click_on 'Cadastrar'
+    click_on 'Salvar'
 
     expect(page).to have_content 'Alguns erros foram encontrados'
   end

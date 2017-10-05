@@ -57,6 +57,9 @@
               <%= link_to 'Voltar', reservas_path, :class => "btn btn-warning" %>
               <%= link_to 'Editar', edit_reserva_path(@reserva),
                           :class => "btn btn-primary" %>
+              <%= link_to 'Excluir', @reserva, method: :delete,
+                                     data: { confirm: 'Tem certeza?' },
+                                     :class => "btn btn-danger" %>
             </div>
 
           </div>
