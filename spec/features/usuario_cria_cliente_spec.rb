@@ -21,12 +21,18 @@ feature 'Usuario cria novo cliente com ' do
 
   scenario 'sucesso' do
     visit new_cliente_path
-    fill_in 'Nome:', with: 'Janaina Ferreira'
-    fill_in 'Nascimento:', with: '01/03/1981'
-    fill_in 'Telefone:', with: '1145563655'
-    fill_in 'Celular:', with: '11995108755'
-    fill_in 'Email:', with: 'janaina@ig.com'
-    fill_in 'Comentários:', with: 'Cliente de teste.'
+    fill_in 'Nome', with: 'Janaina Ferreira'
+    fill_in 'Nascimento', with: '01/03/1981'
+    fill_in 'Telefone', with: '1145563655'
+    fill_in 'Celular', with: '11995108755'
+    fill_in 'Email', with: 'janaina@ig.com'
+    fill_in 'Cep', with: '06140040'
+    fill_in 'Logradouro', with: 'Rua Pernambucana'
+    fill_in 'Bairro', with: 'Conceição'
+    fill_in 'Cidade', with: 'Osasco'
+    fill_in 'UF', with: 'SP'
+    fill_in 'Número', with: '333'
+    fill_in 'Complemento', with: 'Fundos'
     click_on 'Salvar'
 
     expect(page).to have_content 'Janaina Ferreira'
@@ -34,7 +40,9 @@ feature 'Usuario cria novo cliente com ' do
     expect(page).to have_content '(11) 4556-3655'
     expect(page).to have_content '(11) 99510-8755'
     expect(page).to have_content 'janaina@ig.com'
-    expect(page).to have_content 'Cliente de teste.'
+    expect(page).to have_content '06140-040'
+    expect(page).to have_content '333'
+    expect(page).to have_content 'Fundos'
     expect(page).to have_content 'Cliente criado com sucesso.'
   end
 
@@ -61,12 +69,12 @@ feature 'Usuario cria novo cliente com ' do
     cliente = create(:cliente)
     visit edit_cliente_path(cliente)
 
-    fill_in 'Nome:', with: 'Janaina Ferreira'
-    fill_in 'Nascimento:', with: '01/03/1981'
-    fill_in 'Telefone:', with: ''
-    fill_in 'Celular:', with: '11995108799'
-    fill_in 'Email:', with: 'janaina@ig.com.br'
-    fill_in 'Comentários:', with: 'Cliente de teste.'
+    fill_in 'Nome', with: 'Janaina Ferreira'
+    fill_in 'Nascimento', with: '01/03/1981'
+    fill_in 'Telefone', with: ''
+    fill_in 'Celular', with: '11995108799'
+    fill_in 'Email', with: 'janaina@ig.com.br'
+    fill_in 'Comentários', with: 'Cliente de teste.'
     click_on 'Salvar'
 
     expect(page).to have_content 'Janaina Ferreira'
@@ -82,7 +90,7 @@ feature 'Usuario cria novo cliente com ' do
     cliente = create(:cliente)
     visit edit_cliente_path(cliente)
 
-    fill_in 'Nome:', with: ''
+    fill_in 'Nome', with: ''
 
     click_on 'Salvar'
 

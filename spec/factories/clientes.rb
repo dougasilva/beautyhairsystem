@@ -6,5 +6,12 @@ FactoryGirl.define do
     celular '11995108755'
     email 'janaina@ig.com'
     comentarios 'Cliente de teste.'
+    cep '06140040'
+    logradouro 'Rua Pernambucana'
+    numero '250'
+    compl ''
+    bairro 'Conceição'
+    cidade 'Osasco'
+    uf 'SP'
   end
 end

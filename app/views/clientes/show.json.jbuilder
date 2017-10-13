@@ -1,2 +1,3 @@
 json.extract! @cliente, :id, :nome, :data_nascimento, :telefone, :celular,
-              :email, :comentarios, :created_at, :updated_at
+              :email, :comentarios, :cep, :numero, :compl, :created_at, 
+              :updated_at
