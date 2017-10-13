@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171012210644) do
+ActiveRecord::Schema.define(version: 20171013184941) do
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id"
@@ -52,7 +52,10 @@ ActiveRecord::Schema.define(version: 20171012210644) do
     t.string   "bairro"
     t.string   "cidade"
     t.string   "uf"
+    t.datetime "deleted_at"
   end
+
+  add_index "clientes", ["deleted_at"], name: "index_clientes_on_deleted_at"
 
   create_table "especialidades", force: :cascade do |t|
     t.string   "nome"
