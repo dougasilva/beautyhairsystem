@@ -9,6 +9,7 @@ class Reserva < ActiveRecord::Base
   audited
 
   def self.search_by_month(mes, current_user)
+    belongs_to :cliente
     if current_user.perfil_id == 3
       Reserva.where("strftime('%m/%Y', data) = ? AND
                     realizado = ? AND profissional_id = ?", mes,
@@ -21,6 +22,7 @@ class Reserva < ActiveRecord::Base
   end
 
   def self.search_by_day(dia, current_user)
+    belongs_to :cliente, -> { with_deleted }
     if current_user.perfil_id == 3
       Reserva.where("strftime('%d/%m/%Y', data) = ? AND
                     realizado = ? AND profissional_id = ?", dia,
@@ -32,6 +34,7 @@ class Reserva < ActiveRecord::Base
   end
 
   def self.search_by_realizadas(current_user)
+    belongs_to :cliente, -> { with_deleted }
     if current_user.perfil == 3
       Reserva.where('realizado = ? AND profissional_id = ?', true,
                      current_user.profissional_id).order('data, hora ASC')

@@ -9,4 +9,5 @@ class Cliente < ActiveRecord::Base
   validates :uf, length: { is: 2 }
 
   audited
+  acts_as_paranoid
 end
