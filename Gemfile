@@ -47,6 +47,8 @@ gem 'audited', '~> 4.5'
 
 group :test do
   gem 'capybara'
+  gem 'poltergeist'
+  gem 'phantomjs'
 end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console gem 'byebug'

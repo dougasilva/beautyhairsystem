@@ -24,16 +24,16 @@
                                     input_html: { id: 'cep',
                                                   size: '10', maxlength:'9',
                                                   onblur: 'pesquisacep(this.value);' } %>
-                  <%= f.input :logradouro, label: 'Logradouro',
+                  <%= f.input :logradouro, label: 'Logradouro', readonly: true,
                                            input_html: { id: 'logradouro',
                                                          size: '60' } %>
                   <%= f.input :numero, label: 'Número' %>
                   <%= f.input :compl, label: 'Complemento' %>
-                  <%= f.input :bairro, label: 'Bairro',
+                  <%= f.input :bairro, label: 'Bairro', readonly: true,
                                        input_html: { id: 'bairro', size: '40' } %>
-                  <%= f.input :cidade, label: 'Cidade',
+                  <%= f.input :cidade, label: 'Cidade', readonly: true,
                                        input_html: { id: 'cidade', size: '40' } %>
-                  <%= f.input :uf, label: 'UF', input_html: { id: 'uf',
+                  <%= f.input :uf, label: 'UF', readonly: true, input_html: { id: 'uf',
                                                               size: 2,
                                                               maxlength: 2,
                                                               :style=> 'width: 50px' } %>

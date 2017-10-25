@@ -17,4 +17,6 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.infer_spec_type_from_file_location!
   config.backtrace_exclusion_patterns << /gems/
+  Capybara.default_driver    = :poltergeist
+  Capybara.javascript_driver = :poltergeist
 end

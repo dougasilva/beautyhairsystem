@@ -1,35 +1,33 @@
 require 'rails_helper'
+require 'capybara/poltergeist'
+
+
 feature 'Usuario cria novo cliente com ' do
 
   before :each do
-    perfil1 =  create(:perfil, nome: 'Administrador')
-    especialidade1 = create(:especialidade, nome: 'Gerente')
-    profissional1 =  create(:profissional, nome:'Douglas Silva', cpf:'17748106894',
-                           data_nascimento: '20/02/1975',
-                           especialidade: especialidade1, telefone: '',
-                           celular: '11976108755', email: '')
-
-    usuario1 = create(:usuario, profissional: profissional1, perfil: perfil1,
-                      usuario:'douglas.silva', password: '1234567',
-                      password_confirmation: '1234567')
+    usuario = create(:usuario)
 
     visit sign_in_path
     fill_in 'Usuário:', with: 'douglas.silva'
-    fill_in 'Senha:', with: '1234567'
+    fill_in 'Senha:', with: '123456'
     click_button 'Login'
   end
 
   scenario 'sucesso' do
     visit new_cliente_path
-    fill_in 'Nome', with: 'Janaina Ferreira'
+    fill_in "cliente_nome", with: 'Janaina Ferreira'
     fill_in 'Nascimento', with: '01/03/1981'
     fill_in 'Telefone', with: '1145563655'
     fill_in 'Celular', with: '11995108755'
     fill_in 'Email', with: 'janaina@ig.com'
     fill_in 'Cep', with: '06140040'
+    page.execute_script("$('#logradouro').removeAttr('readonly')")
     fill_in 'Logradouro', with: 'Rua Pernambucana'
+    page.execute_script("$('#bairro').removeAttr('readonly')")
     fill_in 'Bairro', with: 'Conceição'
+    page.execute_script("$('#cidade').removeAttr('readonly')")
     fill_in 'Cidade', with: 'Osasco'
+    page.execute_script("$('#uf').removeAttr('readonly')")
     fill_in 'UF', with: 'SP'
     fill_in 'Número', with: '333'
     fill_in 'Complemento', with: 'Fundos'
@@ -106,4 +104,5 @@ feature 'Usuario cria novo cliente com ' do
 
     expect(page).to have_content 'Cliente excluído com sucesso.'
   end
+
 end
