@@ -1,5 +1,5 @@
 Cliente.create!([
-  {nome: "Janaina Aparecida Ferreira da Silva", data_nascimento: "1981-03-01", telefone: "1145563658", celular: "11995108729", email: "janaina.janafer@gmail.com", comentarios: ""}
+  {nome: "Janaina Aparecida Ferreira da Silva", data_nascimento: "1981-03-01", telefone: "1145563658", celular: "11995108729", email: "janaina.janafer@gmail.com", comentarios: "", cep: "06140040", logradouro: "Rua Pernambucana", numero: "250", compl: "", bairro: "Conceição", cidade: "Osasco", uf: "SP"}
 ])
 Especialidade.create!([
   {nome: "Cabeleireiro", comentarios: nil},

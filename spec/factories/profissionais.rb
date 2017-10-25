@@ -1,11 +1,11 @@
 FactoryGirl.define do
   factory :profissional do
-    nome 'Sandra Souza'
-    cpf '47785201455'
-    data_nascimento '20/02/1979'
+    nome 'Douglas Silva'
+    cpf '17748106894'
+    data_nascimento '18/04/1980'
     especialidade
-    telefone '1145565598'
-    celular '11965108755'
-    email 'sandra.souza@bol.com'
+    telefone '1145563658'
+    celular '11996425797'
+    email 'douglasasilva@gmail.com'
   end
 end

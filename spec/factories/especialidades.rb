@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :especialidade do
-    nome 'Cabeleireiro'
+    nome 'Administrador'
   end
 end

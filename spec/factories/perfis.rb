@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :perfil do
-    nome 'Profissional'
+    nome 'Administrador'
   end
 
 end
