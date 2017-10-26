@@ -4,7 +4,7 @@ describe 'login', :type => :feature do
  it 'signs users in' do
   usuario = create(:usuario)
    visit sign_in_path
-   fill_in 'Usuário:', with: 'sandra.souza'
+   fill_in 'Usuário:', with: 'douglas.silva'
    fill_in 'Senha:', with: '123456'
    click_button 'Login'
 
@@ -15,7 +15,7 @@ describe 'login', :type => :feature do
  it 'signs users in with error' do
   usuario = create(:usuario)
    visit sign_in_path
-   fill_in 'Usuário:', with: 'sandra.souza'
+   fill_in 'Usuário:', with: 'douglas.silva'
    fill_in 'Senha:', with: ''
    click_button 'Login'
 

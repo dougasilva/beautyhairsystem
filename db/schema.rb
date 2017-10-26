@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013184941) do
+ActiveRecord::Schema.define(version: 20171025001010) do
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id"
@@ -80,6 +80,13 @@ ActiveRecord::Schema.define(version: 20171013184941) do
     t.string   "email"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.string   "cep"
+    t.string   "logradouro"
+    t.string   "numero"
+    t.string   "compl"
+    t.string   "bairro"
+    t.string   "cidade"
+    t.string   "uf"
   end
 
   add_index "profissionais", ["especialidade_id"], name: "index_profissionais_on_especialidade_id"

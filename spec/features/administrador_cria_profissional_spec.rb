@@ -1,42 +1,49 @@
 require 'rails_helper'
+require 'capybara/poltergeist'
+
 feature 'Usuario cria profissional com ' do
 
   before :each do
-    perfil =  create(:perfil)
-    especialidade1 = create(:especialidade, nome: 'Gerente')
-    profissional1 =  create(:profissional, nome:'Douglas Silva', cpf:'17748106894',
-                           data_nascimento: '20/02/1975',
-                           especialidade: especialidade1, telefone: '',
-                           celular: '11976108755', email: '')
-
-    usuario1 = create(:usuario, profissional: profissional1, perfil: perfil,
-                      usuario:'douglas.silva', password: '1234567',
-                      password_confirmation: '1234567')
+    usuario = create(:usuario)
 
     visit sign_in_path
     fill_in 'Usuário:', with: 'douglas.silva'
-    fill_in 'Senha:', with: '1234567'
+    fill_in 'Senha:', with: '123456'
     click_button 'Login'
   end
 
   scenario 'sucesso' do
-    especialidade = create(:especialidade)
+    especialidade1 = create(:especialidade, nome: 'Cabeleireiro')
     visit new_profissional_path
     fill_in 'Nome:', with: 'Sandra Souza'
     fill_in 'CPF:', with: '47785201455'
     fill_in 'Data Nasc.:', with: '20/02/1979'
-    select especialidade.nome, from: 'Especialidade:'
+    select especialidade1.nome, from: 'Especialidade:'
     fill_in 'Telefone:', with: '1145565598'
     fill_in 'Celular:', with: '11965108755'
     fill_in 'Email:', with: 'sandra.souza@bol.com'
+    fill_in 'Cep', with: '06140040'
+    page.execute_script("$('#logradouro').removeAttr('readonly')")
+    fill_in 'Logradouro', with: 'Rua Pernambucana'
+    page.execute_script("$('#bairro').removeAttr('readonly')")
+    fill_in 'Bairro', with: 'Conceição'
+    page.execute_script("$('#cidade').removeAttr('readonly')")
+    fill_in 'Cidade', with: 'Osasco'
+    page.execute_script("$('#uf').removeAttr('readonly')")
+    fill_in 'UF', with: 'SP'
+    fill_in 'Número', with: '333'
+    fill_in 'Complemento', with: 'Fundos'
     click_on 'Salvar'
 
     expect(page).to have_content 'Sandra Souza'
     expect(page).to have_content '20/02/1979'
-    expect(page).to have_content especialidade.nome
+    expect(page).to have_content especialidade1.nome
     expect(page).to have_content '(11) 4556-5598'
     expect(page).to have_content '(11) 96510-8755'
     expect(page).to have_content 'sandra.souza@bol.com'
+    expect(page).to have_content '06140-040'
+    expect(page).to have_content '333'
+    expect(page).to have_content 'Fundos'
     expect(page).to have_content 'Profissional criado com sucesso.'
   end
 
@@ -48,14 +55,20 @@ feature 'Usuario cria profissional com ' do
   end
 
   scenario 'sucesso e lista todos os cadastrados' do
-    profissional = create(:profissional)
-    especialidade = create(:especialidade, nome: 'Manicure Pedicure')
+    especialidade1 = create(:especialidade, nome: 'Manicure Pedicure')
+    profissional = create(:profissional, nome: 'Debora Souza',
+                                          especialidade: especialidade1,
+                                          data_nascimento: '19/07/1977',
+                                          email: 'deborasouza@uol.com', telefone: '',
+                                          celular: '11974234737',
+                                          cpf: '14478502100')
+
     profissional1 = create(:profissional, nome: 'Debora Cristina',
-                                          especialidade: especialidade,
+                                          especialidade: especialidade1,
                                           data_nascimento: '19/07/1977',
                                           email: 'debora@uol.com', telefone: '',
                                           celular: '11974234737',
-                                          cpf: '17748106894')
+                                          cpf: '14478501236')
     visit profissionais_path
 
     expect(page).to have_content profissional.nome
@@ -63,7 +76,13 @@ feature 'Usuario cria profissional com ' do
   end
 
   scenario 'sucesso e edita informações' do
-    profissional = create(:profissional)
+    especialidade1 = create(:especialidade, nome: 'Manicure Pedicure')
+    profissional = create(:profissional, nome: 'Debora Souza',
+                                          especialidade: especialidade1,
+                                          data_nascimento: '19/07/1977',
+                                          email: 'deborasouza@uol.com', telefone: '',
+                                          celular: '11974234737',
+                                          cpf: '14478502100')
     visit edit_profissional_path(profissional)
 
     fill_in 'Nome:', with: 'Sandra Maria Souza'
@@ -84,7 +103,13 @@ feature 'Usuario cria profissional com ' do
   end
 
   scenario 'sucesso e atualiza com dados inválidos' do
-    profissional = create(:profissional)
+    especialidade1 = create(:especialidade, nome: 'Manicure Pedicure')
+    profissional = create(:profissional, nome: 'Debora Souza',
+                                          especialidade: especialidade1,
+                                          data_nascimento: '19/07/1977',
+                                          email: 'deborasouza@uol.com', telefone: '',
+                                          celular: '11974234737',
+                                          cpf: '14478502100')
     visit edit_profissional_path(profissional)
 
     fill_in 'Nome:', with: ''
@@ -95,7 +120,13 @@ feature 'Usuario cria profissional com ' do
   end
 
   scenario 'sucesso e exclui profissional' do
-    create(:profissional)
+    especialidade1 = create(:especialidade, nome: 'Manicure Pedicure')
+    profissional = create(:profissional, nome: 'Debora Souza',
+                                          especialidade: especialidade1,
+                                          data_nascimento: '19/07/1977',
+                                          email: 'deborasouza@uol.com', telefone: '',
+                                          celular: '11974234737',
+                                          cpf: '14478502100')
 
     visit profissionais_path
 
