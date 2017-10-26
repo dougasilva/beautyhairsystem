@@ -1,28 +1,21 @@
 require 'rails_helper'
+require 'capybara/poltergeist'
+
 feature 'Usuario cria reserva com ' do
 
   before :each do
-    perfil =  create(:perfil)
-    especialidade1 = create(:especialidade, nome: 'Gerente')
-    profissional1 =  create(:profissional, nome:'Douglas Silva', cpf:'17748106894',
-                           data_nascimento: '20/02/1975',
-                           especialidade: especialidade1, telefone: '',
-                           celular: '11976108755', email: '')
-
-    usuario1 = create(:usuario, profissional: profissional1, perfil: perfil,
-                      usuario:'douglas.silva', password: '1234567',
-                      password_confirmation: '1234567')
+    usuario = create(:usuario)
 
     visit sign_in_path
     fill_in 'Usuário:', with: 'douglas.silva'
-    fill_in 'Senha:', with: '1234567'
+    fill_in 'Senha:', with: '123456'
     click_button 'Login'
-
   end
 
   scenario 'sucesso' do
-    especialidade = create(:especialidade)
-    profissional = create(:profissional, especialidade: especialidade)
+    especialidade = create(:especialidade, nome: 'Cabeleireira')
+    profissional = create(:profissional, nome: 'Debora Cristina',
+                                         especialidade: especialidade)
     cliente = create(:cliente)
     servico = create(:servico, especialidade: especialidade)
     visit new_reserva_path
@@ -52,8 +45,9 @@ feature 'Usuario cria reserva com ' do
   end
 
   scenario 'sucesso e edita informações' do
-    especialidade = create(:especialidade)
-    profissional = create(:profissional, especialidade: especialidade)
+    especialidade = create(:especialidade, nome: 'Cabeleireira')
+    profissional = create(:profissional, nome: 'Debora Cristina',
+                                         especialidade: especialidade)
     cliente = create(:cliente)
     servico = create(:servico, especialidade: especialidade)
     reserva = create(:reserva, cliente: cliente, servico: servico,
@@ -77,8 +71,9 @@ feature 'Usuario cria reserva com ' do
   end
 
   scenario 'sucesso e atualiza com dados inválidos' do
-    especialidade = create(:especialidade)
-    profissional = create(:profissional, especialidade: especialidade)
+    especialidade = create(:especialidade, nome: 'Cabeleireira')
+    profissional = create(:profissional, nome: 'Debora Cristina',
+                                         especialidade: especialidade)
     cliente = create(:cliente)
     servico = create(:servico, especialidade: especialidade)
     reserva = create(:reserva, cliente: cliente, servico: servico,
@@ -94,8 +89,9 @@ feature 'Usuario cria reserva com ' do
   end
 
   scenario ' consulta proximo mês' do
-    especialidade = create(:especialidade)
-    profissional = create(:profissional, especialidade: especialidade)
+    especialidade = create(:especialidade, nome: 'Cabeleireira')
+    profissional = create(:profissional, nome: 'Debora Cristina',
+                                         especialidade: especialidade)
     cliente = create(:cliente)
     servico = create(:servico, especialidade: especialidade)
     reserva = create(:reserva, cliente: cliente, servico: servico,
@@ -110,8 +106,9 @@ feature 'Usuario cria reserva com ' do
   end
 
   scenario ' sucesso e exclui' do
-    especialidade = create(:especialidade)
-    profissional = create(:profissional, especialidade: especialidade)
+    especialidade = create(:especialidade, nome: 'Cabeleireira')
+    profissional = create(:profissional, nome: 'Debora Cristina',
+                                         especialidade: especialidade)
     cliente = create(:cliente)
     servico = create(:servico, especialidade: especialidade)
     reserva = create(:reserva, cliente: cliente, servico: servico,
@@ -127,8 +124,9 @@ feature 'Usuario cria reserva com ' do
   end
 
   scenario ' sucesso e marca como realizada' do
-    especialidade = create(:especialidade)
-    profissional = create(:profissional, especialidade: especialidade)
+    especialidade = create(:especialidade, nome: 'Cabeleireira')
+    profissional = create(:profissional, nome: 'Debora Cristina',
+                                         especialidade: especialidade)
     cliente = create(:cliente)
     servico = create(:servico, especialidade: especialidade)
     reserva = create(:reserva, cliente: cliente, servico: servico,
@@ -146,8 +144,9 @@ feature 'Usuario cria reserva com ' do
   end
 
   scenario ' sucesso, marca como realizada e mostra todas realizadas' do
-    especialidade = create(:especialidade)
-    profissional = create(:profissional, especialidade: especialidade)
+    especialidade = create(:especialidade, nome: 'Cabeleireira')
+    profissional = create(:profissional, nome: 'Debora Cristina',
+                                         especialidade: especialidade)
     cliente = create(:cliente)
     servico = create(:servico, especialidade: especialidade)
     reserva = create(:reserva, cliente: cliente, servico: servico,

@@ -1,28 +1,21 @@
 require 'rails_helper'
+require 'capybara/poltergeist'
+
 feature 'Profissional consulta reservas com ' do
 
   before :each do
-    perfil =  create(:perfil, nome: 'Administrador')
-    especialidade1 = create(:especialidade, nome: 'Gerente')
-    profissional1 =  create(:profissional, nome:'Douglas Silva', cpf:'17748106894',
-                           data_nascimento: '20/02/1975',
-                           especialidade: especialidade1, telefone: '',
-                           celular: '11976108755', email: '')
-
-    usuario1 = create(:usuario, profissional: profissional1, perfil: perfil,
-                      usuario:'douglas.silva', password: '1234567',
-                      password_confirmation: '1234567')
+    usuario = create(:usuario)
 
     visit sign_in_path
     fill_in 'Usuário:', with: 'douglas.silva'
-    fill_in 'Senha:', with: '1234567'
+    fill_in 'Senha:', with: '123456'
     click_button 'Login'
 
   end
 
   scenario 'sucesso' do
 
-    usuario = create(:usuario)
+    #usuario = create(:usuario)
     especialidade3 = create(:especialidade, nome: 'Massagista')
     profissional = create(:profissional, nome: 'Maria', especialidade: especialidade3)
     cliente = create(:cliente)
@@ -60,16 +53,17 @@ feature 'Profissional consulta reservas com ' do
     click_link 'Sair'
 
     visit sign_in_path
-    fill_in 'Usuário:', with: 'sandra.souza'
-    fill_in 'Senha:', with: '123456'
+    fill_in 'Usuário:', with: 'debora.cristina'
+    fill_in 'Senha:', with: '1234567'
     click_button 'Login'
 
     click_link 1.days.from_now.strftime('%d/%m/%Y')
 
+    expect(page).to have_content 'Reservas Do Dia'
+
   end
 
   scenario ' consulta proximo mês' do
-    usuario = create(:usuario)
     especialidade3 = create(:especialidade, nome: 'Massagista')
     profissional = create(:profissional, nome: 'Maria', especialidade: especialidade3)
     cliente = create(:cliente)
@@ -107,15 +101,15 @@ feature 'Profissional consulta reservas com ' do
     click_link 'Sair'
 
     visit sign_in_path
-    fill_in 'Usuário:', with: 'sandra.souza'
-    fill_in 'Senha:', with: '123456'
+    fill_in 'Usuário:', with: 'debora.cristina'
+    fill_in 'Senha:', with: '1234567'
     click_button 'Login'
 
     visit reservas_path
 
     click_on ">"
 
-     #expect(page).to have_content reserva.data.month
+     expect(page).to have_content 1.month.from_now.strftime('%d/%m/%Y')
 
   end
 
