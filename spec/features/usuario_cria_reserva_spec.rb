@@ -180,4 +180,5 @@ feature 'Usuario cria reserva com ' do
     expect(page).to have_content reserva2.cliente.nome
 
   end
+
 end

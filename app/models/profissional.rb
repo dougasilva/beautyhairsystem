@@ -1,6 +1,6 @@
 class Profissional < ActiveRecord::Base
   belongs_to :especialidade
-  belongs_to :usuario
+  has_one :usuario, dependent: :destroy, inverse_of: :profissional
   has_many :reservas
   validates :nome, :cpf, :data_nascimento, :celular, :cep, :numero, :cidade,
             :bairro, :logradouro, :uf, presence: true
@@ -10,5 +10,6 @@ class Profissional < ActiveRecord::Base
   validates :cep, length: { is: 8 }
   validates :uf, length: { is: 2 }
 
-  audited
+  acts_as_paranoid
+  accepts_nested_attributes_for :usuario, allow_destroy: true
 end

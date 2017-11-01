@@ -81,6 +81,9 @@ class ProfissionaisController < ApplicationController
     params.require(:profissional).permit(:nome, :cpf, :data_nascimento,
                                          :especialidade_id, :telefone,
                                          :celular, :email, :cep, :compl, :uf,
-                                         :numero, :logradouro, :cidade, :bairro)
+                                         :numero, :logradouro, :cidade, :bairro,
+                                         usuario_attributes: [:usuario,
+                                         :profissional_id, :password, :perfil_id,
+                                         :password_confirmation])
   end
 end

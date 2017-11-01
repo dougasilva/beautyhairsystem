@@ -6,8 +6,6 @@ class Reserva < ActiveRecord::Base
   accepts_nested_attributes_for :servico, reject_if: :all_blank,
                                           allow_destroy: true
 
-  audited
-
   def self.search_by_month(mes, current_user)
     belongs_to :cliente
     if current_user.perfil_id == 3
