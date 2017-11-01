@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'capybara/poltergeist'
 
-feature 'Usuario cria perfil com ' do
+feature 'Administrador cria perfil com ' do
 
   before :each do
     usuario = create(:usuario)
@@ -28,9 +28,10 @@ feature 'Usuario cria perfil com ' do
     expect(page).to have_content 'Alguns erros foram encontrados'
   end
 
-  scenario 'sucesso e lista todas os cadastradas' do
+  scenario 'sucesso e lista todas os cadastrados' do
     perfil1 = create(:perfil, nome: 'Operador')
-    perfil2 = create(:perfil, nome: 'Profissional')
+    perfil2 = create(:perfil, nome: 'Teste')
+
     visit perfis_path
 
     expect(page).to have_content perfil2.nome

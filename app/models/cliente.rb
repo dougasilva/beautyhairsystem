@@ -8,6 +8,5 @@ class Cliente < ActiveRecord::Base
   validates :cep, length: { is: 8 }
   validates :uf, length: { is: 2 }
 
-  audited
   acts_as_paranoid
 end
