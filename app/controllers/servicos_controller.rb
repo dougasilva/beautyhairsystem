@@ -3,7 +3,7 @@ class ServicosController < ApplicationController
   before_filter :authorize
 
   def index
-    @servicos = Servico.all
+    @servicos = Servico.order(:nome)
   end
 
   def show

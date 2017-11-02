@@ -3,8 +3,9 @@
     <div id="wrapper" style="text-align: center; color: black">
       <h1>Nova Reserva</h1>
     </div>
+    <div class="row">
 
-      <div class="col-md-4">
+      <div class="col-md-4 col-md-push-4">
         <section "Reserva">
 
           <%= simple_form_for @reserva, html: { multipart: true,
@@ -32,6 +33,9 @@
           <% end %>
         </section>
       </div>
+
+    </row>
+
 
     </div>
   </div>

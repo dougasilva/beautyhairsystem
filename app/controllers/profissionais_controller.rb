@@ -7,7 +7,7 @@ class ProfissionaisController < ApplicationController
       servico = Servico.find(params[:servico])
       @profissionais = Profissional.where(especialidade_id: servico.especialidade_id)
     else
-      @profissionais = Profissional.all
+      @profissionais = Profissional.order(:nome)
     end
   end
 

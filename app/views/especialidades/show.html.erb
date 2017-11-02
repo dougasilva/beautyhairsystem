@@ -6,36 +6,29 @@
         <h2>Detalhes da Especialidade</h2>
       </div>
       <section "Mensagem">
-      <p id="notice" style="font-size:16px"><%= notice %></p>
-    </section>
-    <section "especialidade">
-    <div class="col-md-4">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-group" style="font-size:16px">
-              <label for="@especialidade.nome">Nome: </label>
-              <%= @especialidade.nome %><br>
+        <p id="notice" style="font-size:16px"><%= notice %></p>
+      </section>
+      <section "especialidade">
+        <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group" style="font-size:16px">
+                  <label for="@especialidade.nome">Nome: </label>
+                  <%= @especialidade.nome %><br>
+                </div>
+                <div class="form-group" style="font-size:16px">
+                  <label for="@especialidade.comentarios">Comentários: </label>
+                  <%= @especialidade.comentarios %><br>
+                </div>
+              </div>
             </div>
-            <div class="form-group" style="font-size:16px">
-              <label for="@especialidade.comentarios">Comentários: </label>
-              <%= @especialidade.comentarios %><br>
-            </div>
-          </div>
         </div>
+
+      </section>
+
     </div>
 
-  </section>
-
-  <section "Foto">
-    <div class="col-md-4">
-        <div class="form-group">
-          <%= image_tag 'especialidade.jpg' %><br>
-        </div>
-    </div>
-  </section>
-
-</div>
-<p><%= link_to 'Voltar', especialidades_path, :class => "btn btn-warning" %></p>
-</div>
+    <p><%= link_to 'Voltar', especialidades_path, :class => "btn btn-warning" %></p>
+  </div>
 
 </form>

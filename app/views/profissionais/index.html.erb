@@ -9,10 +9,10 @@
         <tr>
           <th style="text-align:center;font-size:16px">Nome</th>
           <th style="text-align:center;font-size:16px">Dt. Nascimento</th>
-          <th style="text-align:center;font-size:16px">Especialidade</th>
           <th style="text-align:center;font-size:16px">Telefone</th>
           <th style="text-align:center;font-size:16px">Celular</th>
           <th style="text-align:center;font-size:16px">Email</th>
+          <th style="text-align:center;font-size:16px">Usuário</th>
           <th style="text-align:center;font-size:16px" colspan="3">Ações</th>
         </tr>
       </thead>
@@ -23,11 +23,6 @@
             <tr>
               <td><%= profissional.nome %></td>
               <td><%= profissional.data_nascimento.strftime('%d/%m/%Y') %></td>
-              <% if profissional.especialidade %>
-                <td><%= profissional.especialidade.nome %></td>
-              <% else %>
-                <td><%= %></td>
-              <% end %>
               <% if profissional.telefone.length > 0 %>
                 <td><%= format_phone(profissional.telefone) %></td>
               <% else %>
@@ -35,6 +30,7 @@
               <% end %>
               <td><%= format_cell_phone(profissional.celular) %></td>
               <td><%= profissional.email %></td>
+              <td><%= profissional.usuario.usuario %></td>
               <td><%= link_to 'Exibir', profissional,
                                         :class => "btn btn-success" %></td>
               <% if current_user.perfil_id == 1 %>
