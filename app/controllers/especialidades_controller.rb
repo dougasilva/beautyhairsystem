@@ -3,7 +3,7 @@ class EspecialidadesController < ApplicationController
   before_filter :authorize
 
   def index
-    @especialidades = Especialidade.all
+    @especialidades = Especialidade.order(:nome)
   end
 
   def show

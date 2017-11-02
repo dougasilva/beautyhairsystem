@@ -4,7 +4,7 @@ class PerfisController < ApplicationController
 
   def index
     if current_user.perfil_id == 1 || current_user.perfil_id == 2
-      @perfis = Perfil.all
+      @perfis = Perfil.order(:nome)
     else
       redirect_to reservas_path
     end

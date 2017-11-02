@@ -3,7 +3,7 @@ class ClientesController < ApplicationController
   before_filter :authorize
 
   def index
-      @clientes = Cliente.all
+      @clientes = Cliente.order(:nome)
   end
 
   def show
