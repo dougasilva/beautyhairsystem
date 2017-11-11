@@ -3,7 +3,7 @@ require 'capybara/poltergeist'
 
 feature 'Usuario cria servico com ' do
   before :each do
-    usuario = create(:usuario)
+    create(:usuario)
 
     visit sign_in_path
     fill_in 'Usuário:', with: 'douglas.silva'
@@ -81,7 +81,7 @@ feature 'Usuario cria servico com ' do
 
   scenario 'sucesso e exclui servico' do
     especialidade = create(:especialidade, nome: 'Cabeleireira')
-    servico = create(:servico, especialidade: especialidade)
+    create(:servico, especialidade: especialidade)
 
     visit servicos_path
 

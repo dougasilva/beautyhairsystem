@@ -6,8 +6,8 @@ feature 'Usuario cria profissional com ' do
     usuario = create(:usuario)
 
     visit sign_in_path
-    fill_in 'Usuário:', with: 'douglas.silva'
-    fill_in 'Senha:', with: '123456'
+    fill_in 'Usuário:', with: usuario.usuario
+    fill_in 'Senha:', with: usuario.password
     click_button 'Login'
   end
 
@@ -97,9 +97,9 @@ feature 'Usuario cria profissional com ' do
                                           email: 'debora@uol.com', telefone: '',
                                           celular: '11974234737',
                                           cpf: '14478501236')
-    usuario1 = create(:usuario, profissional: profissional1,
-                                usuario: 'debora.silva', perfil: perfil1,
-                                password: '123456', password_confirmation: '123456')
+    create(:usuario, profissional: profissional1,
+                     usuario: 'debora.silva', perfil: perfil1,
+                     password: '123456', password_confirmation: '123456')
 
     visit edit_profissional_path(profissional1)
 
@@ -128,9 +128,9 @@ feature 'Usuario cria profissional com ' do
                                           email: 'debora@uol.com', telefone: '',
                                           celular: '11974234737',
                                           cpf: '14478501236')
-    usuario1 = create(:usuario, profissional: profissional1,
-                                usuario: 'debora.silva', perfil: perfil1,
-                                password: '123456', password_confirmation: '123456')
+    create(:usuario, profissional: profissional1,
+                     usuario: 'debora.silva', perfil: perfil1,
+                     password: '123456', password_confirmation: '123456')
 
     visit edit_profissional_path(profissional1)
 
@@ -146,7 +146,8 @@ feature 'Usuario cria profissional com ' do
     profissional = create(:profissional, nome: 'Debora Souza',
                                          especialidade: especialidade1,
                                          data_nascimento: '19/07/1977',
-                                         email: 'deborasouza@uol.com', telefone: '',
+                                         email: 'deborasouza@uol.com',
+                                         telefone: '',
                                          celular: '11974234737',
                                          cpf: '14478502100')
 

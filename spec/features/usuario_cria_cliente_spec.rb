@@ -3,7 +3,7 @@ require 'capybara/poltergeist'
 
 feature 'Usuario cria novo cliente com ' do
   before :each do
-    usuario = create(:usuario)
+    create(:usuario)
 
     visit sign_in_path
     fill_in 'Usuário:', with: 'douglas.silva'

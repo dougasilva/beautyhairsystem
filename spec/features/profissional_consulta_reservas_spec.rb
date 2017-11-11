@@ -3,7 +3,7 @@ require 'capybara/poltergeist'
 
 feature 'Profissional consulta reservas com ' do
   before :each do
-    usuario = create(:usuario)
+    create(:usuario)
 
     visit sign_in_path
     fill_in 'Usuário:', with: 'douglas.silva'
@@ -14,7 +14,8 @@ feature 'Profissional consulta reservas com ' do
   scenario 'sucesso' do
     # usuario = create(:usuario)
     especialidade3 = create(:especialidade, nome: 'Massagista')
-    profissional = create(:profissional, nome: 'Maria', especialidade: especialidade3)
+    profissional = create(:profissional, nome: 'Maria',
+                                         especialidade: especialidade3)
     cliente = create(:cliente)
     servico = create(:servico, nome: 'Massagem', especialidade: especialidade3)
     visit new_reserva_path
@@ -36,16 +37,16 @@ feature 'Profissional consulta reservas com ' do
                                           email: 'debora@uol.com', telefone: '',
                                           celular: '11974234737',
                                           cpf: '17748106894')
-    usuario2 = create(:usuario, profissional: profissional2, perfil: perfil2,
-                                usuario: 'debora.cristina', password: '1234567',
-                                password_confirmation: '1234567')
-    cliente2 = create(:cliente, nome: 'Amanda Nanes',
-                                data_nascimento: '15/04/1985',
-                                email: 'amanda@uol.com', telefone: '',
-                                celular: '11984234737')
-    reserva2 = create(:reserva, cliente: cliente2, servico: servico2,
-                                data: 1.day.from_now,
-                                profissional: profissional2)
+    create(:usuario, profissional: profissional2, perfil: perfil2,
+                     usuario: 'debora.cristina', password: '1234567',
+                     password_confirmation: '1234567')
+    create(:cliente, nome: 'Amanda Nanes',
+                     data_nascimento: '15/04/1985',
+                     email: 'amanda@uol.com', telefone: '',
+                     celular: '11984234737')
+    create(:reserva, cliente: cliente2, servico: servico2,
+                     data: 1.day.from_now,
+                     profissional: profissional2)
 
     click_link 'Sair'
 
@@ -61,7 +62,8 @@ feature 'Profissional consulta reservas com ' do
 
   scenario ' consulta proximo mês' do
     especialidade3 = create(:especialidade, nome: 'Massagista')
-    profissional = create(:profissional, nome: 'Maria', especialidade: especialidade3)
+    profissional = create(:profissional, nome: 'Maria',
+                                         especialidade: especialidade3)
     cliente = create(:cliente)
     servico = create(:servico, nome: 'Massagem', especialidade: especialidade3)
     visit new_reserva_path
@@ -83,16 +85,16 @@ feature 'Profissional consulta reservas com ' do
                                           email: 'debora@uol.com', telefone: '',
                                           celular: '11974234737',
                                           cpf: '17748106894')
-    usuario2 = create(:usuario, profissional: profissional2, perfil: perfil2,
-                                usuario: 'debora.cristina', password: '1234567',
-                                password_confirmation: '1234567')
+    create(:usuario, profissional: profissional2, perfil: perfil2,
+                     usuario: 'debora.cristina', password: '1234567',
+                     password_confirmation: '1234567')
     cliente2 = create(:cliente, nome: 'Amanda Nanes',
                                 data_nascimento: '15/04/1985',
                                 email: 'amanda@uol.com', telefone: '',
                                 celular: '11984234737')
-    reserva2 = create(:reserva, cliente: cliente2, servico: servico2,
-                                data: 1.day.from_now,
-                                profissional: profissional2)
+    create(:reserva, cliente: cliente2, servico: servico2,
+                     data: 1.day.from_now,
+                     profissional: profissional2)
 
     click_link 'Sair'
 

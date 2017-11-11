@@ -3,7 +3,7 @@ require 'capybara/poltergeist'
 
 feature 'Usuario cria reserva com ' do
   before :each do
-    usuario = create(:usuario)
+    create(:usuario)
 
     visit sign_in_path
     fill_in 'Usuário:', with: 'douglas.silva'
@@ -93,8 +93,10 @@ feature 'Usuario cria reserva com ' do
                                          especialidade: especialidade)
     cliente = create(:cliente)
     servico = create(:servico, especialidade: especialidade)
-    reserva = create(:reserva, cliente: cliente, servico: servico,
-                               data: 30.days.from_now, profissional: profissional)
+    reserva = create(:reserva, cliente: cliente,
+                               servico: servico,
+                               data: 30.days.from_now,
+                               profissional: profissional)
 
     visit reservas_path
 

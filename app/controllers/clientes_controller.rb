@@ -63,8 +63,7 @@ class ClientesController < ApplicationController
   end
 
   def destroy
-    if current_user.perfil_id == 1
-      @cliente.destroy
+    if current_user.perfil_id == 1 && @cliente.destroy
       respond_to do |format|
         format.html do
           redirect_to clientes_url,
@@ -72,6 +71,11 @@ class ClientesController < ApplicationController
         end
         format.json { head :no_content }
       end
+    else
+      Rails.logger.warn("Usuário com perfil diferente de 1 não excluido: \
+                        User #{current_user.usuario}, \
+                        cliente #{@cliente.id - @cliente.nome}")
+      # TODO, tratar quando nao conseguir excluir
     end
   end
 
@@ -83,7 +87,8 @@ class ClientesController < ApplicationController
 
   def cliente_params
     params.require(:cliente).permit(:nome, :data_nascimento, :telefone,
-                                    :celular, :email, :comentarios, :cep, :compl,
-                                    :numero, :logradouro, :cidade, :bairro, :uf)
+                                    :celular, :email, :comentarios, :cep,
+                                    :compl, :numero, :logradouro, :cidade,
+                                    :bairro, :uf)
   end
 end

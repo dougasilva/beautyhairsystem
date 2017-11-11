@@ -17,3 +17,6 @@ AllCops:
     - 'spec/spec_helper.rb'
     - 'Rakefile'
     - '/config.ru'
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
