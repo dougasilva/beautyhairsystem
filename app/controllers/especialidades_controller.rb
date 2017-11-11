@@ -1,13 +1,12 @@
 class EspecialidadesController < ApplicationController
-  before_action :set_especialidade, only: [:show, :edit, :update, :destroy]
-  before_filter :authorize
+  before_action :set_especialidade, only: %i[show edit update destroy]
+  before_action :authorize
 
   def index
     @especialidades = Especialidade.order(:nome)
   end
 
-  def show
-  end
+  def show; end
 
   def new
     if current_user.perfil_id == 1 || current_user.perfil_id == 2
@@ -18,9 +17,7 @@ class EspecialidadesController < ApplicationController
   end
 
   def edit
-    if current_user.perfil_id == 3
-      redirect_to especialidades_path
-    end
+    redirect_to especialidades_path if current_user.perfil_id == 3
   end
 
   def create
@@ -29,13 +26,17 @@ class EspecialidadesController < ApplicationController
 
       respond_to do |format|
         if @especialidade.save
-          format.html { redirect_to @especialidade,
-                        notice: 'Especialidade criada.' }
+          format.html do
+            redirect_to @especialidade,
+                        notice: 'Especialidade criada.'
+          end
           format.json { render :show, status: :created, location: @especialidade }
         else
           format.html { render :new }
-          format.json { render json: @especialidade.errors,
-                        status: :unprocessable_entity }
+          format.json do
+            render json: @especialidade.errors,
+                   status: :unprocessable_entity
+          end
         end
       end
     end
@@ -45,13 +46,17 @@ class EspecialidadesController < ApplicationController
     if current_user.perfil_id == 1 || current_user.perfil_id == 2
       respond_to do |format|
         if @especialidade.update(especialidade_params)
-          format.html { redirect_to @especialidade,
-                        notice: 'Especialidade atualizada.' }
+          format.html do
+            redirect_to @especialidade,
+                        notice: 'Especialidade atualizada.'
+          end
           format.json { render :show, status: :ok, location: @especialidade }
         else
           format.html { render :edit }
-          format.json { render json: @especialidade.errors,
-                        status: :unprocessable_entity }
+          format.json do
+            render json: @especialidade.errors,
+                   status: :unprocessable_entity
+          end
         end
       end
     end
@@ -61,8 +66,10 @@ class EspecialidadesController < ApplicationController
     if current_user.perfil_id == 1
       @especialidade.destroy
       respond_to do |format|
-        format.html { redirect_to especialidades_url,
-                      notice: 'Especialidade excluída.' }
+        format.html do
+          redirect_to especialidades_url,
+                      notice: 'Especialidade excluída.'
+        end
         format.json { head :no_content }
       end
     end

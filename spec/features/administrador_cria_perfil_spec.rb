@@ -1,10 +1,8 @@
 require 'rails_helper'
-require 'capybara/poltergeist'
 
 feature 'Administrador cria perfil com ' do
-
   before :each do
-    usuario = create(:usuario)
+    create(:usuario)
 
     visit sign_in_path
     fill_in 'Usuário:', with: 'douglas.silva'
@@ -61,7 +59,6 @@ feature 'Administrador cria perfil com ' do
   end
 
   scenario 'sucesso e exclui' do
-
     visit perfis_path
 
     click_on 'Excluir'

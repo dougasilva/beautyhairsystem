@@ -1,6 +1,6 @@
 class UsuariosController < ApplicationController
-  before_action :set_usuario, only: [:show, :edit, :update, :destroy]
-  before_filter :authorize
+  before_action :set_usuario, only: %i[show edit update destroy]
+  before_action :authorize
 
   def new
     if current_user.perfil_id == 1
@@ -18,9 +18,9 @@ class UsuariosController < ApplicationController
     if current_user.perfil_id == 1
       @usuario = Usuario.new(usuario_params)
       if @usuario.save
-        redirect_to @usuario, notice: "Usuário criado com sucesso!"
+        redirect_to @usuario, notice: 'Usuário criado com sucesso!'
       else
-       render action: :new
+        render action: :new
       end
     end
   end
@@ -35,15 +35,11 @@ class UsuariosController < ApplicationController
   end
 
   def show
-    if current_user.perfil_id == 1
-      @usuario = Usuario.find(params[:id])
-    end
+    @usuario = Usuario.find(params[:id]) if current_user.perfil_id == 1
   end
 
   def edit
-    if current_user.perfil_id != 1
-      redirect_to reservas_path
-    end
+    redirect_to reservas_path if current_user.perfil_id != 1
   end
 
   def update
@@ -54,8 +50,10 @@ class UsuariosController < ApplicationController
           format.json { render :show, status: :ok, location: @usuario }
         else
           format.html { render :edit }
-          format.json { render json: @usuario.errors,
-                        status: :unprocessable_entity }
+          format.json do
+            render json: @usuario.errors,
+                   status: :unprocessable_entity
+          end
         end
       end
     end
@@ -79,7 +77,6 @@ class UsuariosController < ApplicationController
 
   def usuario_params
     params.require(:usuario).permit(:usuario, :profissional_id, :password,
-                                 :password_confirmation, :perfil_id)
+                                    :password_confirmation, :perfil_id)
   end
-
 end

@@ -1,6 +1,6 @@
 class ProfissionaisController < ApplicationController
-  before_action :set_profissional, only: [:show, :edit, :update, :destroy]
-  before_filter :authorize
+  before_action :set_profissional, only: %i[show edit update destroy]
+  before_action :authorize
 
   def index
     if params[:servico]
@@ -11,19 +11,14 @@ class ProfissionaisController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def new
-    if current_user.perfil_id == 1
-      @profissional = Profissional.new
-    end
+    @profissional = Profissional.new if current_user.perfil_id == 1
   end
 
   def edit
-    if current_user.perfil_id != 1
-      redirect_to reservas_path
-    end
+    redirect_to reservas_path if current_user.perfil_id != 1
   end
 
   def create
@@ -32,13 +27,17 @@ class ProfissionaisController < ApplicationController
 
       respond_to do |format|
         if @profissional.save
-          format.html { redirect_to @profissional,
-                        notice: 'Profissional criado com sucesso.' }
+          format.html do
+            redirect_to @profissional,
+                        notice: 'Profissional criado com sucesso.'
+          end
           format.json { render :show, status: :created, location: @profissional }
         else
           format.html { render :new }
-          format.json { render json: @profissional.errors,
-                        status: :unprocessable_entity }
+          format.json do
+            render json: @profissional.errors,
+                   status: :unprocessable_entity
+          end
         end
       end
     end
@@ -48,13 +47,17 @@ class ProfissionaisController < ApplicationController
     if current_user.perfil_id == 1
       respond_to do |format|
         if @profissional.update(profissional_params)
-          format.html { redirect_to @profissional,
-                        notice: 'Profissional atualizado com sucesso.' }
+          format.html do
+            redirect_to @profissional,
+                        notice: 'Profissional atualizado com sucesso.'
+          end
           format.json { render :show, status: :ok, location: @profissional }
         else
           format.html { render :edit }
-          format.json { render json: @profissional.errors,
-                        status: :unprocessable_entity }
+          format.json do
+            render json: @profissional.errors,
+                   status: :unprocessable_entity
+          end
         end
       end
     end
@@ -64,8 +67,10 @@ class ProfissionaisController < ApplicationController
     if current_user.perfil_id == 1
       @profissional.destroy
       respond_to do |format|
-        format.html { redirect_to profissionais_url,
-                      notice: 'Profissional excluído com sucesso.' }
+        format.html do
+          redirect_to profissionais_url,
+                      notice: 'Profissional excluído com sucesso.'
+        end
         format.json { head :no_content }
       end
     end
@@ -82,8 +87,8 @@ class ProfissionaisController < ApplicationController
                                          :especialidade_id, :telefone,
                                          :celular, :email, :cep, :compl, :uf,
                                          :numero, :logradouro, :cidade, :bairro,
-                                         usuario_attributes: [:usuario,
-                                         :profissional_id, :password, :perfil_id,
-                                         :password_confirmation])
+                                         usuario_attributes: %i[usuario
+                                                                profissional_id password perfil_id
+                                                                password_confirmation])
   end
 end

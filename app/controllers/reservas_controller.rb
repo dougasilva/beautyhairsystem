@@ -1,18 +1,17 @@
 class ReservasController < ApplicationController
-  before_action :set_reserva, only: [:show, :edit, :update, :destroy]
-  before_filter :authorize
+  before_action :set_reserva, only: %i[show edit update destroy]
+  before_action :authorize
 
   def index
     @date = params[:month] ? Date.parse(params[:month]) : Date.today
-    @reservas = Reserva.search_by_month(@date.strftime("%m/%Y"), current_user)
+    @reservas = Reserva.search_by_month(@date.strftime('%m/%Y'), current_user)
   end
 
-  def show
-  end
+  def show; end
 
   def por_data
     @date = params[:data] ? Date.parse(params[:data]) : Date.today
-    @reservas = Reserva.search_by_day(@date.strftime("%d/%m/%Y"), current_user)
+    @reservas = Reserva.search_by_day(@date.strftime('%d/%m/%Y'), current_user)
   end
 
   def realizadas
@@ -32,20 +31,21 @@ class ReservasController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @reserva = Reserva.new(reserva_params)
-    @reserva.preco = @reserva.servico.preco
+    @reserva.preco = @reserva.servico.try(:preco)
     respond_to do |format|
       if @reserva.save
         format.html { redirect_to @reserva, notice: 'Reserva criada.' }
         format.json { render :show, status: :created, location: @reserva }
       else
         format.html { render :new }
-        format.json { render json: @reserva.errors, status:
-                      :unprocessable_entity }
+        format.json do
+          render json: @reserva.errors, status:
+                      :unprocessable_entity
+        end
       end
     end
   end
@@ -58,8 +58,10 @@ class ReservasController < ApplicationController
         format.json { render :show, status: :ok, location: @reserva }
       else
         format.html { render :edit }
-        format.json { render json: @reserva.errors,
-                      status: :unprocessable_entity }
+        format.json do
+          render json: @reserva.errors,
+                 status: :unprocessable_entity
+        end
       end
     end
   end

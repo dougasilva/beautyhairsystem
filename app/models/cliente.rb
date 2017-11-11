@@ -1,4 +1,4 @@
-class Cliente < ActiveRecord::Base
+class Cliente < ApplicationRecord
   has_many :reservas
   validates :nome, :data_nascimento, :celular, :cep, :numero, :cidade, :bairro,
             :logradouro, :uf, presence: true

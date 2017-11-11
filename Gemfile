@@ -1,12 +1,11 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
-gem "paranoia", "~> 2.2"
+gem 'paranoia', '~> 2.2'
 
 gem 'pry-byebug'
 
@@ -23,7 +22,6 @@ group :assets do
   gem 'compass-rails'
 
   gem 'bcrypt'
-
 end
 
 # Use jquery as the JavaScript library
@@ -39,7 +37,7 @@ gem 'simple_form'
 
 gem 'bootstrap-sass'
 
-gem "watu_table_builder", :require => "table_builder"
+gem 'watu_table_builder', require: 'table_builder'
 
 gem 'cocoon'
 
@@ -47,16 +45,17 @@ gem 'seed_dump'
 
 group :test do
   gem 'capybara'
-  gem 'poltergeist'
+  gem 'launchy'
   gem 'phantomjs'
+  gem 'poltergeist'
 end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console gem 'byebug'
-  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'pry-rails'
-  gem 'simplecov'
+  gem 'rspec-rails'
   gem 'rubocop', require: false
+  gem 'simplecov'
 end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -73,5 +72,4 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-
 end

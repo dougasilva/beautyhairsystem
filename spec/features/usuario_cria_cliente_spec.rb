@@ -1,9 +1,7 @@
 require 'rails_helper'
 require 'capybara/poltergeist'
 
-
 feature 'Usuario cria novo cliente com ' do
-
   before :each do
     usuario = create(:usuario)
 
@@ -15,7 +13,7 @@ feature 'Usuario cria novo cliente com ' do
 
   scenario 'sucesso' do
     visit new_cliente_path
-    fill_in "cliente_nome", with: 'Janaina Ferreira'
+    fill_in 'cliente_nome', with: 'Janaina Ferreira'
     fill_in 'Nascimento', with: '01/03/1981'
     fill_in 'Telefone', with: '1145563655'
     fill_in 'Celular', with: '11995108755'
@@ -104,5 +102,4 @@ feature 'Usuario cria novo cliente com ' do
 
     expect(page).to have_content 'Cliente excluído com sucesso.'
   end
-
 end

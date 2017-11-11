@@ -1,4 +1,4 @@
-class Profissional < ActiveRecord::Base
+class Profissional < ApplicationRecord
   belongs_to :especialidade
   has_one :usuario, dependent: :destroy, inverse_of: :profissional
   has_many :reservas

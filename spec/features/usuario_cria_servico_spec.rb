@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'capybara/poltergeist'
 
 feature 'Usuario cria servico com ' do
-
   before :each do
     usuario = create(:usuario)
 

@@ -1,4 +1,4 @@
-class Reserva < ActiveRecord::Base
+class Reserva < ApplicationRecord
   belongs_to :cliente
   belongs_to :servico
   belongs_to :profissional
@@ -20,7 +20,6 @@ class Reserva < ActiveRecord::Base
                     realizado = ? AND pago = ?", mes, false,
                     false).order('data, hora ASC')
     end
-
   end
 
   def self.search_by_day(dia, current_user)
@@ -43,11 +42,11 @@ class Reserva < ActiveRecord::Base
     belongs_to :profissional, -> { with_deleted }
     if current_user.perfil == 3
       Reserva.where('realizado = ? AND profissional_id = ? AND pago = ?', true,
-                     current_user.profissional_id,
-                     false).order('data, hora ASC')
+                    current_user.profissional_id,
+                    false).order('data, hora ASC')
     else
       Reserva.where('realizado = ? AND pago = ?', true,
-                     false).order('data, hora ASC')
+                    false).order('data, hora ASC')
     end
   end
 
@@ -56,12 +55,11 @@ class Reserva < ActiveRecord::Base
     belongs_to :profissional, -> { with_deleted }
     if current_user.perfil == 3
       Reserva.where('realizado = ? AND profissional_id = ? AND pago = ?', true,
-                     current_user.profissional_id,
-                     true).order('data, hora ASC')
+                    current_user.profissional_id,
+                    true).order('data, hora ASC')
     else
       Reserva.where('realizado = ? AND pago = ?', true,
-                     true).order('data, hora ASC')
+                    true).order('data, hora ASC')
     end
   end
-
 end

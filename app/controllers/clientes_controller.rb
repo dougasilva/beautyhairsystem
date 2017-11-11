@@ -1,13 +1,12 @@
 class ClientesController < ApplicationController
-  before_action :set_cliente, only: [:show, :edit, :update, :destroy]
-  before_filter :authorize
+  before_action :set_cliente, only: %i[show edit update destroy]
+  before_action :authorize
 
   def index
-      @clientes = Cliente.order(:nome)
+    @clientes = Cliente.order(:nome)
   end
 
-  def show
-  end
+  def show; end
 
   def new
     if current_user.perfil_id == 1 || current_user.perfil_id == 2
@@ -18,9 +17,7 @@ class ClientesController < ApplicationController
   end
 
   def edit
-    if current_user.perfil_id == 3
-      redirect_to clientes_path
-    end
+    redirect_to clientes_path if current_user.perfil_id == 3
   end
 
   def create
@@ -29,13 +26,17 @@ class ClientesController < ApplicationController
 
       respond_to do |format|
         if @cliente.save
-          format.html { redirect_to @cliente,
-                        notice: 'Cliente criado com sucesso.' }
+          format.html do
+            redirect_to @cliente,
+                        notice: 'Cliente criado com sucesso.'
+          end
           format.json { render :show, status: :created, location: @cliente }
         else
           format.html { render :new }
-          format.json { render json: @cliente.errors,
-                        status: :unprocessable_entity }
+          format.json do
+            render json: @cliente.errors,
+                   status: :unprocessable_entity
+          end
         end
       end
     end
@@ -45,13 +46,17 @@ class ClientesController < ApplicationController
     if current_user.perfil_id == 1 || current_user.perfil_id == 2
       respond_to do |format|
         if @cliente.update(cliente_params)
-          format.html { redirect_to @cliente,
-                        notice: 'Cliente atualizado com sucesso.' }
+          format.html do
+            redirect_to @cliente,
+                        notice: 'Cliente atualizado com sucesso.'
+          end
           format.json { render :show, status: :ok, location: @cliente }
         else
           format.html { render :edit }
-          format.json { render json: @cliente.errors,
-                        status: :unprocessable_entity }
+          format.json do
+            render json: @cliente.errors,
+                   status: :unprocessable_entity
+          end
         end
       end
     end
@@ -61,8 +66,10 @@ class ClientesController < ApplicationController
     if current_user.perfil_id == 1
       @cliente.destroy
       respond_to do |format|
-        format.html { redirect_to clientes_url,
-                      notice: 'Cliente excluído com sucesso.' }
+        format.html do
+          redirect_to clientes_url,
+                      notice: 'Cliente excluído com sucesso.'
+        end
         format.json { head :no_content }
       end
     end

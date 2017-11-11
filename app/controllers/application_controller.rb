@@ -5,9 +5,6 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   def authorize
-    unless logged_in?
-      redirect_to root_url
-    end
+    redirect_to root_url unless logged_in?
   end
-
 end
