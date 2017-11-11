@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030234343) do
+ActiveRecord::Schema.define(version: 20171111145834) do
 
   create_table "clientes", force: :cascade do |t|
     t.string   "nome"
@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(version: 20171030234343) do
     t.integer  "servico_id"
     t.integer  "profissional_id"
     t.boolean  "realizado"
+    t.boolean  "pago"
+    t.decimal  "preco"
   end
 
   add_index "reservas", ["cliente_id"], name: "index_reservas_on_cliente_id"
