@@ -1,18 +1,19 @@
 Documentation:
   Enabled: false
-Style/MultilineOperationIndentation:
+Rails:
+  Enabled: true
+Layout/MultilineOperationIndentation:
   EnforcedStyle: indented
+Style/FrozenStringLiteralComment:
+  Enabled: false
 AllCops:
-  RunRailsCops: true
   Exclude:
     - 'bin/**/*'
     - 'db/**/*'
     - 'config/**/*'
+    - 'vendor/**/*'
     - 'script/**/*'
-    - !ruby/regexp /old_and_unused\.rb$/
     - 'spec/rails_helper.rb'
     - 'spec/spec_helper.rb'
     - 'Rakefile'
     - '/config.ru'
-    - 'Gemfile'
-    - 'app/inputs/*'
