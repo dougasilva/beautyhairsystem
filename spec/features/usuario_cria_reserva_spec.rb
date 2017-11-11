@@ -181,4 +181,46 @@ feature 'Usuario cria reserva com ' do
 
   end
 
+  scenario ' sucesso, marca como paga e exibe todas pagas' do
+    especialidade = create(:especialidade, nome: 'Cabeleireira')
+    profissional = create(:profissional, nome: 'Debora Cristina',
+                                         especialidade: especialidade)
+    cliente = create(:cliente)
+    servico = create(:servico, especialidade: especialidade)
+    reserva = create(:reserva, cliente: cliente, servico: servico,
+                               profissional: profissional, data: :today,
+                               hora: '10:00')
+    reserva2 = create(:reserva, cliente: cliente, servico: servico,
+                                profissional: profissional, data: :today,
+                                hora: '11:00')
+
+    visit edit_reserva_path(reserva)
+
+    fill_in 'Data:', with: 0.days.from_now
+    fill_in 'Hora:', with: '10:00'
+    page.check 'Realizado'
+    page.check 'Pago'
+    click_on 'Salvar'
+
+    expect(page).to have_content 'Reserva atualizada.'
+
+    visit edit_reserva_path(reserva2)
+
+    fill_in 'Data:', with: 0.days.from_now
+    fill_in 'Hora:', with: '11:00'
+    page.check 'Realizado'
+    page.check 'Pago'
+    click_on 'Salvar'
+
+    expect(page).to have_content 'Reserva atualizada.'
+
+    visit reservas_pagas_path
+
+    expect(page).to have_content reserva.cliente.nome
+    expect(page).to have_content reserva2.cliente.nome
+
+  end
+
+
+
 end

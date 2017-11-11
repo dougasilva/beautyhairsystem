@@ -19,8 +19,13 @@ class ReservasController < ApplicationController
     @reservas = Reserva.search_by_realizadas(current_user)
   end
 
+  def pagas
+    @reservas = Reserva.search_pagas(current_user)
+  end
+
   def new
     @reserva = Reserva.new
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @reserva }
@@ -32,6 +37,7 @@ class ReservasController < ApplicationController
 
   def create
     @reserva = Reserva.new(reserva_params)
+    @reserva.preco = @reserva.servico.preco
     respond_to do |format|
       if @reserva.save
         format.html { redirect_to @reserva, notice: 'Reserva criada.' }
@@ -46,6 +52,7 @@ class ReservasController < ApplicationController
 
   def update
     respond_to do |format|
+      @reserva.preco = @reserva.servico.preco
       if @reserva.update(reserva_params)
         format.html { redirect_to @reserva, notice: 'Reserva atualizada.' }
         format.json { render :show, status: :ok, location: @reserva }
@@ -73,6 +80,7 @@ class ReservasController < ApplicationController
 
   def reserva_params
     params.require(:reserva).permit(:cliente_id, :servico_id, :profissional_id,
-                                    :data, :hora, :comentarios, :realizado)
+                                    :data, :hora, :comentarios, :realizado,
+                                    :pago, :preco)
   end
 end

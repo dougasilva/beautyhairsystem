@@ -8,6 +8,8 @@ gem 'sqlite3'
 
 gem "paranoia", "~> 2.2"
 
+gem 'pry-byebug'
+
 group :assets do
   # Use SCSS for stylesheets
   gem 'sass-rails', '~> 5.0'

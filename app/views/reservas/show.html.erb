@@ -6,60 +6,83 @@
          <h2>Detalhes da Reserva</h2>
         </div>
 
-        <section "Mensagem">
-          <p id="notice" style="font-size:16px"><%= notice %></p>
-        </section>
-
         <section "Reserva">
-          <div class="col-md-4">
+          <section "Mensagem">
+            <p id="notice" style="font-size:16px"><%= notice %></p>
+          </section>
+
+          <div class="col-md-4 col-md-push-4">
             <div class="row">
-              <div class="col-md-12">
-                <div class="form-group" style="font-size:16px">
-                  <label for="@reserva.cliente.nome">Cliente: </label>
-                  <%= @reserva.cliente.nome %><br>
-                </div>
-                <div class="form-group" style="font-size:16px">
-                  <label for="@reserva.servico.nome">Serviço: </label>
-                  <%= @reserva.servico.nome %><br>
-                </div>
-                <div class="form-group" style="font-size:16px">
-                  <label for="@reserva.profissional.nome">Profissional: </label>
-                  <%= @reserva.profissional.nome %><br>
-                </div>
-                <div class="form-group" style="font-size:16px">
-                  <label for="@reserva.preco">Preço: </label>
-                  <%= number_to_currency(@reserva.servico.preco, locale: 'pt-BR') %>
-                </div>
-                <div class="form-group" style="font-size:16px">
-                  <label for="@reserva.data">Data: </label>
-                  <%= l(@reserva.data, format: :simple) %><br>
-                </div>
-                <div class="form-group" style="font-size:16px">
-                  <label for="@reserva.hora">Hora: </label>
-                  <%= l(@reserva.hora, format: :simple_time) %><br>
-                </div>
-                <div class="form-group" style="font-size:16px">
-                  <label for="@reserva.comentarios">Comentários: </label>
-                  <%= @reserva.comentarios %><br>
-                </div>
-                <div class="form-group" style="font-size:16px">
-                  <label for="@reserva.realizado">Realizado: </label>
-                  <% if @reserva.realizado %>
-                    <%= 'Sim' %>
-                  <% else %>
-                    <%= 'Não' %>
-                  <% end %>
-                </div>
+              <div class="col-md-12" style="font-size:16px">
+                <label for="@reserva.cliente.nome">Cliente: </label>
+                <%= @reserva.cliente.nome %><br>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12" style="font-size:16px">
+                <label for="@reserva.servico.nome">Serviço: </label>
+                <%= @reserva.servico.nome %><br>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12" style="font-size:16px">
+                <label for="@reserva.profissional.nome">Profissional: </label>
+                <%= @reserva.profissional.nome %><br>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12" style="font-size:16px">
+                <label for="@reserva.preco">Preço: </label>
+                <%= number_to_currency(@reserva.preco, locale: 'pt-BR') %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12" style="font-size:16px">
+                <label for="@reserva.data">Data: </label>
+                <%= l(@reserva.data, format: :simple) %><br>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12" style="font-size:16px">
+                <label for="@reserva.hora">Hora: </label>
+                <%= l(@reserva.hora, format: :simple_time) %><br>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12" style="font-size:16px">
+                <label for="@reserva.comentarios">Comentários: </label>
+                <%= @reserva.comentarios %><br>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6" style="font-size:16px">
+                <label for="@reserva.realizado">Realizado: </label>
+                <% if @reserva.realizado %>
+                  <%= 'Sim' %>
+                <% else %>
+                  <%= 'Não' %>
+                <% end %>
+              </div>
+              <div class="col-md-6" style="font-size:16px">
+                <label for="@reserva.pago">Pago: </label>
+                <% if @reserva.pago %>
+                  <%= 'Sim' %>
+                <% else %>
+                  <%= 'Não' %>
+                <% end %>
               </div>
             </div>
 
             <div class="form-actions" style="color: white">
               <%= link_to 'Voltar', reservas_path, :class => "btn btn-warning" %>
-              <%= link_to 'Editar', edit_reserva_path(@reserva),
-                          :class => "btn btn-primary" %>
-              <%= link_to 'Excluir', @reserva, method: :delete,
-                                     data: { confirm: 'Tem certeza?' },
-                                     :class => "btn btn-danger" %>
+              <% if @reserva.pago == false %>
+                <%= link_to 'Editar', edit_reserva_path(@reserva),
+                            :class => "btn btn-primary" %>
+                <%= link_to 'Excluir', @reserva, method: :delete,
+                            data: { confirm: 'Tem certeza?' },
+                            :class => "btn btn-danger" %>
+              <% end %>
+
             </div>
 
           </div>

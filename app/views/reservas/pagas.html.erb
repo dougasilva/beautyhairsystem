@@ -1,0 +1,49 @@
+<div class="container" style="color: black; text-align: center;">
+  <p id="notice"><%= notice %></p>
+
+  <h1>Reservas Pagas </h1>
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th style="text-align:center;font-size:16px">Data</th>
+          <th style="text-align:center;font-size:16px">Hora</th>
+          <th style="text-align:center;font-size:16px">Cliente</th>
+          <th style="text-align:center;font-size:16px">Serviço</th>
+          <th style="text-align:center;font-size:16px">Valor</th>
+          <th style="text-align:center;font-size:16px">Profissional</th>
+          <th style="text-align:center;font-size:16px" colspan="3">Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @reservas.each do |reserva| %>
+          <tr>
+            <td><%= reserva.data.strftime('%d/%m/%Y') %></td>
+            <td><%= reserva.hora.strftime('%H:%M') %></td>
+            <td><%= reserva.cliente.nome %></td>
+            <td><%= reserva.servico.nome %></td>
+            <td><%= number_to_currency(reserva.servico.preco, locale: 'pt-BR') %></td>
+            <td><%= reserva.profissional.nome %></td>
+            <td><%= link_to 'Exibir', reserva,
+                                      :class => "btn btn-success" %></td>
+            
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</br>
+
+  <div class="form-actions" style="color: white">
+
+    <%= link_to 'Voltar', reservas_path, :class => "btn btn-warning" %>
+    <% if current_user.perfil_id != 3 %>
+      <%= link_to 'Nova Reserva', new_reserva_path, :method => :get,
+          :class => "btn btn-info" %>
+    <% end %>
+
+  </div>
+
+</div>
