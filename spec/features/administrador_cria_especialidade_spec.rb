@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'capybara/poltergeist'
 
 feature 'Usuario cria especialidade com ' do
-
   before :each do
     usuario = create(:usuario)
 

@@ -1,24 +1,19 @@
 class ServicosController < ApplicationController
-  before_action :set_servico, only: [:show, :edit, :update, :destroy]
-  before_filter :authorize
+  before_action :set_servico, only: %i[show edit update destroy]
+  before_action :authorize
 
   def index
     @servicos = Servico.order(:nome)
   end
 
-  def show
-  end
+  def show; end
 
   def new
-    if current_user.perfil_id == 1
-      @servico = Servico.new
-    end
+    @servico = Servico.new if current_user.perfil_id == 1
   end
 
   def edit
-    if current_user.perfil_id == 3
-      redirect_to reservas_path
-    end
+    redirect_to reservas_path if current_user.perfil_id == 3
   end
 
   def create
@@ -30,8 +25,10 @@ class ServicosController < ApplicationController
           format.json { render :show, status: :created, location: @servico }
         else
           format.html { render :new }
-          format.json { render json: @servico.errors,
-                        status: :unprocessable_entity }
+          format.json do
+            render json: @servico.errors,
+                   status: :unprocessable_entity
+          end
         end
       end
     end
@@ -45,8 +42,10 @@ class ServicosController < ApplicationController
           format.json { render :show, status: :ok, location: @servico }
         else
           format.html { render :edit }
-          format.json { render json: @servico.errors,
-                        status: :unprocessable_entity }
+          format.json do
+            render json: @servico.errors,
+                   status: :unprocessable_entity
+          end
         end
       end
     end

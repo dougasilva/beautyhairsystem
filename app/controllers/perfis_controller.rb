@@ -1,6 +1,6 @@
 class PerfisController < ApplicationController
-  before_action :set_perfil, only: [:show, :edit, :update, :destroy]
-  before_filter :authorize
+  before_action :set_perfil, only: %i[show edit update destroy]
+  before_action :authorize
 
   def index
     if current_user.perfil_id == 1 || current_user.perfil_id == 2
@@ -10,19 +10,14 @@ class PerfisController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def new
-    if current_user.perfil_id == 1
-      @perfil = Perfil.new
-    end
+    @perfil = Perfil.new if current_user.perfil_id == 1
   end
 
   def edit
-    if current_user.perfil_id != 1
-      redirect_to perfis_path
-    end
+    redirect_to perfis_path if current_user.perfil_id != 1
   end
 
   def create
@@ -66,11 +61,12 @@ class PerfisController < ApplicationController
   end
 
   private
-    def set_perfil
-      @perfil = Perfil.find(params[:id])
-    end
 
-    def perfil_params
-      params.require(:perfil).permit(:nome)
-    end
+  def set_perfil
+    @perfil = Perfil.find(params[:id])
+  end
+
+  def perfil_params
+    params.require(:perfil).permit(:nome)
+  end
 end

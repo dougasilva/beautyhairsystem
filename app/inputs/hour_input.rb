@@ -1,8 +1,8 @@
 class HourInput < SimpleForm::Inputs::Base
-  def input(wrapper_options)
+  def input(_wrapper_options)
     @builder.select(attribute_name, hour_options,
                     { selected: selected_value },
-                    { class: 'input-medium' })
+                    class: 'input-medium')
   end
 
   private
@@ -10,8 +10,8 @@ class HourInput < SimpleForm::Inputs::Base
   def hour_options
     hour = [['Selecione...', '00:00']]
     (8..21).each do |h|
-      %w(00 15 30 45).each do |m|
-        hour.push ["#{h}:#{m}", "#{'%02d' % h}:#{m}"]
+      %w[00 15 30 45].each do |m|
+        hour.push ["#{h}:#{m}", "#{format('%02d', h)}:#{m}"]
       end
     end
     hour
@@ -19,6 +19,6 @@ class HourInput < SimpleForm::Inputs::Base
 
   def selected_value
     value = object.send(attribute_name)
-    value && value.strftime("%H:%M")
+    value&.strftime('%H:%M')
   end
 end

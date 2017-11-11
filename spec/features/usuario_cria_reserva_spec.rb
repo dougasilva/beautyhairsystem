@@ -2,9 +2,8 @@ require 'rails_helper'
 require 'capybara/poltergeist'
 
 feature 'Usuario cria reserva com ' do
-
   before :each do
-    usuario = create(:usuario)
+    create(:usuario)
 
     visit sign_in_path
     fill_in 'Usuário:', with: 'douglas.silva'
@@ -94,33 +93,35 @@ feature 'Usuario cria reserva com ' do
                                          especialidade: especialidade)
     cliente = create(:cliente)
     servico = create(:servico, especialidade: especialidade)
-    reserva = create(:reserva, cliente: cliente, servico: servico,
-                               data: 30.days.from_now, profissional: profissional)
+    reserva = create(:reserva, cliente: cliente,
+                               servico: servico,
+                               data: 30.days.from_now,
+                               profissional: profissional)
 
     visit reservas_path
 
-    click_on ">"
+    click_on '>'
 
-     expect(page).to have_content reserva.data.month
-
+    expect(page).to have_content reserva.data.month
   end
 
-  scenario ' sucesso e exclui' do
+  scenario ' sucesso e exclui', js: true do
     especialidade = create(:especialidade, nome: 'Cabeleireira')
     profissional = create(:profissional, nome: 'Debora Cristina',
                                          especialidade: especialidade)
     cliente = create(:cliente)
     servico = create(:servico, especialidade: especialidade)
-    reserva = create(:reserva, cliente: cliente, servico: servico,
+    reserva = create(:reserva, cliente: cliente,
+                               servico: servico,
                                profissional: profissional,
-                               data: 1.days.from_now, hora: '10:00')
+                               pago: false,
+                               data: 1.day.from_now, hora: '10:00')
 
     visit reserva_path(reserva)
 
     click_on 'Excluir'
 
     expect(page).to have_content 'Reserva excluída.'
-
   end
 
   scenario ' sucesso e marca como realizada' do
@@ -140,7 +141,6 @@ feature 'Usuario cria reserva com ' do
 
     expect(page).to have_content 'Sim'
     expect(page).to have_content 'Reserva atualizada.'
-
   end
 
   scenario ' sucesso, marca como realizada e mostra todas realizadas' do
@@ -178,7 +178,6 @@ feature 'Usuario cria reserva com ' do
 
     expect(page).to have_content reserva.cliente.nome
     expect(page).to have_content reserva2.cliente.nome
-
   end
 
   scenario ' sucesso, marca como paga e exibe todas pagas' do
@@ -218,9 +217,5 @@ feature 'Usuario cria reserva com ' do
 
     expect(page).to have_content reserva.cliente.nome
     expect(page).to have_content reserva2.cliente.nome
-
   end
-
-
-
 end

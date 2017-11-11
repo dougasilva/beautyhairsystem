@@ -8,9 +8,7 @@ module SessionsHelper
   end
 
   def block_access
-    if current_user.present?
-      redirect_to usuarios_path
-    end
+    redirect_to usuarios_path if current_user.present?
   end
 
   def logged_in?
@@ -21,5 +19,4 @@ module SessionsHelper
     session.delete(:usuario_id)
     @current_user = nil
   end
-
 end

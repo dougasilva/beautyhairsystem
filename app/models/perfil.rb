@@ -1,4 +1,4 @@
-class Perfil < ActiveRecord::Base
+class Perfil < ApplicationRecord
   validates :nome, presence: true, uniqueness: true
   has_many :usuarios
 end
