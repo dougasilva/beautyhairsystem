@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :profissional do
     nome 'Douglas Silva'
     cpf '17748106894'

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :especialidade do
     nome 'Administrador'
   end

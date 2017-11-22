@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.5'
+gem 'rails', '4.2.7'
 
 gem 'bootstrap-sass'
 gem 'cocoon'
@@ -33,7 +33,7 @@ group :test do
 end
 
 group :development, :test do
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'rubocop', require: false
