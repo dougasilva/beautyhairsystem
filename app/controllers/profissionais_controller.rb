@@ -3,9 +3,9 @@ class ProfissionaisController < ApplicationController
   before_action :authorize
 
   def index
-    if params[:servico]
-      servico = Servico.find(params[:servico])
-      @profissionais = Profissional.where(especialidade_id: servico.especialidade_id)
+    if params[:profissional]
+      profissional = profissional.find(params[:profissional])
+      @profissionais = Profissional.where(especialidade_id: profissional.especialidade_id)
     else
       @profissionais = Profissional.order(:nome)
     end
@@ -22,58 +22,19 @@ class ProfissionaisController < ApplicationController
   end
 
   def create
-    if current_user.perfil_id == 1
-      @profissional = Profissional.new(profissional_params)
-
-      respond_to do |format|
-        if @profissional.save
-          format.html do
-            redirect_to @profissional,
-                        notice: 'Profissional criado com sucesso.'
-          end
-          format.json { render :show, status: :created, location: @profissional }
-        else
-          format.html { render :new }
-          format.json do
-            render json: @profissional.errors,
-                   status: :unprocessable_entity
-          end
-        end
-      end
-    end
+    @profissional = Profissional.new(prof_params)
+    flash[:notice] = 'Profissional criado.' if current_user.perfil_id != 3 && @profissional.save
+    respond_with(@profissional, location: @profissional)
   end
 
   def update
-    if current_user.perfil_id == 1
-      respond_to do |format|
-        if @profissional.update(profissional_params)
-          format.html do
-            redirect_to @profissional,
-                        notice: 'Profissional atualizado com sucesso.'
-          end
-          format.json { render :show, status: :ok, location: @profissional }
-        else
-          format.html { render :edit }
-          format.json do
-            render json: @profissional.errors,
-                   status: :unprocessable_entity
-          end
-        end
-      end
-    end
+    flash[:notice] = 'Profissional atualizado.' if current_user.perfil_id != 3 && @profissional.update_attributes(prof_params)
+    respond_with(@profissional, location: @profissional)
   end
 
   def destroy
-    if current_user.perfil_id == 1
-      @profissional.destroy
-      respond_to do |format|
-        format.html do
-          redirect_to profissionais_url,
-                      notice: 'Profissional excluído com sucesso.'
-        end
-        format.json { head :no_content }
-      end
-    end
+    flash[:notice] = 'Profissional excluído.' if current_user.perfil_id == 1 && @profissional.destroy
+    respond_with(nil, location: profissionais_url)
   end
 
   private
@@ -82,7 +43,7 @@ class ProfissionaisController < ApplicationController
     @profissional = Profissional.find(params[:id])
   end
 
-  def profissional_params
+  def prof_params
     params.require(:profissional).permit(:nome, :cpf, :data_nascimento,
                                          :especialidade_id, :telefone,
                                          :celular, :email, :cep, :compl, :uf,

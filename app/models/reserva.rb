@@ -13,12 +13,10 @@ class Reserva < ApplicationRecord
     if current_user.perfil_id == 3
       Reserva.where("strftime('%m/%Y', data) = ? AND
                     realizado = ? AND profissional_id = ? AND pago = ?", mes,
-                    false, current_user.profissional_id,
-                    false).order('data, hora ASC')
+                    false, current_user.profissional_id, false).order('data, hora ASC')
     else
       Reserva.where("strftime('%m/%Y', data) = ? AND
-                    realizado = ? AND pago = ?", mes, false,
-                    false).order('data, hora ASC')
+                    realizado = ? AND pago = ?", mes, false, false).order('data, hora ASC')
     end
   end
 
@@ -27,13 +25,11 @@ class Reserva < ApplicationRecord
     belongs_to :profissional, -> { with_deleted }
     if current_user.perfil_id == 3
       Reserva.where("strftime('%d/%m/%Y', data) = ? AND
-                    realizado = ? AND profissional_id = ?", dia,
-                    false, current_user.profissional_id,
-                    false).order('data, hora ASC')
+                    realizado = ? AND profissional_id = ? AND pago = ?", dia,
+                    false, current_user.profissional_id, false).order('data, hora ASC')
     else
       Reserva.where("strftime('%d/%m/%Y', data) = ? AND
-                    realizado = ? AND pago = ?", dia, false,
-                    false).order('data, hora ASC')
+                    realizado = ? AND pago = ?", dia, false, false).order('data, hora ASC')
     end
   end
 
@@ -42,11 +38,9 @@ class Reserva < ApplicationRecord
     belongs_to :profissional, -> { with_deleted }
     if current_user.perfil == 3
       Reserva.where('realizado = ? AND profissional_id = ? AND pago = ?', true,
-                    current_user.profissional_id,
-                    false).order('data, hora ASC')
+                    current_user.profissional_id, false).order('data, hora ASC')
     else
-      Reserva.where('realizado = ? AND pago = ?', true,
-                    false).order('data, hora ASC')
+      Reserva.where('realizado = ? AND pago = ?', true, false).order('data, hora ASC')
     end
   end
 
@@ -55,11 +49,33 @@ class Reserva < ApplicationRecord
     belongs_to :profissional, -> { with_deleted }
     if current_user.perfil == 3
       Reserva.where('realizado = ? AND profissional_id = ? AND pago = ?', true,
-                    current_user.profissional_id,
-                    true).order('data, hora ASC')
+                    current_user.profissional_id, true).order('data, hora ASC')
     else
-      Reserva.where('realizado = ? AND pago = ?', true,
-                    true).order('data, hora ASC')
+      Reserva.where('realizado = ? AND pago = ?', true, true).order('data, hora ASC')
     end
+  end
+
+  def self.search_em_aberto
+    belongs_to :cliente, -> { with_deleted }
+    belongs_to :profissional, -> { with_deleted }
+
+    Reserva.order('clientes.nome').joins(:cliente)
+           .where('reservas.realizado = ? AND pago = ?', true, false)
+           .group(:cliente_id).pluck('clientes.id', :nome,
+                                     'COUNT(reservas.id) AS n_reserva,
+                                     SUM(reservas.preco) AS valor')
+  end
+
+  def self.search_em_aberto_por_cliente(cliente)
+    belongs_to :cliente, -> { with_deleted }
+    belongs_to :profissional, -> { with_deleted }
+
+    Reserva.order('reservas.data').joins(:cliente).joins(:servico)
+           .joins(:profissional).where('reservas.realizado = ? AND
+                                        reservas.pago = ? AND
+                                        reservas.cliente_id = ?', true, false,
+                                       cliente)
+           .pluck(:id, 'clientes.nome, profissionais.nome, reservas.data,
+                  servicos.nome, reservas.preco')
   end
 end

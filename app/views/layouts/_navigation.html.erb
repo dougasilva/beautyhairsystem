@@ -12,10 +12,9 @@
                 <li><a href=../clientes><strong>Cliente</strong><span class="sr-only">(current)</span></a></li>
                 <li><a href=../servicos><strong>Serviço</strong><span class="sr-only">(current)</span></a></li>
                 <% if current_user.perfil_id == 1 %>
-                  <li><a href=../profissionais><strong>Profissional</strong><span class="sr-only">(current)</span></a></li>
                   <li><a href=../especialidades><strong>Especialidade</strong><span class="sr-only">(current)</span></a></li>
                   <li><a href=../perfis><strong>Perfil</strong><span class="sr-only">(current)</span></a></li>
-                  <li><a href=../usuarios><strong>Usuário</strong><span class="sr-only">(current)</span></a></li>
+                  <li><a href=../profissionais><strong>Profissional</strong><span class="sr-only">(current)</span></a></li>
                 <% end %>
               </ul>
           </li>
@@ -23,9 +22,12 @@
             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><strong>Reservas</strong>
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href=../reservas/por_data>Por Data</a></li>
-              <li><a href=../reservas/realizadas>Realizadas</a></li>
-              <li><a href=../reservas/pagas>Pagas</a></li>
+              <li><a href=../reservas/por_data><strong>Por Data</strong><span class="sr-only">(current)</span></a></li>
+              <li><a href=../reservas/realizadas><strong>Realizadas</strong><span class="sr-only">(current)</span></a></li>
+              <% if current_user.perfil_id == 1 || current_user.perfil_id == 2 %>
+                <li><a href=../reservas/em_aberto><strong>Em Aberto</strong><span class="sr-only">(current)</span></a></li>
+                <li><a href=../reservas/pagas><strong>Pagas</strong><span class="sr-only">(current)</span></a></li>
+              <% end %>
             </ul>
           </li>
         </ul>

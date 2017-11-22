@@ -1,0 +1,39 @@
+<div class="container" style="color: black; text-align: center;">
+  <p id="notice"><%= notice %></p>
+
+  <h1>Reservas Em Aberto do Cliente </h1>
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th style="text-align:center;font-size:16px">Cliente</th>
+          <th style="text-align:center;font-size:16px">Profissional</th>
+          <th style="text-align:center;font-size:16px">Data</th>
+          <th style="text-align:center;font-size:16px">Serviço</th>
+          <th style="text-align:center;font-size:16px">Valor</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @reservas.each do |reserva| %>
+          <tr>
+            <td><%= reserva[1] %></td>
+            <td><%= reserva[2] %></td>
+            <td><%= reserva[3].strftime('%d/%m/%Y') %></td>
+            <td><%= reserva[4] %></td>
+            <td><%= number_to_currency(reserva[5], locale: 'pt-BR') %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</br>
+
+  <div class="form-actions" style="color: white">
+
+    <%= link_to 'Voltar', reservas_em_aberto_path, :class => "btn btn-warning" %>
+
+  </div>
+
+</div>

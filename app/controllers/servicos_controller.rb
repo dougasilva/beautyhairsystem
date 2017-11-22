@@ -17,48 +17,19 @@ class ServicosController < ApplicationController
   end
 
   def create
-    if current_user.perfil_id == 1
-      @servico = Servico.new(servico_params)
-      respond_to do |format|
-        if @servico.save
-          format.html { redirect_to @servico, notice: 'Serviço  criado.' }
-          format.json { render :show, status: :created, location: @servico }
-        else
-          format.html { render :new }
-          format.json do
-            render json: @servico.errors,
-                   status: :unprocessable_entity
-          end
-        end
-      end
-    end
+    @servico = Servico.new(servico_params)
+    flash[:notice] = 'Serviço  criado.' if current_user.perfil_id != 3 && @servico.save
+    respond_with(@servico, location: @servico)
   end
 
   def update
-    if current_user.perfil_id == 1 || current_user.perfil_id == 2
-      respond_to do |format|
-        if @servico.update(servico_params)
-          format.html { redirect_to @servico, notice: 'Serviço atualizado.' }
-          format.json { render :show, status: :ok, location: @servico }
-        else
-          format.html { render :edit }
-          format.json do
-            render json: @servico.errors,
-                   status: :unprocessable_entity
-          end
-        end
-      end
-    end
+    flash[:notice] = 'Serviço atualizado.' if current_user.perfil_id != 3 && @servico.update_attributes(servico_params)
+    respond_with(@servico, location: @servico)
   end
 
   def destroy
-    if current_user.perfil_id == 1
-      @servico.destroy
-      respond_to do |format|
-        format.html { redirect_to servicos_url, notice: 'Serviço excluído.' }
-        format.json { head :no_content }
-      end
-    end
+    flash[:notice] = 'Serviço  excluído.' if current_user.perfil_id == 1 && @servico.destroy
+    respond_with(nil, location: servicos_url)
   end
 
   private

@@ -3,19 +3,28 @@ class ReservasController < ApplicationController
   before_action :authorize
 
   def index
-    @date = params[:month] ? Date.parse(params[:month]) : Date.today
+    @date = params[:month] ? Date.parse(params[:month]) : Time.zone.today
     @reservas = Reserva.search_by_month(@date.strftime('%m/%Y'), current_user)
   end
 
   def show; end
 
   def por_data
-    @date = params[:data] ? Date.parse(params[:data]) : Date.today
+    @date = params[:data] ? Date.parse(params[:data]) : Time.zone.today
     @reservas = Reserva.search_by_day(@date.strftime('%d/%m/%Y'), current_user)
   end
 
   def realizadas
     @reservas = Reserva.search_by_realizadas(current_user)
+  end
+
+  def em_aberto
+    @reservas = Reserva.search_em_aberto
+  end
+
+  def em_aberto_por_cliente
+    @cliente = params[:cliente_id]
+    @reservas = Reserva.search_em_aberto_por_cliente(@cliente)
   end
 
   def pagas
@@ -24,11 +33,7 @@ class ReservasController < ApplicationController
 
   def new
     @reserva = Reserva.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @reserva }
-    end
+    respond_with(@reserva, location: @reserva)
   end
 
   def edit; end
@@ -36,42 +41,19 @@ class ReservasController < ApplicationController
   def create
     @reserva = Reserva.new(reserva_params)
     @reserva.preco = @reserva.servico.try(:preco)
-    respond_to do |format|
-      if @reserva.save
-        format.html { redirect_to @reserva, notice: 'Reserva criada.' }
-        format.json { render :show, status: :created, location: @reserva }
-      else
-        format.html { render :new }
-        format.json do
-          render json: @reserva.errors, status:
-                      :unprocessable_entity
-        end
-      end
-    end
+    flash[:notice] = 'Reserva criada.' if @reserva.save
+    respond_with(@reserva, location: @reserva)
   end
 
   def update
-    respond_to do |format|
-      @reserva.preco = @reserva.servico.preco
-      if @reserva.update(reserva_params)
-        format.html { redirect_to @reserva, notice: 'Reserva atualizada.' }
-        format.json { render :show, status: :ok, location: @reserva }
-      else
-        format.html { render :edit }
-        format.json do
-          render json: @reserva.errors,
-                 status: :unprocessable_entity
-        end
-      end
-    end
+    @reserva.preco = @reserva.servico.try(:preco)
+    flash[:notice] = 'Reserva atualizada.' if @reserva.update_attributes(reserva_params)
+    respond_with(@reserva, location: @reserva)
   end
 
   def destroy
-    @reserva.destroy
-    respond_to do |format|
-      format.html { redirect_to reservas_url, notice: 'Reserva excluída.' }
-      format.json { head :no_content }
-    end
+    flash[:notice] = 'Reserva excluída.' if @reserva.destroy
+    respond_with(nil, location: reservas_url)
   end
 
   private
@@ -81,8 +63,8 @@ class ReservasController < ApplicationController
   end
 
   def reserva_params
-    params.require(:reserva).permit(:cliente_id, :servico_id, :profissional_id,
+    params.require(:reserva).permit(:cliente_id, :reserva_id, :profissional_id,
                                     :data, :hora, :comentarios, :realizado,
-                                    :pago, :preco)
+                                    :pago, :preco, :servico_id)
   end
 end

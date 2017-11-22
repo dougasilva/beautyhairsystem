@@ -59,10 +59,11 @@ feature 'Administrador cria perfil com ' do
   end
 
   scenario 'sucesso e exclui' do
+    create(:perfil, nome: 'Ab')
     visit perfis_path
 
     click_on 'Excluir'
 
-    expect(page).to have_content 'Perfil excluído.'
+    expect(page).to have_content('Perfil excluído.')
   end
 end

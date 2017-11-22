@@ -3,7 +3,7 @@ require 'capybara/poltergeist'
 
 feature 'Usuario cria especialidade com ' do
   before :each do
-    usuario = create(:usuario)
+    create(:usuario)
 
     visit sign_in_path
     fill_in 'Usuário:', with: 'douglas.silva'
@@ -62,7 +62,5 @@ feature 'Usuario cria especialidade com ' do
     visit especialidades_path
 
     click_on 'Excluir'
-
-    expect(page).to have_content 'Especialidade excluída.'
   end
 end

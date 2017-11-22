@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get 'reservas/por_data' => 'reservas#por_data'
   get 'reservas/realizadas' => 'reservas#realizadas'
   get 'reservas/pagas' => 'reservas#pagas'
+  get 'reservas/em_aberto' => 'reservas#em_aberto'
+  get 'reservas/em_aberto_por_cliente/' => 'reservas#em_aberto_por_cliente'
 
   resources :perfis
   resources :profissionais

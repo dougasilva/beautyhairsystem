@@ -9,11 +9,7 @@ class EspecialidadesController < ApplicationController
   def show; end
 
   def new
-    if current_user.perfil_id == 1 || current_user.perfil_id == 2
-      @especialidade = Especialidade.new
-    else
-      redirect_to especialidades_path
-    end
+    @especialidade = Especialidade.new if current_user.perfil_id == 1
   end
 
   def edit
@@ -21,58 +17,19 @@ class EspecialidadesController < ApplicationController
   end
 
   def create
-    if current_user.perfil_id == 1 || current_user.perfil_id == 2
-      @especialidade = Especialidade.new(especialidade_params)
-
-      respond_to do |format|
-        if @especialidade.save
-          format.html do
-            redirect_to @especialidade,
-                        notice: 'Especialidade criada.'
-          end
-          format.json { render :show, status: :created, location: @especialidade }
-        else
-          format.html { render :new }
-          format.json do
-            render json: @especialidade.errors,
-                   status: :unprocessable_entity
-          end
-        end
-      end
-    end
+    @especialidade = Especialidade.new(espec_params)
+    flash[:notice] = 'Especialidade criada.' if current_user.perfil_id != 3 && @especialidade.save
+    respond_with(@especialidade, location: @especialidade)
   end
 
   def update
-    if current_user.perfil_id == 1 || current_user.perfil_id == 2
-      respond_to do |format|
-        if @especialidade.update(especialidade_params)
-          format.html do
-            redirect_to @especialidade,
-                        notice: 'Especialidade atualizada.'
-          end
-          format.json { render :show, status: :ok, location: @especialidade }
-        else
-          format.html { render :edit }
-          format.json do
-            render json: @especialidade.errors,
-                   status: :unprocessable_entity
-          end
-        end
-      end
-    end
+    flash[:notice] = 'Especialidade atualizada.' if current_user.perfil_id != 3 && @especialidade.update_attributes(espec_params)
+    respond_with(@especialidade, location: @especialidade)
   end
 
   def destroy
-    if current_user.perfil_id == 1
-      @especialidade.destroy
-      respond_to do |format|
-        format.html do
-          redirect_to especialidades_url,
-                      notice: 'Especialidade excluída.'
-        end
-        format.json { head :no_content }
-      end
-    end
+    flash[:notice] = 'Especialidade excluída.' if current_user.perfil_id == 1 && @especialidade.destroy
+    respond_with(nil, location: especialidades_url)
   end
 
   private
@@ -81,7 +38,7 @@ class EspecialidadesController < ApplicationController
     @especialidade = Especialidade.find(params[:id])
   end
 
-  def especialidade_params
+  def espec_params
     params.require(:especialidade).permit(:nome, :comentarios)
   end
 end

@@ -48,7 +48,7 @@ feature 'Usuario cria profissional com ' do
     expect(page).to have_content '06140-040'
     expect(page).to have_content '333'
     expect(page).to have_content 'Fundos'
-    expect(page).to have_content 'Profissional criado com sucesso.'
+    expect(page).to have_content 'Profissional criado.'
   end
 
   scenario 'falha' do
@@ -115,7 +115,7 @@ feature 'Usuario cria profissional com ' do
 
     expect(page).to have_content 'Sandra Maria Souza'
     expect(page).to have_content '20/02/1979'
-    expect(page).to have_content 'Profissional atualizado com sucesso.'
+    expect(page).to have_content 'Profissional atualizado.'
   end
 
   scenario 'sucesso e atualiza com dados inválidos' do
@@ -159,6 +159,6 @@ feature 'Usuario cria profissional com ' do
 
     click_on 'Excluir'
 
-    expect(page).to have_content 'Profissional excluído com sucesso.'
+    expect(page).to have_content 'Profissional excluído.'
   end
 end
