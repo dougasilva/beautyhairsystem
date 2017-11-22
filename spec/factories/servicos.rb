@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :servico do
     nome 'Corte Feminino'
     especialidade

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :cliente do
     nome 'Janaina Ferreira'
     data_nascimento '01/03/1981'
