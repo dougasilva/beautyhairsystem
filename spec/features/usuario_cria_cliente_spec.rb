@@ -13,7 +13,7 @@ feature 'Usuario cria novo cliente com ' do
 
   scenario 'sucesso' do
     visit new_cliente_path
-    fill_in 'cliente_nome', with: 'Janaina Ferreira'
+    fill_in 'Nome', with: 'Janaina Ferreira'
     fill_in 'Nascimento', with: '01/03/1981'
     fill_in 'Telefone', with: '1145563655'
     fill_in 'Celular', with: '11995108755'
@@ -39,7 +39,7 @@ feature 'Usuario cria novo cliente com ' do
     expect(page).to have_content '06140-040'
     expect(page).to have_content '333'
     expect(page).to have_content 'Fundos'
-    expect(page).to have_content 'Cliente criado com sucesso.'
+    expect(page).to have_content 'Cliente criado.'
   end
 
   scenario 'falha' do
@@ -79,7 +79,7 @@ feature 'Usuario cria novo cliente com ' do
     expect(page).to have_content '(11) 99510-8799'
     expect(page).to have_content 'janaina@ig.com.br'
     expect(page).to have_content 'Cliente de teste.'
-    expect(page).to have_content 'Cliente atualizado com sucesso.'
+    expect(page).to have_content 'Cliente atualizado.'
   end
 
   scenario 'sucesso e atualiza com dados inválidos' do
@@ -100,6 +100,6 @@ feature 'Usuario cria novo cliente com ' do
 
     click_on 'Excluir'
 
-    expect(page).to have_content 'Cliente excluído com sucesso.'
+    expect(page).to have_content 'Cliente excluído.'
   end
 end

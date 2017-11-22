@@ -20,9 +20,12 @@
                                       :class => "btn btn-success" %></td>
             <td><%= link_to 'Editar', edit_perfil_path(perfil),
                                       :class => "btn btn-primary" %></td>
-            <td><%= link_to 'Excluir', perfil, method: :delete,
-                                       data: { confirm: 'Tem certeza?' },
-                                       :class => "btn btn-danger" %></td>
+            <% if current_user.perfil_id != perfil.id %>
+              <td><%= link_to 'Excluir', perfil, method: :delete,
+                                         data: { confirm: 'Tem certeza?' },
+                                         :class => "btn btn-danger",
+                                         input_html: {id: "del_#{ perfil.nome }"} %></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>

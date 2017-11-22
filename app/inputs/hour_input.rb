@@ -19,6 +19,6 @@ class HourInput < SimpleForm::Inputs::Base
 
   def selected_value
     value = object.send(attribute_name)
-    value&.strftime('%H:%M')
+    value.strftime('%H:%M')
   end
 end

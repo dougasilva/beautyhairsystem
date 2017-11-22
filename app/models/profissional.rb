@@ -1,7 +1,7 @@
 class Profissional < ApplicationRecord
   belongs_to :especialidade
   has_one :usuario, dependent: :destroy, inverse_of: :profissional
-  has_many :reservas
+  has_many :reservas, dependent: :destroy
   validates :nome, :cpf, :data_nascimento, :celular, :cep, :numero, :cidade,
             :bairro, :logradouro, :uf, presence: true
   validates :telefone, :celular, :cpf, :cep, numericality: true, allow_blank: true

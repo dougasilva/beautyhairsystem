@@ -3,35 +3,11 @@ class UsuariosController < ApplicationController
   before_action :authorize
 
   def new
-    if current_user.perfil_id == 1
-      @usuario = Usuario.new
-      respond_to do |format|
-        format.html # new.html.erb
-        format.json { render json: @usuario }
-      end
-    else
-      redirect_to reservas_path
-    end
-  end
-
-  def create
-    if current_user.perfil_id == 1
-      @usuario = Usuario.new(usuario_params)
-      if @usuario.save
-        redirect_to @usuario, notice: 'Usuário criado com sucesso!'
-      else
-        render action: :new
-      end
-    end
+    @usuario = Usuario.new if current_user.perfil_id == 1
   end
 
   def index
-    if current_user.perfil_id == 1
-      @usuarios = Usuario.all
-
-    else
-      redirect_to reservas_path
-    end
+    @usuarios = Usuario.all if current_user.perfil_id == 1
   end
 
   def show
@@ -42,31 +18,20 @@ class UsuariosController < ApplicationController
     redirect_to reservas_path if current_user.perfil_id != 1
   end
 
+  def create
+    @usuario = Usuario.new(usuario_params)
+    flash[:notice] = 'Usuário criado.' if current_user.perfil_id != 3 && @usuario.save
+    respond_with(@usuario, location: @usuario)
+  end
+
   def update
-    if current_user.perfil_id == 1
-      respond_to do |format|
-        if @usuario.update(usuario_params)
-          format.html { redirect_to @usuario, notice: 'Usuário atualizado.' }
-          format.json { render :show, status: :ok, location: @usuario }
-        else
-          format.html { render :edit }
-          format.json do
-            render json: @usuario.errors,
-                   status: :unprocessable_entity
-          end
-        end
-      end
-    end
+    flash[:notice] = 'Usuário atualizado.' if current_user.perfil_id != 3 && @usuario.update_attributes(usuario_params)
+    respond_with(@usuario, location: @usuario)
   end
 
   def destroy
-    if current_user.perfil_id == 1
-      @usuario.destroy
-      respond_to do |format|
-        format.html { redirect_to usuarios_url, notice: 'Usuário excluído.' }
-        format.json { head :no_content }
-      end
-    end
+    flash[:notice] = 'Usuário excluído.' if current_user.perfil_id == 1 && @usuario.destroy
+    respond_with(nil, location: usuarios_url)
   end
 
   private

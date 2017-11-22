@@ -8,6 +8,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'paranoia', '~> 2.2'
 gem 'pry-byebug'
+gem 'responders'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'seed_dump'
 gem 'simple_form'

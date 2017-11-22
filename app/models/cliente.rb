@@ -1,5 +1,5 @@
 class Cliente < ApplicationRecord
-  has_many :reservas
+  has_many :reservas, dependent: :destroy
   validates :nome, :data_nascimento, :celular, :cep, :numero, :cidade, :bairro,
             :logradouro, :uf, presence: true
   validates :telefone, :celular, :cep, numericality: true, allow_blank: true

@@ -12,7 +12,6 @@ feature 'Profissional consulta reservas com ' do
   end
 
   scenario 'sucesso' do
-    # usuario = create(:usuario)
     especialidade3 = create(:especialidade, nome: 'Massagista')
     profissional = create(:profissional, nome: 'Maria',
                                          especialidade: especialidade3)
@@ -40,10 +39,10 @@ feature 'Profissional consulta reservas com ' do
     create(:usuario, profissional: profissional2, perfil: perfil2,
                      usuario: 'debora.cristina', password: '1234567',
                      password_confirmation: '1234567')
-    create(:cliente, nome: 'Amanda Nanes',
-                     data_nascimento: '15/04/1985',
-                     email: 'amanda@uol.com', telefone: '',
-                     celular: '11984234737')
+    cliente2 = create(:cliente, nome: 'Amanda Nanes',
+                                data_nascimento: '15/04/1985',
+                                email: 'amanda@uol.com', telefone: '',
+                                celular: '11984234737')
     create(:reserva, cliente: cliente2, servico: servico2,
                      data: 1.day.from_now,
                      profissional: profissional2)

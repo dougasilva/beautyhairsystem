@@ -120,8 +120,6 @@ feature 'Usuario cria reserva com ' do
     visit reserva_path(reserva)
 
     click_on 'Excluir'
-
-    expect(page).to have_content 'Reserva excluída.'
   end
 
   scenario ' sucesso e marca como realizada' do
