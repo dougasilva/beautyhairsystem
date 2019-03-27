@@ -1,4 +1,4 @@
-class AddEnderecoToCliente < ActiveRecord::Migration
+class AddEnderecoToCliente < ActiveRecord::Migration[5.2]
   def change
     add_column :clientes, :cep, :string
     add_column :clientes, :logradouro, :string

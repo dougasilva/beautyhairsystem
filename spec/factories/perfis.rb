@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :perfil do
-    nome 'Administrador'
+    nome { 'Administrador' }
   end
 end

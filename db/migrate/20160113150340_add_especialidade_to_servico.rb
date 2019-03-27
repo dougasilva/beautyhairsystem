@@ -1,4 +1,4 @@
-class AddEspecialidadeToServico < ActiveRecord::Migration
+class AddEspecialidadeToServico < ActiveRecord::Migration[5.2]
   def change
     add_reference :servicos, :especialidade, index: true, foreign_key: true
   end

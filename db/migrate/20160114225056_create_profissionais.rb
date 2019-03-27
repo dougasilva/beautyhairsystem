@@ -1,4 +1,4 @@
-class CreateProfissionais < ActiveRecord::Migration
+class CreateProfissionais < ActiveRecord::Migration[5.2]
   def change
     create_table :profissionais do |t|
       t.string :nome

@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :especialidade do
-    nome 'Administrador'
+    nome { 'Administrador' }
   end
 end

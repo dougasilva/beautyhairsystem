@@ -30,10 +30,12 @@ module Beautyhairsystem
     config.i18n.default_locale = "pt-BR"
     I18n.enforce_available_locales = false
 
+    Rails.application.config.active_record.sqlite3.represent_boolean_as_integer = true
+
     config.time_zone = "Brasilia"
     config.active_record.default_timezone = :local
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
+    # config.active_record.raise_in_transactional_callbacks = true
   end
 end

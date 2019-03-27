@@ -1,4 +1,4 @@
-class AddEnderecoToProfissional < ActiveRecord::Migration
+class AddEnderecoToProfissional < ActiveRecord::Migration[5.2]
   def change
     add_column :profissionais, :cep, :string
     add_column :profissionais, :logradouro, :string

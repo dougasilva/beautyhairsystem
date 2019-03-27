@@ -1,4 +1,4 @@
-class RemoveClienteFromReserva < ActiveRecord::Migration
+class RemoveClienteFromReserva < ActiveRecord::Migration[5.2]
   def change
     remove_column :reservas, :cliente, :string
   end

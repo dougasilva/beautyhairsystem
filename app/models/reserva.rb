@@ -1,4 +1,5 @@
 class Reserva < ApplicationRecord
+  include ArelHelpers::ArelTable
   belongs_to :cliente
   belongs_to :servico
   belongs_to :profissional
@@ -59,11 +60,28 @@ class Reserva < ApplicationRecord
     belongs_to :cliente, -> { with_deleted }
     belongs_to :profissional, -> { with_deleted }
 
-    Reserva.order('clientes.nome').joins(:cliente)
+    Reserva.order(Arel.sql('clientes.nome')).joins(:cliente)
            .where('reservas.realizado = ? AND pago = ?', true, false)
-           .group(:cliente_id).pluck('clientes.id', :nome,
-                                     'COUNT(reservas.id) AS n_reserva,
-                                     SUM(reservas.preco) AS valor')
+           .group(:cliente_id)
+           .pluck(:cliente_id, :nome, 'COUNT(reservas.id) AS n_reserva,
+                  SUM(reservas.preco) AS valor')
+
+     #Reserva.select(
+     #  [
+     #    Reserva.arel_table[:cliente_id], Cliente.arel_table[:nome], 
+     #    Reserva.arel_table[:id].count.as('n_reserva'), 
+     #    Reserva.arel_table[:preco].sum.as('valor')
+     #    #Arel::Nodes::NamedFunction.new('SUM', [Reserva.arel_table[:preco]]).as('valor')
+     #  ]
+     #).where(
+     #  Arel::Nodes::Group.new(
+     #    Reserva.arel_table[:realizado].eq(1).and(Reserva.arel_table[:pago].eq(0))
+     #  )
+     #).joins(
+     #  Reserva.arel_table.join(Cliente.arel_table).on(
+     #    Cliente.arel_table[:id].eq(Reserva.arel_table[:cliente_id])
+     #  ).join_sources
+     #).order(Cliente.arel_table[:nome]).group(Reserva.arel_table[:cliente_id])
   end
 
   def self.search_em_aberto_por_cliente(cliente)
