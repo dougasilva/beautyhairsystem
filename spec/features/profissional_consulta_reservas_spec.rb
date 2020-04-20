@@ -2,104 +2,55 @@ require 'rails_helper'
 require 'capybara/poltergeist'
 
 feature 'Profissional consulta reservas com ' do
+  let(:usuario) { create(:usuario) } 
+  let(:cliente2) { create(:cliente) }
+  let(:reserva) { create(:reserva) }
+  let(:perfil2) { create(:perfil, nome: 'Operacional') }
+  let(:perfil3) { create(:perfil, nome: 'Profissional') }
+  let(:especialidade2) { create(:especialidade, nome: 'Manicure') }
+  let(:servico2) { create(:servico, nome: 'Pedicure', especialidade: especialidade2) }
+  let(:profissional2) { create(:profissional, especialidade: especialidade2) }
+  let(:usuario2) { create(:usuario, profissional: profissional2, perfil: perfil3,
+                                    usuario: profissional2.nome) }
   before :each do
-    create(:usuario)
 
     visit sign_in_path
-    fill_in 'Usuário:', with: 'douglas.silva'
-    fill_in 'Senha:', with: '123456'
+    fill_in 'Usuário:', with: usuario.usuario
+    fill_in 'Senha:', with: usuario.password
     click_button 'Login'
+   
   end
 
   scenario 'sucesso' do
-    especialidade3 = create(:especialidade, nome: 'Massagista')
-    profissional = create(:profissional, nome: 'Maria',
-                                         especialidade: especialidade3)
-    cliente = create(:cliente)
-    servico = create(:servico, nome: 'Massagem', especialidade: especialidade3)
-    visit new_reserva_path
-    select cliente.nome, from: 'Cliente:'
-    select servico.nome, from: 'Serviço:'
-    select profissional.nome, from: 'Profissional:'
-    fill_in 'Data:', with: '11/01/2016'
-    fill_in 'Hora:', with: '10:00'
-    fill_in 'Comentários:', with: 'Reserva de teste.'
-    click_on 'Salvar'
 
-    # Segunda reserva
-    especialidade2 = create(:especialidade, nome: 'Manicure')
-    servico2 = create(:servico, nome: 'Pedicure', especialidade: especialidade2)
-    perfil2 = create(:perfil, nome: 'Operador')
-    profissional2 = create(:profissional, nome: 'Debora Cristina',
-                                          especialidade: especialidade2,
-                                          data_nascimento: '19/07/1977',
-                                          email: 'debora@uol.com', telefone: '',
-                                          celular: '11974234737',
-                                          cpf: '17748106894')
-    create(:usuario, profissional: profissional2, perfil: perfil2,
-                     usuario: 'debora.cristina', password: '1234567',
-                     password_confirmation: '1234567')
-    cliente2 = create(:cliente, nome: 'Amanda Nanes',
-                                data_nascimento: '15/04/1985',
-                                email: 'amanda@uol.com', telefone: '',
-                                celular: '11984234737')
-    create(:reserva, cliente: cliente2, servico: servico2,
-                     data: 1.day.from_now,
-                     profissional: profissional2)
+    reserva2 = create(:reserva, cliente: cliente2, servico: servico2,
+                                profissional: profissional2,
+                                data: Faker::Date.forward(days: 2))
 
     click_link 'Sair'
-
+    
     visit sign_in_path
-    fill_in 'Usuário:', with: 'debora.cristina'
-    fill_in 'Senha:', with: '1234567'
+    fill_in 'Usuário:', with: usuario2.usuario
+    fill_in 'Senha:', with: usuario2.password
     click_button 'Login'
 
-    click_link 1.day.from_now.strftime('%d/%m/%Y')
+    
+    find_link(text: reserva2.data.strftime('%d/%m/%Y')).click
 
     expect(page).to have_content 'Reservas Do Dia'
   end
 
   scenario ' consulta proximo mês' do
-    especialidade3 = create(:especialidade, nome: 'Massagista')
-    profissional = create(:profissional, nome: 'Maria',
-                                         especialidade: especialidade3)
-    cliente = create(:cliente)
-    servico = create(:servico, nome: 'Massagem', especialidade: especialidade3)
-    visit new_reserva_path
-    select cliente.nome, from: 'Cliente:'
-    select servico.nome, from: 'Serviço:'
-    select profissional.nome, from: 'Profissional:'
-    fill_in 'Data:', with: '11/01/2016'
-    fill_in 'Hora:', with: '10:00'
-    fill_in 'Comentários:', with: 'Reserva de teste.'
-    click_on 'Salvar'
-
-    # Segunda reserva
-    especialidade2 = create(:especialidade, nome: 'Manicure')
-    servico2 = create(:servico, nome: 'Pedicure', especialidade: especialidade2)
-    perfil2 = create(:perfil, nome: 'Operador')
-    profissional2 = create(:profissional, nome: 'Debora Cristina',
-                                          especialidade: especialidade2,
-                                          data_nascimento: '19/07/1977',
-                                          email: 'debora@uol.com', telefone: '',
-                                          celular: '11974234737',
-                                          cpf: '17748106894')
-    create(:usuario, profissional: profissional2, perfil: perfil2,
-                     usuario: 'debora.cristina', password: '1234567',
-                     password_confirmation: '1234567')
-    cliente2 = create(:cliente, nome: 'Amanda Nanes',
-                                data_nascimento: '15/04/1985',
-                                email: 'amanda@uol.com', telefone: '',
-                                celular: '11984234737')
-    create(:reserva, cliente: cliente2, servico: servico2,
-                     data: 1.day.from_now,
-                     profissional: profissional2)
+    
+    reserva2 = create(:reserva, cliente: cliente2, servico: servico2,
+                                profissional: profissional2,
+                                data: Faker::Date.forward(days: 30))
 
     click_link 'Sair'
 
     visit sign_in_path
-    fill_in 'Usuário:', with: 'debora.cristina'
-    fill_in 'Senha:', with: '1234567'
+    fill_in 'Usuário:', with: usuario2.usuario
+    fill_in 'Senha:', with: usuario2.password
     click_button 'Login'
 
     visit reservas_path
@@ -107,5 +58,6 @@ feature 'Profissional consulta reservas com ' do
     click_on '>'
 
     expect(page).to have_content 1.month.from_now.strftime('%d/%m/%Y')
+
   end
 end

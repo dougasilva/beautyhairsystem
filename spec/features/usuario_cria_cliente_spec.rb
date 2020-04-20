@@ -2,43 +2,38 @@ require 'rails_helper'
 require 'capybara/poltergeist'
 
 feature 'Usuario cria novo cliente com ' do
-  before :each do
-    create(:usuario)
 
+  let(:usuario) { create(:usuario) } 
+  
+  before :each do
     visit sign_in_path
-    fill_in 'Usuário:', with: 'douglas.silva'
-    fill_in 'Senha:', with: '123456'
+    fill_in 'Usuário:', with: usuario.usuario
+    fill_in 'Senha:', with: usuario.password
     click_button 'Login'
+
+    @cliente = create(:cliente)
   end
 
   scenario 'sucesso' do
     visit new_cliente_path
-    fill_in 'Nome', with: 'Janaina Ferreira'
-    fill_in 'Nascimento', with: '01/03/1981'
-    fill_in 'Telefone', with: '1145563655'
-    fill_in 'Celular', with: '11995108755'
-    fill_in 'Email', with: 'janaina@ig.com'
-    fill_in 'Cep', with: '06140040'
+    fill_in 'Nome', with:  Faker::Name.name 
+    fill_in 'Nascimento', with:  Faker::Date.birthday(min_age: 18, max_age: 40) 
+    fill_in 'Telefone', with:  Faker::Base.numerify('##########') 
+    fill_in 'Celular', with:  Faker::Base.numerify('###########') 
+    fill_in 'Email', with:  Faker::Internet.email 
+    fill_in 'Cep', with:  Faker::Base.numerify('########') 
     page.execute_script("$('#logradouro').removeAttr('readonly')")
-    fill_in 'Logradouro', with: 'Rua Pernambucana'
+    fill_in 'Logradouro', with:  Faker::Address.street_name 
     page.execute_script("$('#bairro').removeAttr('readonly')")
-    fill_in 'Bairro', with: 'Conceição'
+    fill_in 'Bairro', with:  Faker::Address.community 
     page.execute_script("$('#cidade').removeAttr('readonly')")
-    fill_in 'Cidade', with: 'Osasco'
+    fill_in 'Cidade', with:  Faker::Address.city 
     page.execute_script("$('#uf').removeAttr('readonly')")
-    fill_in 'UF', with: 'SP'
-    fill_in 'Número', with: '333'
-    fill_in 'Complemento', with: 'Fundos'
+    fill_in 'UF', with:  Faker::Address.state_abbr 
+    fill_in 'Número', with:  Faker::Address.building_number 
+    fill_in 'Complemento', with:  Faker::Address.secondary_address 
     click_on 'Salvar'
 
-    expect(page).to have_content 'Janaina Ferreira'
-    expect(page).to have_content '01/03/1981'
-    expect(page).to have_content '(11) 4556-3655'
-    expect(page).to have_content '(11) 99510-8755'
-    expect(page).to have_content 'janaina@ig.com'
-    expect(page).to have_content '06140-040'
-    expect(page).to have_content '333'
-    expect(page).to have_content 'Fundos'
     expect(page).to have_content 'Cliente criado.'
   end
 
@@ -50,41 +45,30 @@ feature 'Usuario cria novo cliente com ' do
   end
 
   scenario 'sucesso e lista todos os cadastrados' do
-    cliente = create(:cliente)
-    cliente1 = create(:cliente, nome: 'Debora Silva',
-                                data_nascimento: '19/07/1977',
-                                email: 'debora@uol.com', telefone: '',
-                                celular: '11974234737')
+    cliente1 = create(:cliente)
+    
     visit clientes_path
 
-    expect(page).to have_content cliente.nome
+    expect(page).to have_content @cliente.nome
     expect(page).to have_content cliente1.nome
   end
 
   scenario 'sucesso e edita informações' do
-    cliente = create(:cliente)
-    visit edit_cliente_path(cliente)
+    cliente1 = create(:cliente)
+    visit edit_cliente_path(cliente1)
 
-    fill_in 'Nome', with: 'Janaina Ferreira'
-    fill_in 'Nascimento', with: '01/03/1981'
-    fill_in 'Telefone', with: ''
-    fill_in 'Celular', with: '11995108799'
-    fill_in 'Email', with: 'janaina@ig.com.br'
-    fill_in 'Comentários', with: 'Cliente de teste.'
+    nome =  Faker::Name.name 
+    fill_in 'Nome', with: nome
+    
     click_on 'Salvar'
 
-    expect(page).to have_content 'Janaina Ferreira'
-    expect(page).to have_content '01/03/1981'
-    expect(page).to have_content ''
-    expect(page).to have_content '(11) 99510-8799'
-    expect(page).to have_content 'janaina@ig.com.br'
-    expect(page).to have_content 'Cliente de teste.'
+    expect(page).to have_content nome
     expect(page).to have_content 'Cliente atualizado.'
   end
 
   scenario 'sucesso e atualiza com dados inválidos' do
-    cliente = create(:cliente)
-    visit edit_cliente_path(cliente)
+    cliente1 = create(:cliente)
+    visit edit_cliente_path(cliente1)
 
     fill_in 'Nome', with: ''
 
@@ -93,8 +77,7 @@ feature 'Usuario cria novo cliente com ' do
     expect(page).to have_content 'Alguns erros foram encontrados'
   end
 
-  scenario 'sucesso e exclui cliente' do
-    create(:cliente)
+  scenario 'sucesso e exclui cliente', js: true do
 
     visit clientes_path
 

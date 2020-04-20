@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :especialidade do
-    nome { 'Administrador' }
+    nome { Faker::Company.profession }
+
   end
 end

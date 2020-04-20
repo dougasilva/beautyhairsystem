@@ -1,0 +1,62 @@
+current directory: /mnt/c/workspace/beautyhairsystem/vendor/bundle/ruby/2.7.0/gems/sqlite3-1.3.6/ext/sqlite3
+/home/douglasasilva/.rvm/rubies/ruby-2.7.1/bin/ruby -I /home/douglasasilva/.rvm/rubies/ruby-2.7.1/lib/ruby/2.7.0 -r ./siteconf20200416-28790-liy61y.rb extconf.rb
+checking for sqlite3.h... yes
+checking for sqlite3_libversion_number() in -lsqlite3... yes
+checking for rb_proc_arity()... yes
+checking for sqlite3_initialize()... yes
+checking for sqlite3_backup_init()... yes
+checking for sqlite3_column_database_name()... yes
+checking for sqlite3_enable_load_extension()... yes
+checking for sqlite3_load_extension()... yes
+checking for sqlite3_open_v2()... yes
+checking for sqlite3_prepare_v2()... yes
+checking for sqlite3_int64 in sqlite3.h... yes
+checking for sqlite3_uint64 in sqlite3.h... yes
+creating Makefile
+
+current directory: /mnt/c/workspace/beautyhairsystem/vendor/bundle/ruby/2.7.0/gems/sqlite3-1.3.6/ext/sqlite3
+make "DESTDIR=" clean
+
+current directory: /mnt/c/workspace/beautyhairsystem/vendor/bundle/ruby/2.7.0/gems/sqlite3-1.3.6/ext/sqlite3
+make "DESTDIR="
+compiling backup.c
+compiling database.c
+compiling exception.c
+compiling sqlite3.c
+compiling statement.c
+In file included from statement.c:1:0:
+statement.c: In function ‘bind_param’:
+./sqlite3_ruby.h:16:24: warning: implicit declaration of function ‘RBIGNUM’; did you mean ‘T_BIGNUM’? [-Wimplicit-function-declaration]
+ #define RBIGNUM_LEN(x) RBIGNUM(x)->len
+                        ^
+statement.c:262:11: note: in expansion of macro ‘RBIGNUM_LEN’
+       if (RBIGNUM_LEN(value) * SIZEOF_BDIGITS <= 8) {
+           ^~~~~~~~~~~
+./sqlite3_ruby.h:16:34: error: invalid type argument of ‘->’ (have ‘int’)
+ #define RBIGNUM_LEN(x) RBIGNUM(x)->len
+                                  ^
+statement.c:262:11: note: in expansion of macro ‘RBIGNUM_LEN’
+       if (RBIGNUM_LEN(value) * SIZEOF_BDIGITS <= 8) {
+           ^~~~~~~~~~~
+statement.c:262:32: error: ‘SIZEOF_BDIGITS’ undeclared (first use in this function); did you mean ‘SIZEOF_INT’?
+       if (RBIGNUM_LEN(value) * SIZEOF_BDIGITS <= 8) {
+                                ^~~~~~~~~~~~~~
+                                SIZEOF_INT
+statement.c:262:32: note: each undeclared identifier is reported only once for each function it appears in
+statement.c: In function ‘reset_bang’:
+statement.c:294:7: warning: variable ‘status’ set but not used [-Wunused-but-set-variable]
+   int status;
+       ^~~~~~
+statement.c: In function ‘clear_bindings’:
+statement.c:314:7: warning: variable ‘status’ set but not used [-Wunused-but-set-variable]
+   int status;
+       ^~~~~~
+statement.c: At top level:
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+cc1: warning: unrecognized command line option ‘-Wno-cast-function-type’
+Makefile:244: recipe for target 'statement.o' failed
+make: *** [statement.o] Error 1
+
+make failed, exit code 2

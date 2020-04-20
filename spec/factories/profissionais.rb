@@ -1,18 +1,19 @@
 FactoryBot.define do
   factory :profissional do
-    nome { 'Douglas Silva' }
-    cpf { '17748106894' }
-    data_nascimento { '18/04/1980' }
+    nome { Faker::Name.name }
+    data_nascimento { Faker::Date.birthday(min_age: 18, max_age: 40) }
+    cpf { Faker::Base.numerify('###########') }
     especialidade
-    telefone { '1145563658' }
-    celular { '11996425797' }
-    email { 'douglasasilva@gmail.com' }
-    cep { '06140040' }
-    logradouro { 'Rua Pernambucana' }
-    numero { '250' }
-    compl { '' }
-    bairro { 'Conceição' }
-    cidade { 'Osasco' }
-    uf {'SP' }
+    telefone { Faker::Base.numerify('##########') }
+    celular { Faker::Base.numerify('###########') }
+    email { Faker::Internet.email }
+    cep { Faker::Base.numerify('########') }
+    logradouro { Faker::Address.street_name }
+    numero { Faker::Address.building_number }
+    compl { Faker::Address.secondary_address }
+    bairro { Faker::Address.community }
+    cidade { Faker::Address.city }
+    uf { Faker::Address.state_abbr }
+
   end
 end

@@ -2,11 +2,11 @@ require 'rails_helper'
 
 feature 'Administrador cria perfil com ' do
   before :each do
-    create(:usuario)
+    usuario = create(:usuario)
 
     visit sign_in_path
-    fill_in 'Usuário:', with: 'douglas.silva'
-    fill_in 'Senha:', with: '123456'
+    fill_in 'Usuário:', with: usuario.usuario
+    fill_in 'Senha:', with: usuario.password
     click_button 'Login'
   end
 

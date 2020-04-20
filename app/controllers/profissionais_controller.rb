@@ -3,9 +3,9 @@ class ProfissionaisController < ApplicationController
   before_action :authorize
 
   def index
-    if params[:profissional]
-      profissional = profissional.find(params[:profissional])
-      @profissionais = Profissional.where(especialidade_id: profissional.especialidade_id)
+    if params[:servico]
+      servico = Servico.find(params[:servico])
+      @profissionais = Profissional.where(especialidade_id: servico.especialidade_id)
     else
       @profissionais = Profissional.order(:nome)
     end

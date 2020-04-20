@@ -2,37 +2,25 @@ require 'rails_helper'
 require 'capybara/poltergeist'
 
 feature 'Usuario consulta reservas em aberto com ' do
+  let(:usuario) { create(:usuario) }
   before :each do
-    create(:usuario)
-
     visit sign_in_path
-    fill_in 'Usuário:', with: 'douglas.silva'
-    fill_in 'Senha:', with: '123456'
+    fill_in 'Usuário:', with: usuario.usuario
+    fill_in 'Senha:', with: usuario.password
     click_button 'Login'
   end
 
   scenario 'sucesso' do
-    especialidade = create(:especialidade, nome: 'Cabeleireira')
-    profissional = create(:profissional, nome: 'Debora Cristina',
-                                         especialidade: especialidade)
-    cliente = create(:cliente)
-    servico = create(:servico, especialidade: especialidade)
-    reserva = create(:reserva, cliente: cliente, servico: servico,
-                               profissional: profissional, data: :today)
-    reserva2 = create(:reserva, cliente: cliente, servico: servico,
-                                profissional: profissional, data: :today,
-                                hora: '11:00')
+    reserva = create(:reserva)
+    reserva2 = create(:reserva)
+    
     visit edit_reserva_path(reserva)
 
-    fill_in 'Data:', with: 0.days.from_now
-    fill_in 'Hora:', with: '10:00'
     page.check 'Realizado'
     click_on 'Salvar'
 
     visit edit_reserva_path(reserva2)
 
-    fill_in 'Data:', with: 0.days.from_now
-    fill_in 'Hora:', with: '11:00'
     page.check 'Realizado'
     click_on 'Salvar'
 
@@ -41,34 +29,28 @@ feature 'Usuario consulta reservas em aberto com ' do
     expect(page).to have_content reserva.cliente.nome
   end
 
-  scenario ' e visualiza reservas em aberto por cliente' do
-    especialidade = create(:especialidade, nome: 'Cabeleireira')
-    profissional = create(:profissional, nome: 'Debora Cristina',
-                                         especialidade: especialidade)
+  scenario ' sucesso e visualiza reservas em aberto por cliente' do
     cliente = create(:cliente)
-    servico = create(:servico, especialidade: especialidade)
-    reserva = create(:reserva, cliente: cliente, servico: servico,
-                               profissional: profissional, data: :today)
-    reserva2 = create(:reserva, cliente: cliente, servico: servico,
-                                profissional: profissional, data: :today,
-                                hora: '11:00')
+    especialidade = create(:especialidade)
+    reserva = create(:reserva, cliente: cliente, realizado: true)
+    
+    profissional2 = create(:profissional, especialidade: especialidade)
+    servico2 = create(:servico, especialidade: especialidade)
+    reserva2 = create(:reserva, cliente: cliente, servico: servico2,
+                                profissional: profissional2)
+    
     visit edit_reserva_path(reserva)
-
-    fill_in 'Data:', with: 0.days.from_now
-    fill_in 'Hora:', with: '10:00'
     page.check 'Realizado'
     click_on 'Salvar'
-
+                            
     visit edit_reserva_path(reserva2)
-
-    fill_in 'Data:', with: 0.days.from_now
-    fill_in 'Hora:', with: '11:00'
     page.check 'Realizado'
     click_on 'Salvar'
 
     visit reservas_em_aberto_path
 
-    click_on 'Visualizar'
+    find_link(text: 'Visualizar').click
+    
     expect(page).to have_content reserva.cliente.nome
     expect(page).to have_content reserva.servico.nome
     expect(page).to have_content reserva.profissional.nome
