@@ -75,7 +75,7 @@
 
             <div class="form-actions" style="color: white">
               <%= link_to 'Voltar', reservas_path, :class => "btn btn-warning" %>
-              <% if @reserva.pago == false %>
+              <% if !@reserva.pago %>
                 <%= link_to 'Editar', edit_reserva_path(@reserva),
                             :class => "btn btn-primary" %>
                 <%= link_to 'Excluir', @reserva, method: :delete,

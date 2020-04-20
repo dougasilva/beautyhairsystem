@@ -13,7 +13,7 @@ class ClientesController < ApplicationController
   end
 
   def edit
-    redirect_to clientes_path if current_user.perfil_id == 3
+    redirect_to clientes_path if current_user.perfil_id != 3
   end
 
   def create

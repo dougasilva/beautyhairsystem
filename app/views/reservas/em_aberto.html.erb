@@ -22,7 +22,7 @@
             <td><%= number_to_currency(reserva[3], locale: 'pt-BR') %></td>
 
             <td><%= link_to 'Visualizar',
-                            reservas_em_aberto_por_cliente_path(:cliente_id => reserva[0]),
+                            reservas_em_aberto_por_cliente_path(cliente_id: reserva[0]),
                             :class => "btn btn-primary" %></td>
 
           </tr>
@@ -30,7 +30,6 @@
       </tbody>
     </table>
   </div>
-</br>
 
   <div class="form-actions" style="color: white">
 

@@ -43,6 +43,7 @@ pt-BR:
       long: "%d de %B de %Y"
       short: "%d de %B"
       simple: ! '%d/%m/%Y'
+      mes_ano: '%B / %Y'
     month_names:
     -
     - Janeiro
@@ -89,6 +90,7 @@ pt-BR:
       long: "%d de %B de %Y"
       short: "%d de %B"
       simple: ! '%d/%m/%Y'
+      mes_ano: "%B / %Y"
     month_names:
     -
     - Janeiro

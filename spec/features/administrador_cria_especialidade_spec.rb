@@ -2,21 +2,22 @@ require 'rails_helper'
 require 'capybara/poltergeist'
 
 feature 'Usuario cria especialidade com ' do
-  before :each do
-    create(:usuario)
+   before :each do
+    usuario = create(:usuario)
 
     visit sign_in_path
-    fill_in 'Usuário:', with: 'douglas.silva'
-    fill_in 'Senha:', with: '123456'
+    fill_in 'Usuário:', with: usuario.usuario
+    fill_in 'Senha:', with: usuario.password
     click_button 'Login'
   end
 
   scenario 'sucesso' do
     visit new_especialidade_path
-    fill_in 'Nome:', with: 'Cabeleireiro'
+    especialidade_nome = Faker::Company.profession
+    (fill_in 'Nome:', with: especialidade_nome)
     click_on 'Salvar'
 
-    expect(page).to have_content 'Cabeleireiro'
+    expect(page).to have_content especialidade_nome
     expect(page).to have_content 'Especialidade criada.'
   end
 
@@ -28,8 +29,8 @@ feature 'Usuario cria especialidade com ' do
   end
 
   scenario 'sucesso e lista todas os cadastradas' do
-    especialidade2 = create(:especialidade, nome: 'Massagista')
-    especialidade1 = create(:especialidade, nome: 'Manicure')
+    especialidade2 = create(:especialidade, nome: Faker::Company.profession)
+    especialidade1 = create(:especialidade, nome: Faker::Company.profession)
     visit especialidades_path
 
     expect(page).to have_content especialidade2.nome
@@ -37,7 +38,7 @@ feature 'Usuario cria especialidade com ' do
   end
 
   scenario 'sucesso e edita informações' do
-    especialidade1 = create(:especialidade, nome: 'Manicure')
+    especialidade1 = create(:especialidade, nome: Faker::Company.profession)
     visit edit_especialidade_path(especialidade1)
 
     fill_in 'Nome:', with: 'Cabeleireira'
@@ -48,7 +49,7 @@ feature 'Usuario cria especialidade com ' do
   end
 
   scenario 'sucesso e atualiza com dados inválidos' do
-    especialidade1 = create(:especialidade, nome: 'Manicure')
+    especialidade1 = create(:especialidade, nome: Faker::Company.profession)
     visit edit_especialidade_path(especialidade1)
 
     fill_in 'Nome:', with: ''

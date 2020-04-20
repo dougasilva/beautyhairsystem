@@ -13,7 +13,7 @@
 
       <h2 id="month">
     		<%= link_to "<", month: (@date.beginning_of_month-1).strftime("%b%Y") %>
-    		<%= @date.strftime('%B / %Y') %>
+    		<%= I18n.l @date, format: :mes_ano, locale: 'pt-BR' %>
     		<%= link_to ">", month: (@date.end_of_month+1).strftime("%b%Y") %>
     	</h2>
 

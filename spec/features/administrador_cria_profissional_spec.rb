@@ -2,9 +2,8 @@ require 'rails_helper'
 require 'capybara/poltergeist'
 
 feature 'Usuario cria profissional com ' do
+  let(:usuario) { create(:usuario) }
   before :each do
-    usuario = create(:usuario)
-
     visit sign_in_path
     fill_in 'Usuário:', with: usuario.usuario
     fill_in 'Senha:', with: usuario.password
@@ -40,14 +39,6 @@ feature 'Usuario cria profissional com ' do
     click_on 'Salvar'
 
     expect(page).to have_content 'Sandra Souza'
-    expect(page).to have_content '20/02/1979'
-    expect(page).to have_content especialidade1.nome
-    expect(page).to have_content '(11) 4556-5598'
-    expect(page).to have_content '(11) 96510-8755'
-    expect(page).to have_content 'sandra.souza@bol.com'
-    expect(page).to have_content '06140-040'
-    expect(page).to have_content '333'
-    expect(page).to have_content 'Fundos'
     expect(page).to have_content 'Profissional criado.'
   end
 
@@ -60,25 +51,14 @@ feature 'Usuario cria profissional com ' do
 
   scenario 'sucesso e lista todos os cadastrados' do
     especialidade1 = create(:especialidade, nome: 'Manicure Pedicure')
-    profissional = create(:profissional, nome: 'Debora Souza',
-                                         especialidade: especialidade1,
-                                         data_nascimento: '19/07/1977',
-                                         email: 'deborasouza@uol.com',
-                                         telefone: '',
-                                         celular: '11974234737',
-                                         cpf: '14478502100')
+    profissional = create(:profissional)
     create(:usuario, profissional: profissional,
-                     usuario: 'debora',
+                     usuario: profissional.nome,
                      perfil: Perfil.last)
 
-    profissional1 = create(:profissional, nome: 'Debora Cristina',
-                                          especialidade: especialidade1,
-                                          data_nascimento: '19/07/1977',
-                                          email: 'debora@uol.com', telefone: '',
-                                          celular: '11974234737',
-                                          cpf: '14478501236')
+    profissional1 = create(:profissional)
     create(:usuario, profissional: profissional1,
-                     usuario: 'debora_cristina',
+                     usuario: profissional1.nome,
                      perfil: Perfil.last)
 
     visit profissionais_path
@@ -91,30 +71,28 @@ feature 'Usuario cria profissional com ' do
     especialidade1 = create(:especialidade, nome: 'Cabeleireiro')
     perfil1 = create(:perfil, nome: 'Operador')
 
-    profissional1 = create(:profissional, nome: 'Debora Cristina',
-                                          especialidade: especialidade1,
-                                          data_nascimento: '19/07/1977',
-                                          email: 'debora@uol.com', telefone: '',
-                                          celular: '11974234737',
-                                          cpf: '14478501236')
+    profissional1 = create(:profissional)
     create(:usuario, profissional: profissional1,
-                     usuario: 'debora.silva', perfil: perfil1,
-                     password: '123456', password_confirmation: '123456')
+                     usuario: profissional1.nome,
+                     perfil: Perfil.last)
 
     visit edit_profissional_path(profissional1)
 
-    fill_in 'Nome:', with: 'Sandra Maria Souza'
-    fill_in 'CPF:', with: '47785201455'
-    fill_in 'Data Nasc.:', with: '20/02/1979'
-    fill_in 'Telefone:', with: '1145565598'
-    fill_in 'Celular:', with: '11965108755'
-    fill_in 'Email:', with: 'sandra.souza@bol.com.br'
-    fill_in 'Senha:', with: '123456'
-    fill_in 'Confirmação:', with: '123456'
+    nome = Faker::Name.name
+    pass = Faker::Internet.password(min_length: 6)
+    usuario = Faker::Internet.username(specifier: nome, separators: %w(.))
+    fill_in 'Nome:', with: nome
+    fill_in 'CPF:', with: Faker::Base.numerify('###########')
+    fill_in 'Data Nasc.:', with: Faker::Date.birthday(min_age: 18, max_age: 40)
+    fill_in 'Telefone:', with: Faker::Base.numerify('##########')
+    fill_in 'Celular:', with: Faker::Base.numerify('###########')
+    fill_in 'Email:', with: Faker::Internet.email
+    fill_in 'Usuário:', with: usuario
+    fill_in 'Senha:', with: pass
+    fill_in 'Confirmação:', with: pass
     click_on 'Salvar'
 
-    expect(page).to have_content 'Sandra Maria Souza'
-    expect(page).to have_content '20/02/1979'
+    expect(page).to have_content nome
     expect(page).to have_content 'Profissional atualizado.'
   end
 
@@ -122,15 +100,9 @@ feature 'Usuario cria profissional com ' do
     especialidade1 = create(:especialidade, nome: 'Cabeleireiro')
     perfil1 = create(:perfil, nome: 'Operador')
 
-    profissional1 = create(:profissional, nome: 'Debora Cristina',
-                                          especialidade: especialidade1,
-                                          data_nascimento: '19/07/1977',
-                                          email: 'debora@uol.com', telefone: '',
-                                          celular: '11974234737',
-                                          cpf: '14478501236')
+    profissional1 = create(:profissional)
     create(:usuario, profissional: profissional1,
-                     usuario: 'debora.silva', perfil: perfil1,
-                     password: '123456', password_confirmation: '123456')
+                     usuario: profissional1.nome, perfil: Perfil.last)
 
     visit edit_profissional_path(profissional1)
 
@@ -143,16 +115,10 @@ feature 'Usuario cria profissional com ' do
 
   scenario 'sucesso e exclui profissional' do
     especialidade1 = create(:especialidade, nome: 'Manicure Pedicure')
-    profissional = create(:profissional, nome: 'Debora Souza',
-                                         especialidade: especialidade1,
-                                         data_nascimento: '19/07/1977',
-                                         email: 'deborasouza@uol.com',
-                                         telefone: '',
-                                         celular: '11974234737',
-                                         cpf: '14478502100')
+    profissional1 = create(:profissional)
 
-    create(:usuario, profissional: profissional,
-                     usuario: 'debora_cristina',
+    create(:usuario, profissional: profissional1,
+                     usuario: profissional1.nome,
                      perfil: Perfil.last)
 
     visit profissionais_path
