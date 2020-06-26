@@ -359,7 +359,7 @@ DEPENDENCIES
   pry
   pry-byebug
   puma
-  rails (= 5.2.2)
+  rails
   rails-controller-testing
   responders
   rspec!
